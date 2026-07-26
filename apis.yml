@@ -1,0 +1,155 @@
+aid: street-co
+url: https://raw.githubusercontent.com/api-evangelist/street-co/refs/heads/main/apis.yml
+name: Street.co.uk
+kind: company
+description: >-
+  Street.co.uk (Street Systems Limited, Manchester, England) is a UK estate
+  agency CRM and property management platform for residential sales, lettings, property
+  management and client accounting. In the United Kingdom there is no MLS and no RESO
+  — residential listing distribution runs from agency CRM software out to the Rightmove
+  and Zoopla portals — which places Street.co.uk at the agency system-of-record layer
+  of the value chain, upstream of the portal duopoly and alongside Reapit, Alto and
+  Apex27. Its API posture is unusually open for this sector: three OpenAPI 3.1 contracts
+  (Street Open API, Property Feed, Spectre) are published unauthenticated on a public
+  Scalar developer portal at developers.street.co.uk and can be downloaded as JSON
+  or YAML by anyone. Access to the data behind them is not open — production bearer
+  tokens are generated inside a paying agency's Street account under Settings >
+  Account Administration > Applications, and a non-customer developer must email
+  apis@street.co.uk to be issued a sandbox token on the staging environment. Nothing
+  RESO, no OData $metadata, and no open government data is published by Street.co.uk
+  itself; the open UK property data layer sits with HM Land Registry and Ordnance Survey,
+  not with the CRM vendors.
+image: https://street.co.uk/apple-touch-icon.png
+tags:
+- Real Estate
+- United Kingdom
+- PropTech
+- CRM
+- Property Listings
+- Property Management
+- Rentals
+- Lettings
+- Estate Agency
+- Valuation
+- Conveyancing
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis:
+- aid: street-co:street-open-api
+  name: Street Open API
+  description: The main Street.co.uk platform API — a JSON:API-conformant REST interface
+    over the estate agency system of record, covering properties, sales and lettings
+    instructions, offers, applicants, viewings, valuations, tenancies, tenants, landlords,
+    vendors, maintenance jobs and requests, inspections, invoices, documents, e-sign
+    documents, notes, tasks, users, branches and brands, plus read access to portal
+    listings. 74 paths and 80 operations documented in a published OpenAPI 3.1 contract.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Real Estate
+  - CRM
+  - Property Listings
+  - Lettings
+  - Property Management
+  - Valuation
+  - United Kingdom
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-open-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/_original/street-co-open-api-openapi.json
+    name: Street Open API OpenAPI (verbatim source)
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+    name: Open API product page
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+    name: Staging environment (sandbox token by email request)
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates
+    name: Open API Updates
+- aid: street-co:street-property-feed-api
+  name: Street Property Feed API
+  description: A read-only property feed API for powering an agency's own website and
+    property search — sales search, lettings search, a single property record, area
+    lookups and a property features list. Five paths, all GET, documented in a published
+    OpenAPI 3.1 contract. Serves the UK's portal-and-agency-website distribution model
+    rather than any MLS or IDX arrangement.
+  humanURL: https://developers.street.co.uk/docs/street-property-feed-api
+  baseURL: https://street.co.uk/api/property-feed/v1
+  tags:
+  - Real Estate
+  - Property Listings
+  - Search
+  - Rentals
+  - United Kingdom
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-property-feed-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/_original/street-co-property-feed-api-openapi.json
+    name: Property Feed OpenAPI (verbatim source)
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+    name: Staging environment
+- aid: street-co:spectre-api
+  name: Spectre API
+  description: The public API for the Spectre products, documented on the Street.co.uk
+    developer portal and integrated into the Street CRM. Covers Spectre Property Reports
+    (create and retrieve property reports, retrieve report leads) and Spectre email
+    marketing (contacts and segments). Six paths documented in a published OpenAPI
+    3.1 contract; tokens are issued by the Spectre team on email request.
+  humanURL: https://developers.street.co.uk/docs/spectre-api-docs
+  baseURL: https://api.spectre.uk.com/v1
+  tags:
+  - Real Estate
+  - Property Reports
+  - Marketing
+  - Lead Generation
+  - United Kingdom
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-spectre-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/_original/street-co-spectre-api-openapi.json
+    name: Spectre API OpenAPI (verbatim source)
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+common:
+- type: Website
+  url: https://street.co.uk/
+- type: DeveloperPortal
+  url: https://developers.street.co.uk/
+- type: Documentation
+  url: https://developers.street.co.uk/docs/street-open-api
+- type: Blog
+  url: https://street.co.uk/blog
+- type: Pricing
+  url: https://street.co.uk/pricing
+- type: Integrations
+  url: https://street.co.uk/integrations
+- type: Support
+  url: https://api-support.street.co.uk/
+- type: Contact
+  url: mailto:apis@street.co.uk
+  name: API team contact (sandbox and rate-limit requests)
+- type: LLMsText
+  url: https://developers.street.co.uk/llms.txt
+- type: Review
+  url: review.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

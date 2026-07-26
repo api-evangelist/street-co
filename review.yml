@@ -1,0 +1,387 @@
+aid: street-co
+name: Street.co.uk
+review:
+  question: Does Street.co.uk publish a real, reachable, machine-readable API surface,
+    and what does a developer actually have to do to call it?
+  answer: true
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: crm-transaction-tech
+  legalEntity: Street Systems Limited, England & Wales company no. 12168781, 11-13
+    Spear Street, Manchester M1 1JU (per https://street.co.uk/about, HTTP 200)
+
+sectorPosture:
+  resoPosture:
+    certified: false
+    summary: No RESO reference found anywhere in Street.co.uk's public surface. The
+      UK has no MLS and no RESO adoption; RESO is a North American industry-body regime
+      (NAR) and is simply absent from this market.
+    evidence:
+      - probe: grep -i for "reso", "OData", "$metadata", "Universal Property Identifier",
+          "UPI" across all three harvested OpenAPI documents
+        result: zero matches in openapi/_original/*.json (1.6 MB of harvested contract)
+      - probe: RESO Data Dictionary / Web API certification directory
+        result: Street.co.uk does not appear; no RESO certification of any kind is
+          claimed on street.co.uk, developers.street.co.uk, or the product pages.
+      - probe: web search for "Street.co.uk" + RESO Web API certification
+        result: no RESO certification found; only Street's own Open API pages returned.
+      - probe: OData $metadata document
+        result: none served. The three published contracts are OpenAPI 3.1 REST, and
+          the Street Open API and Property Feed conform to the JSON:API specification,
+          not OData.
+    dataDictionaryVersion: null
+    webApiCertified: false
+    upiSupported: false
+    note: This is the inverse of the US case the study is testing. In the US a provider
+      can be RESO-certified and still unreachable. Here there is no certification at
+      all, yet the machine-readable contract is more openly downloadable than most
+      certified US endpoints — certification and reachability are genuinely orthogonal.
+  accessGate:
+    classification: application-approval
+    documentationIsOpen: true
+    dataIsOpen: false
+    whatADeveloperMustDo: |
+      Two distinct paths, neither of them anonymous self-serve for production data:
+
+      1. PRODUCTION — you must be a paying Street.co.uk customer (an estate agency
+         with a Street subscription). The docs state verbatim: "The Street API uses
+         bearer tokens for authentication. You can view and generate tokens in the
+         settings panel in your Street account under Settings > Account
+         Administration > Applications". A third-party supplier integrates using a
+         customer agency's token, i.e. sponsored by the agency.
+
+      2. SANDBOX — a developer who is not a Street customer must email a request and
+         be granted a token. Verbatim: "It is not recommended to develop an
+         integration using a production API token for a live account. Instead, if you
+         would like a sandbox account on our staging environment, please email
+         apis@street.co.uk to request a token." Staging servers are documented in the
+         specs as https://demo.street.co.uk/open-api/v1 and
+         https://demo.street.co.uk/api/property-feed/v1.
+
+      3. SPECTRE — separately gated: "If you do not have an API token, please contact
+         the Spectre team at apis@spectre.uk.com."
+
+      There is no membership body to join, no MLS or board, no IDX/VOW licence to
+      sign, and no broker/agent licensing test — the UK has none of that apparatus.
+      The gate is commercial (be a customer) or a reviewed email request (sandbox).
+    signOrJoin: No licence agreement, MLS membership, or association membership is
+      required or published. What is required is either an active Street.co.uk
+      subscription (production) or an emailed request to apis@street.co.uk that
+      Street reviews and fulfils manually (sandbox).
+    noSignupFormFound: true
+    portalRequiresLogin: false
+  openData:
+    providerPublishesOpenData: false
+    note: Street.co.uk is a private CRM vendor and publishes no open dataset. The genuinely
+      open UK property data layer is governmental and sits elsewhere — HM Land Registry
+      Price Paid Data and ownership data under the Open Government Licence, and Ordnance
+      Survey addressing/mapping open products. Neither is referenced by, integrated
+      into, or redistributed through any Street.co.uk documentation probed on this date.
+      No Land Registry or Ordnance Survey mention was found on the integrations page.
+  authModel:
+    scheme: HTTP Bearer token
+    specDeclaration: 'components.securitySchemes — Street Open API: {"your-api-token":
+      {"type": "http", "scheme": "bearer"}}; Property Feed: {"your_api_token": {"type":
+      "http", "scheme": "bearer"}}; Spectre API: {"your-api-token": {"type": "http",
+      "scheme": "bearer"}}. Each spec applies it globally via a root-level security
+      requirement.'
+    oauth2: false
+    openIDConnect: false
+    wellKnownProbe: 'https://street.co.uk/.well-known/openid-configuration — HTTP 404'
+    tokenIssuance: Self-serve inside an authenticated Street customer account (Settings
+      > Account Administration > Applications); by email for sandbox.
+    marketingClaimDiscrepancy: A third-party supplier directory page describes Street's
+      API as offering "OAuth". No OAuth 2.0 flow, authorization endpoint, or scope
+      list is documented anywhere on developers.street.co.uk, and all three OpenAPI
+      documents declare HTTP bearer only. Recorded here as an unverified third-party
+      claim, not a Street.co.uk fact.
+
+findings:
+  summary: |
+    Street.co.uk runs a real, public, unauthenticated developer portal at
+    developers.street.co.uk (Scalar Docs, HTTP 200) documenting three separate API
+    products, and — unusually for real estate — it serves the raw OpenAPI 3.1
+    documents for all three at predictable URLs with no key, no login, and no
+    click-through. 94 operations across 85 paths were harvested and validated.
+
+    The contracts are open; the data is not. Production tokens exist only inside a
+    paying agency's Street account, and a developer with no Street subscription must
+    email apis@street.co.uk and be granted a staging sandbox. That is the honest
+    split to record: fully downloadable machine-readable contract, commercially
+    gated data.
+
+    There is no RESO anywhere — no Web API certification, no Data Dictionary
+    version, no UPI, no OData $metadata. That is the expected UK answer. The UK has
+    no MLS; listing distribution goes from agency CRM to the Rightmove/Zoopla portal
+    duopoly, and the only genuinely open property data in this market is published
+    by government (HM Land Registry, Ordnance Survey), not by the private stack that
+    Street.co.uk sits in.
+
+  apiFamilies:
+    - name: Street Open API
+      segmentation: The docs segment by estate-agency domain object, not by a listing
+        standard. 41 tags — Activity, Applicants, Areas, Branches, Brands, Companies,
+        Documents, E-Sign Documents, Enquiries, Follow Ups, Images, Inspections,
+        Interested Applicants, Invoices, Landlords, Lettings Applications, Lettings
+        Instructions, Lettings Offers, Maintenance Jobs, Maintenance Requests, Move
+        Outs, Network Settings, Notes, People, Photos and Measures, Portal Listings,
+        Properties, Property Keys, Questionnaire Responses, Sales, Sales Instructions,
+        Sales Offers, Solicitors, Tenancies, Tenants, Task Types, Tasks, Users,
+        Valuations, Vendors, Viewings.
+      paths: 74
+      operations: 80
+      servers:
+        - https://street.co.uk/open-api/v1
+        - https://demo.street.co.uk/open-api/v1
+      conformance: JSON:API specification
+      contact: apis@street.co.uk (Street API Development Team)
+    - name: Property Feed
+      segmentation: Properties, Sales, Lettings, Meta — a read-only website/search feed.
+      paths: 5
+      operations: 5
+      servers:
+        - https://street.co.uk/api/property-feed/v1
+        - https://demo.street.co.uk/api/property-feed/v1
+      pathList:
+        - GET /properties/{property}
+        - GET /lettings/search
+        - GET /sales/search
+        - GET /areas
+        - GET /features
+      conformance: JSON:API specification
+    - name: Spectre API
+      segmentation: Property Reports (single tag), plus email contacts and segments.
+      paths: 6
+      operations: 9
+      servers:
+        - https://api.spectre.uk.com/v1
+      pathList:
+        - GET /property-reports/user
+        - 'GET, POST /property-reports/reports'
+        - GET /property-reports/reports/{reportId}
+        - 'GET, POST /property-reports/leads'
+        - POST /email/contacts
+        - 'GET, POST /email/segments'
+      contact: apis@spectre.uk.com (Spectre API Development Team)
+
+  valuationAvm:
+    present: partial
+    note: The Street Open API exposes /valuations and /valuations/{valuation_id} —
+      these are estate-agency valuation appointments and instructions inside the CRM
+      workflow, not an automated valuation model. The Spectre API's property reports
+      are marketing/prospecting reports. No AVM endpoint is documented.
+  transactionsAndDocuments:
+    note: Sales progression is represented (/sales, /sales-instructions, /sales-offers,
+      /solicitors), as are documents and e-sign documents (/documents,
+      /esign-documents/{esign_document_id}). No escrow or title API — the UK uses
+      solicitor-led conveyancing rather than title/escrow companies, and the API
+      reflects that with a /solicitors resource instead.
+  paymentsAndAccounting:
+    note: Client accounting is a marketed product, and /invoices and
+      /invoices/{invoice_id} are documented, but no payment-initiation or client-money
+      endpoints appear in the published contract.
+
+  webhooks:
+    documented: false
+    marketed: true
+    detail: https://street.co.uk/developers/api markets "Webhooks — real-time event
+      notifications so your application responds instantly when something changes in
+      Street. No polling. No lag." No webhook documentation page exists on the developer
+      portal, and none of the three OpenAPI 3.1 documents contains a top-level
+      `webhooks` object (verified in both the JSON and YAML renderings of the Street
+      Open API — `webhooks` key absent, zero webhook paths). The Scalar sidebar shows
+      an empty "Webhooks" group. Recorded as marketed-but-undocumented.
+  sdks:
+    firstParty: false
+    detail: No official SDKs. The Property Feed docs point developers at community
+      JSON:API client packages for PHP (json Client, Woohoo Labs Yang) and at the
+      JSON:API website's third-party implementation list, and route WordPress users
+      to the Property Hive plugin with the Property Import add-on rather than to the API.
+  postman:
+    published: false
+  cli:
+    published: false
+  mcpServer:
+    published: false
+  graphql:
+    published: false
+    probe: 'https://api.street.co.uk/graphql — HTTP 404'
+  rateLimits:
+    documented: true
+    detail: '600 GET calls per minute; 100 POST/PUT/PATCH/DELETE calls per minute.
+      Higher limits by request to apis@street.co.uk. Property Feed documents 600 calls
+      per minute.'
+  changelog:
+    url: https://developers.street.co.uk/docs/street-open-api/updates
+    status: HTTP 200
+  status_page:
+    found: false
+    probe: 'https://status.street.co.uk/ — DNS failure (curl 000)'
+  llmsTxt:
+    url: https://developers.street.co.uk/llms.txt
+    status: HTTP 200
+    note: Present but essentially empty — a single line linking the docs home
+      (index.md). No per-API entries.
+
+harvest:
+  fetchDate: '2026-07-26'
+  specs:
+    - file: openapi/street-co-open-api-openapi.yml
+      original: openapi/_original/street-co-open-api-openapi.json
+      sourceURL: https://developers.street.co.uk/docs/street-open-api/api-reference/openapi.json
+      httpStatus: 200
+      contentType: application/json; charset=utf-8
+      bytes: 721641
+      openapi: 3.1.0
+      title: Street Open API
+      version: '1.0'
+      parsed: true
+      note: A YAML rendering of the identical document is also served at
+        .../api-reference/openapi.yaml (HTTP 200, text/yaml, 474116 bytes); it was
+        fetched and confirmed byte-different but semantically identical (same 74
+        paths, no webhooks). The JSON is retained verbatim as the original.
+    - file: openapi/street-co-property-feed-api-openapi.yml
+      original: openapi/_original/street-co-property-feed-api-openapi.json
+      sourceURL: https://developers.street.co.uk/docs/street-property-feed-api/api-reference/openapi.json
+      httpStatus: 200
+      contentType: application/json; charset=utf-8
+      bytes: 153655
+      openapi: 3.1.0
+      title: Property Feed
+      version: '1.0'
+      parsed: true
+    - file: openapi/street-co-spectre-api-openapi.yml
+      original: openapi/_original/street-co-spectre-api-openapi.json
+      sourceURL: https://developers.street.co.uk/docs/spectre-api-docs/api-reference/openapi.json
+      httpStatus: 200
+      contentType: application/json; charset=utf-8
+      bytes: 64730
+      openapi: 3.1.0
+      title: Spectre API
+      version: '1.0'
+      parsed: true
+      note: The developer-portal navigation exposes both /docs/spectre-api and
+        /docs/spectre-api-docs. The former is a Scalar 404 shell (returns HTTP 200
+        with a "we couldn't find this page" body and no spec); /docs/spectre-api-docs
+        is the live one. Recorded because a naive crawl of the nav would harvest
+        nothing.
+
+probes:
+  - url: https://street.co.uk/
+    status: 200
+  - url: https://street.co.uk/about
+    status: 200
+  - url: https://street.co.uk/developers/api
+    status: 200
+    note: Open API product/marketing page.
+  - url: https://street.co.uk/product/index/open-api
+    status: 200
+  - url: https://street.co.uk/integrations
+    status: 200
+    note: 'Claims "69+ integrations across data, digital marketing, communication,
+      compliance, and workflow — plus open APIs and webhooks for anything bespoke."
+      Rightmove, Zoopla, OnTheMarket, HM Land Registry and Ordnance Survey were each
+      searched for in the served HTML and none was present.'
+  - url: https://street.co.uk/pricing
+    status: 200
+  - url: https://street.co.uk/blog
+    status: 200
+  - url: https://developers.street.co.uk/
+    status: 200
+    note: Public Scalar Docs portal, no login. Lists three API products.
+  - url: https://developers.street.co.uk/docs/street-open-api
+    status: 200
+  - url: https://developers.street.co.uk/docs/street-open-api/api-reference
+    status: 200
+  - url: https://developers.street.co.uk/docs/street-open-api/api-reference/openapi.json
+    status: 200
+    note: Real OpenAPI 3.1, application/json. HARVESTED.
+  - url: https://developers.street.co.uk/docs/street-open-api/api-reference/openapi.yaml
+    status: 200
+    note: Same document as YAML, text/yaml.
+  - url: https://developers.street.co.uk/docs/street-property-feed-api
+    status: 200
+  - url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference/openapi.json
+    status: 200
+    note: HARVESTED.
+  - url: https://developers.street.co.uk/docs/spectre-api-docs
+    status: 200
+  - url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference/openapi.json
+    status: 200
+    note: HARVESTED.
+  - url: https://developers.street.co.uk/docs/spectre-api
+    status: 200
+    note: Misleading — HTTP 200 but a Scalar "page not found" body.
+  - url: https://developers.street.co.uk/docs/street-open-api/updates
+    status: 200
+  - url: https://developers.street.co.uk/llms.txt
+    status: 200
+    note: 71 bytes, one link.
+  - url: https://developers.street.co.uk/openapi.json
+    status: 200
+    note: FALSE POSITIVE — returns the Scalar SPA HTML shell (text/html), not a spec.
+      Any harvester trusting status codes alone would record a phantom spec here.
+  - url: https://developers.street.co.uk/swagger.json
+    status: 200
+    note: FALSE POSITIVE — same SPA shell.
+  - url: https://api.street.co.uk/
+    status: 200
+    note: HTML application shell, not an API root.
+  - url: https://api.street.co.uk/graphql
+    status: 404
+  - url: https://api.street.co.uk/openapi.json
+    status: 404
+  - url: https://street.co.uk/openapi.json
+    status: 404
+  - url: https://street.co.uk/swagger.json
+    status: 404
+  - url: https://street.co.uk/.well-known/openid-configuration
+    status: 404
+  - url: https://developer.street.co.uk/
+    status: 000
+    note: Does not resolve — the portal is on the plural "developers" host.
+  - url: https://docs.street.co.uk/
+    status: 000
+  - url: https://status.street.co.uk/
+    status: 000
+  - url: https://street.co.uk/developers
+    status: 404
+  - url: https://street.co.uk/partners
+    status: 404
+  - url: https://api-support.street.co.uk/
+    status: 200
+    note: API support ticketing system.
+
+sources:
+  - url: https://developers.street.co.uk/docs/street-open-api
+    type: Documentation
+    note: Authentication, live/testing environments, rate limiting, developer support,
+      updates. Source of every verbatim access-gate quote above.
+  - url: https://developers.street.co.uk/docs/street-property-feed-api
+    type: Documentation
+    note: Self-serve token via Settings > Applications for Street customers; 600 calls/min;
+      community JSON:API clients; no webhooks; no RESO.
+  - url: https://developers.street.co.uk/docs/spectre-api-docs
+    type: Documentation
+    note: 'Verbatim: "If you do not have an API token, please contact the Spectre team
+      at apis@spectre.uk.com."'
+  - url: https://street.co.uk/developers/api
+    type: Documentation
+    note: Markets webhooks and describes the API as free and open to customers building
+      custom tools and suppliers building deep integrations.
+  - url: https://street.co.uk/about
+    type: Website
+    note: Legal entity, Manchester address, scale claims (112,000+ properties managed,
+      47+ integration partners).
+
+actions:
+  apisYmlCreated: true
+  openapiHarvested: 3
+  operationsDocumented: 94
+  reason: |
+    Three genuinely public OpenAPI 3.1 contracts were downloaded anonymously,
+    validated, and stored with their verbatim sources. apis.yml lists all three as
+    real APIs with documented base URLs. No endpoint, host, scope, or specification
+    was invented. RESO absence and the customer/email access gate are recorded as
+    separate facts from the openness of the contract itself.

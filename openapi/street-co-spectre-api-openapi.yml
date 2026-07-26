@@ -1,0 +1,1415 @@
+openapi: 3.1.0
+info:
+  title: Spectre API
+  description: Public API for the Spectre products
+  version: '1.0'
+  contact:
+    name: Spectre API Development Team
+    url: https://spectre.uk.com
+    email: apis@spectre.uk.com
+servers:
+- url: https://api.spectre.uk.com/v1
+  description: production
+paths:
+  /property-reports/user:
+    get:
+      summary: Get current user
+      tags:
+      - Property Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedAccount'
+                      - $ref: '#/components/schemas/IncludedCompany'
+                      - $ref: '#/components/schemas/IncludedReportTemplate'
+              examples:
+                Get current user response:
+                  value:
+                    data:
+                      id: uuid
+                      type: user
+                      attributes:
+                        email: string
+                      relationships:
+                        accounts:
+                          data:
+                          - type: account
+                            id: uuid
+                        company:
+                          data:
+                            type: company
+                            id: uuid
+                      included:
+                      - id: uuid
+                        type: account
+                        attributes:
+                          name: string
+                      - id: uuid
+                        type: company
+                        attributes:
+                          name: string
+                        relationships:
+                          data:
+                          - type: reportTemplate
+                            id: uuid
+                      - id: uuid
+                        type: reportTemplate
+                        attributes:
+                          name: string
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-property-reports-user
+      description: This endpoint retrieves the current user.
+      parameters:
+      - schema:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - accounts
+            - company
+            - company.reportTemplates
+        in: query
+        name: include
+        description: Optional related entities to include in the results
+        explode: false
+        style: form
+    parameters: []
+  /property-reports/reports:
+    get:
+      summary: Get all reports
+      tags:
+      - Property Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Report'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedMedia'
+              examples:
+                Get all reports response:
+                  value:
+                    data:
+                    - id: uuid
+                      type: report
+                      attributes:
+                        title: string
+                        description: string
+                        state: string
+                        reportUrl: url
+                        imageUrl: url
+                        imageSource: string
+                      relationships:
+                        pdf:
+                          data:
+                          - type: medium
+                            id: uuid
+                    included:
+                    - id: uuid
+                      type: medium
+                      attributes:
+                        id: uuid
+                        url: url
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-property-reports-reports
+      parameters:
+      - schema:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - pdf
+        in: query
+        name: include
+        description: Optional related entities to include in the results
+        explode: false
+        style: form
+      description: This endpoint retrieves all the reports the current user.
+    post:
+      summary: Create a new report
+      tags:
+      - Property Reports
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Report'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedMedia'
+              examples:
+                Create a report response:
+                  value:
+                    data:
+                      id: uuid
+                      type: report
+                      attributes:
+                        title: string
+                        description: string
+                        state: string
+                        reportUrl: url
+                        imageUrl: url
+                        imageSource: string
+                      relationships:
+                        pdf:
+                          data:
+                          - type: medium
+                            id: uuid
+                    included:
+                    - id: uuid
+                      type: medium
+                      attributes:
+                        id: uuid
+                        url: url
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: post-property-reports-reports
+      parameters:
+      - schema:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - pdf
+        in: query
+        name: include
+        description: Optional related entities to include in the results
+        explode: false
+        style: form
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - type: object
+                properties:
+                  account_id:
+                    type: string
+                    format: uuid
+                  report_template_id:
+                    type: string
+                    format: uuid
+                anyOf:
+                - $ref: '#/components/schemas/PropertyAddress'
+                - $ref: '#/components/schemas/PropertyBarcode'
+  /property-reports/reports/{reportId}:
+    get:
+      summary: Get a single report
+      tags:
+      - Property Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Report'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedMedia'
+              examples:
+                Get single report response:
+                  value:
+                    data:
+                      id: uuid
+                      type: report
+                      attributes:
+                        title: string
+                        description: string
+                        state: string
+                        reportUrl: url
+                        imageUrl: url
+                        imageSource: string
+                      relationships:
+                        pdf:
+                          data:
+                          - type: medium
+                            id: uuid
+                    included:
+                    - id: uuid
+                      type: medium
+                      attributes:
+                        id: uuid
+                        url: url
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-property-reports-report
+      parameters:
+      - schema:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            type: string
+            enum:
+            - pdf
+        in: query
+        name: include
+        description: Optional related entities to include in the results
+        explode: false
+        style: form
+      description: This endpoint retrieves a single report by UUID for the current user.
+  /property-reports/leads:
+    get:
+      summary: Get all leads
+      tags:
+      - Property Reports
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Lead'
+              examples:
+                Get all leads response:
+                  value:
+                    data:
+                    - id: uuid
+                      type: lead
+                      attributes:
+                        contactName: string
+                        contactEmail: email
+                        contactNumber: phone
+                        contactAddress: string
+                        preferredValuationDate: date
+                        emailConsent: boolean
+                        closedAt: date
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-property-reports-leads
+      description: This endpoint retrieves all the leads the current user.
+    post:
+      summary: Create a new lead
+      tags:
+      - Property Reports
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Lead'
+              examples:
+                Create a lead response:
+                  value:
+                    data:
+                      id: uuid
+                      type: report
+                      attributes:
+                        contactName: string
+                        contactEmail: string
+                        contactNumber: string
+                        contactAddress: string
+                        preferredValuationDate: string
+                        emailConsent: string
+                        closedAt: string
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: post-property-reports-leads
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - required:
+                - email
+                properties:
+                  account_id:
+                    type: string
+                    format: uuid
+                  report_id:
+                    type: string
+                    format: uuid
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  contact_number:
+                    type: string
+                  has_marketing_consent:
+                    type: boolean
+              type: object
+  /email/contacts:
+    post:
+      summary: Create a new contact
+      operationId: post-email-contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact'
+      tags:
+      - Email
+      description: This endpoint creates a new contact.
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - required:
+                - email
+                properties:
+                  title:
+                    type: string
+                    maxLength: 255
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  phone:
+                    type: string
+                    maxLength: 255
+                  subscription_status:
+                    $ref: '#/components/schemas/SubsciptionStatus'
+                  segment_id:
+                    type: string
+                    format: uuid
+                    description: Optional ID of a segment with type 'uploaded' to send contacts to.
+              type: object
+        description: ''
+  /email/segments:
+    get:
+      summary: Get all segments
+      operationId: get-email-segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment'
+      tags:
+      - Email
+      description: This endpoint gets all segments.
+      requestBody:
+        content: {}
+        description: ''
+      parameters:
+      - $ref: '#/components/parameters/segment_type'
+    post:
+      summary: Create a new uploaded segment
+      operationId: post-email-segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - properties:
+                  name:
+                    type: string
+                    maxLength: 255
+                  description:
+                    type: string
+                    maxLength: 255
+                required:
+                - name
+              type: object
+        description: ''
+      tags:
+      - Email
+      description: This endpoint creates a new uploaded segment.
+components:
+  schemas:
+    User:
+      title: User
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: user
+          attributes:
+            $ref: '#/components/schemas/UserAttributes'
+          relationships:
+            type: object
+            properties:
+              accounts:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - account
+              company:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          default: company
+    UserAttributes:
+      title: User (attributes)
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      x-tags:
+      - Users
+      description: ''
+    RelationshipPlural:
+      title: Relationship Plural
+      x-tags:
+      - JSON:API Structures
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+      description: This is a inheritable schema to allow you to easily add relationships to your main
+        schemas. This should be used for `1:n` relationships.
+    RelationshipSingular:
+      title: Relationship Singular
+      x-tags:
+      - JSON:API Structures
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+            id:
+              type: string
+              example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+      description: This is a inheritable schema to allow you to easily add relationships to your main
+        schemas. This should be used for `1:1` relationships.
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: This is a base schema that can be inherited by your main schemas to prevent duplicating
+        boilerplate. You should use this for 'models' such as `User` or `Profile`
+      x-tags:
+      - JSON:API Structures
+    BaseError:
+      discriminator:
+        propertyName: errorType
+        mapping:
+          '401': '#/components/responses/401'
+          '403': '#/components/responses/403'
+          '404': '#/components/responses/404'
+          '406': '#/components/responses/406'
+          '415': '#/components/responses/415'
+          '500': '#/components/responses/500'
+      title: Basic Error
+      type: object
+      x-tags:
+      - Errors
+      - JSON:API Structures
+      properties:
+        title:
+          type: string
+        code:
+          type: string
+      required:
+      - title
+      - code
+      description: This is a inheritable schema to allow you to easily extend when you need add new error
+        responses.
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+      x-tags:
+      - JSON:API Structures
+    Links:
+      title: Links
+      type: object
+      description: Links object - JSON:API Standard
+      x-examples:
+        example-1:
+          self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+          first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+          last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      x-tags:
+      - JSON:API Structures
+      examples:
+      - self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      properties:
+        self:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+      x-tags:
+      - JSON:API Structures
+    JsonApi:
+      title: API Details
+      description: The server's implementation
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+      additionalProperties: false
+      x-tags:
+      - JSON:API Structures
+    Meta:
+      title: Meta Information
+      description: The server's implementation
+      type: object
+      additionalProperties: true
+      x-tags:
+      - JSON:API Structures
+    Pagination:
+      title: Pagination
+      type: object
+      description: Pagination object - JSON:API Standard
+      x-tags:
+      - JSON:API Structures
+      properties:
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              example: 226
+            count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 10
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 23
+      x-examples:
+        example-1:
+          pagination:
+            total: 226
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 23
+      examples:
+      - pagination:
+          total: 226
+          count: 10
+          per_page: 10
+          current_page: 1
+          total_pages: 23
+    IncludedResource:
+      title: Included Resource
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type: object
+        links:
+          $ref: '#/components/schemas/IncludedLinks'
+        meta:
+          $ref: '#/components/schemas/Meta'
+      required:
+      - type
+      - id
+      examples: []
+      x-tags:
+      - JSON:API Structures
+    IncludedUser:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - user
+          attributes:
+            $ref: '#/components/schemas/UserAttributes'
+      title: User (included)
+      x-tags:
+      - Users
+    Account:
+      title: Account
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: account
+          attributes:
+            $ref: '#/components/schemas/AccountAttributes'
+      x-tags:
+      - Accounts
+    AccountAttributes:
+      title: Account (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Accounts
+    IncludedAccount:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - account
+          attributes:
+            $ref: '#/components/schemas/AccountAttributes'
+      title: Account (included)
+      x-tags:
+      - Accounts
+    Company:
+      title: Company
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: account
+          attributes:
+            $ref: '#/components/schemas/CompanyAttributes'
+          relationships:
+            type: object
+            properties:
+              reportTemplates:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - reportTemplate
+      x-tags:
+      - Companies
+    CompanyAttributes:
+      title: Company (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Companies
+    IncludedCompany:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - company
+          attributes:
+            $ref: '#/components/schemas/CompanyAttributes'
+          relationships:
+            type: object
+            properties:
+              reportTemplates:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - reportTemplate
+      title: Company (included)
+      x-tags:
+      - Companies
+    ReportTemplate:
+      title: Report Templates
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: reportTemplates
+          attributes:
+            $ref: '#/components/schemas/ReportTemplateAttributes'
+      x-tags:
+      - Report Templates
+    ReportTemplateAttributes:
+      title: Report Template (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Report Templates
+    IncludedReportTemplate:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - reportTemplate
+          attributes:
+            $ref: '#/components/schemas/ReportTemplateAttributes'
+      title: Report Templates (included)
+      x-tags:
+      - Report Templates
+    Report:
+      title: Report
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: report
+          attributes:
+            $ref: '#/components/schemas/ReportAttributes'
+      x-tags:
+      - Reports
+    ReportAttributes:
+      title: Report (attributes)
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        state:
+          type: string
+        reportUrl:
+          type: string
+        imageUrl:
+          type: string
+        imageSource:
+          type: string
+      x-tags:
+      - Reports
+    IncludedMedia:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - media
+          attributes:
+            $ref: '#/components/schemas/MediaAttributes'
+      title: Media (Included)
+      x-tags:
+      - Media
+    MediaAttributes:
+      title: Media (attributes)
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+      x-tags:
+      - Media
+    Lead:
+      title: Lead
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: lead
+          attributes:
+            $ref: '#/components/schemas/LeadAttributes'
+      x-tags:
+      - Leads
+    LeadAttributes:
+      title: Lead (attributes)
+      type: object
+      x-tags:
+      - Leads
+      properties:
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactNumber:
+          type: string
+        contactAddress:
+          type: string
+        preferredValuationDate:
+          type: string
+          format: date-time
+        emailConsent:
+          type: boolean
+        closedAt:
+          type: string
+          format: date-time
+    PropertyAddress:
+      title: PropertyAddress
+      type: object
+      properties:
+        property_address:
+          type: string
+        property_postcode:
+          type: string
+      x-tags:
+      - Reports
+      description: ''
+    PropertyBarcode:
+      title: PropertyBarcode
+      type: object
+      x-tags:
+      - Reports
+      properties:
+        property_barcode:
+          type: string
+    Contact:
+      title: Contact
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: contact
+          attributes:
+            $ref: '#/components/schemas/ContactAttributes'
+    ContactAttributes:
+      title: ContactAttributes
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      examples: []
+    SubsciptionStatus:
+      title: SubsciptionStatus
+      type: string
+      enum:
+      - subscribed
+      - unsubscribed
+      - non_subscribed
+    Segment:
+      title: Segment
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: segment
+          attributes:
+            $ref: '#/components/schemas/SegmentAttributes'
+    SegmentAttributes:
+      title: SegmentAttributes
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+    SegmentType:
+      title: SegmentType
+      type: string
+      enum:
+      - static
+      - dynamic
+      - uploaded
+  parameters:
+    include:
+      name: include
+      description: Optional related entities to include in the results.
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        minItems: 1
+        maxItems: 5
+        items:
+          type: string
+          enum:
+          - salesApplicants
+          - lettingsApplicants
+          - vendors
+          - landlords
+          - tenants
+      style: form
+    page_size:
+      name: page[size]
+      description: Set the number of results per page
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 250
+        example: 25
+    page_number:
+      name: page[number]
+      description: Set the page number
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
+    segment_type:
+      name: filter[type]
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/SegmentType'
+  responses:
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will
+        not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        const: '400'
+                      title:
+                        type: string
+                        default: Bad Request
+          examples:
+            Example 400 Response:
+              value:
+                errors:
+                - title: Bad Request
+                  code: '400'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has
+        not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '401'
+                      title:
+                        type: string
+                        default: Unauthorized
+          examples:
+            Example 401 Response:
+              value:
+                errors:
+                - title: Unauthorized
+                  code: '401'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the
+        request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '403'
+                      title:
+                        type: string
+                        default: Forbidden
+          examples:
+            Example 403 Response:
+              value:
+                errors:
+                - title: Forbidden
+                  code: '403'
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the
+        requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        default: '404'
+                        type: string
+                      title:
+                        type: string
+                        default: Not Found
+          examples:
+            Example 404 Response:
+              value:
+                errors:
+                - title: Not Found
+                  code: '404'
+    '406':
+      description: 'The HTTP 406 Not Acceptable client error response code indicates that the server cannot
+        produce a response matching the list of acceptable values defined in the request''s proactive
+        content negotiation headers, and that the server is unwilling to supply a default representation. '
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '406'
+                      title:
+                        type: string
+                        default: Not Acceptable
+          examples:
+            Example 406 Response:
+              value:
+                errors:
+                - title: Not Acceptable
+                  code: '406'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server
+        refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '415'
+                      title:
+                        type: string
+                        default: Unsupported Media Type
+          examples:
+            Example 415 Response:
+              value:
+                errors:
+                - title: Unsupported Media Type
+                  code: '415'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server
+        encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '500'
+                      title:
+                        type: string
+                        default: Internal Server Error
+          examples:
+            Example 500 Response:
+              value:
+                errors:
+                - title: Internal Server Error
+                  code: '500'
+  securitySchemes:
+    your-api-token:
+      type: http
+      scheme: bearer
+security:
+- your-api-token: []
+tags:
+- name: Property Reports
+  description: All endpoints for Spectre Property Reports
+x-ext-urls: {}
