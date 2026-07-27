@@ -1,0 +1,613 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/street-co-open-api-openapi.yml components.schemas (JSON:API relationships)
+standard: JSON:API 1.x resource objects — every entity is {id, type, attributes, relationships}
+id_format: uuid
+summary:
+  entities: 46
+  relationships: 154
+  schemas_total: 204
+entities:
+- schema: Applicant
+  resource_type: applicant
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: viewings
+    cardinality: has_many
+    target_type: viewing
+  - field: offers
+    cardinality: has_many
+    target_type: null
+  - field: people
+    cardinality: has_many
+    target_type: person
+  - field: notes
+    cardinality: has_many
+    target_type: note
+  - field: sales
+    cardinality: has_many
+    target_type: sale
+  - field: followUps
+    cardinality: has_many
+    target_type: follow_up
+- schema: Branch
+  resource_type: branch
+  relationships:
+  - field: users
+    cardinality: has_many
+    target_type: user
+  - field: properties
+    cardinality: has_many
+    target_type: property
+  - field: applicants
+    cardinality: has_many
+    target_type: applicant
+- schema: Company
+  resource_type: company
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+  - field: applicants
+    cardinality: has_many
+    target_type: applicant
+  - field: people
+    cardinality: has_many
+    target_type: person
+- schema: Enquiry
+  resource_type: enquiry
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: person
+    cardinality: has_one
+    target_type: person
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: FollowUp
+  resource_type: follow_up
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: negotiator
+    cardinality: has_one
+    target_type: negotiator
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: sale
+    cardinality: has_one
+    target_type: sale
+  - field: salesApplicant
+    cardinality: has_one
+    target_type: null
+  - field: lettingsApplicant
+    cardinality: has_one
+    target_type: null
+  - field: valuation
+    cardinality: has_one
+    target_type: valuation
+  - field: viewing
+    cardinality: has_one
+    target_type: viewing
+- schema: Todo
+  resource_type: todo
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: negotiator
+    cardinality: has_one
+    target_type: negotiator
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: sale
+    cardinality: has_one
+    target_type: sale
+  - field: salesApplicant
+    cardinality: has_one
+    target_type: null
+  - field: lettingsApplicant
+    cardinality: has_one
+    target_type: null
+  - field: valuation
+    cardinality: has_one
+    target_type: valuation
+  - field: viewing
+    cardinality: has_one
+    target_type: viewing
+- schema: Landlord
+  resource_type: landlord
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: LettingsOffer
+  resource_type: lettings_offer
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: lettingsListing
+    cardinality: has_one
+    target_type: lettings_listing
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: MaintenanceRequest
+  resource_type: maintenance-request
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+- schema: MaintenanceJob
+  resource_type: maintenance-job
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+- schema: Person
+  resource_type: person
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+    description: All Properties owned by this Person
+  - field: applicants
+    cardinality: has_many
+    target_type: applicant
+    description: All sales and letting Applicants this person is a part of.
+  - field: notes
+    cardinality: has_many
+    target_type: note
+    description: Any Notes attached to this Person.
+- schema: Property
+  resource_type: property
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: media
+    cardinality: has_many
+    target_type: media
+  - field: floorplans
+    cardinality: has_many
+    target_type: floorplan
+  - field: rooms
+    cardinality: has_many
+    target_type: room
+  - field: epc
+    cardinality: has_one
+    target_type: epc
+  - field: brochure
+    cardinality: has_one
+    target_type: brochure
+  - field: outsideSpaces
+    cardinality: has_many
+    target_type: outside_space
+  - field: parking
+    cardinality: has_many
+    target_type: parking
+  - field: viewings
+    cardinality: has_many
+    target_type: viewing
+  - field: valuations
+    cardinality: has_many
+    target_type: valuation
+  - field: notes
+    cardinality: has_many
+    target_type: note
+  - field: negotiator
+    cardinality: has_one
+    target_type: negotiator
+  - field: followUp
+    cardinality: has_one
+    target_type: follow_up
+  - field: sales
+    cardinality: has_many
+    target_type: sale
+  - field: salesListing
+    cardinality: has_one
+    target_type: sales_listing
+  - field: lettingsListing
+    cardinality: has_one
+    target_type: lettings_listing
+  - field: interestedApplicants
+    cardinality: has_many
+    target_type: interested_applicant
+  - field: propertyKeys
+    cardinality: has_many
+    target_type: property_key
+- schema: PropertyKeys
+  resource_type: property_key
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+- schema: QuestionnaireResponse
+  resource_type: questionnaire_response
+  relationships:
+  - field: questionnaire
+    cardinality: has_one
+    target_type: questionnaire
+  - field: answers
+    cardinality: has_many
+    target_type: questionnaire_response_answer
+  - field: submitter
+    cardinality: has_one
+    target_type: user
+  - field: property
+    cardinality: has_one
+    target_type: property
+- schema: Sale
+  resource_type: sale
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+  - field: vendor
+    cardinality: has_one
+    target_type: vendor
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: SalesOffer
+  resource_type: sales_offer
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: salesListing
+    cardinality: has_one
+    target_type: sales_listing
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: Tenant
+  resource_type: tenant
+  relationships:
+  - field: tenancies
+    cardinality: has_many
+    target_type: tenancy
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: Tenancy
+  resource_type: tenancy
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: tenants
+    cardinality: has_many
+    target_type: tenant
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: User
+  resource_type: user
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+- schema: Valuation
+  resource_type: valuation
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: notes
+    cardinality: has_many
+    target_type: note
+  - field: follow-up
+    cardinality: has_one
+    target_type: follow-up
+  - field: salesReport
+    cardinality: has_one
+    target_type: valuation_sales_report
+  - field: lettingsReport
+    cardinality: has_one
+    target_type: valuation_lettings_report
+  - field: salesInstruction
+    cardinality: has_one
+    target_type: sales_instruction
+  - field: lettingsInstruction
+    cardinality: has_one
+    target_type: lettings_instruction
+  - field: valuer
+    cardinality: has_one
+    target_type: valuer
+  - field: lostValuationDetail
+    cardinality: has_one
+    target_type: lost_valuation_detail
+- schema: SalesInstruction
+  resource_type: sales_instruction
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: valuation
+    cardinality: has_one
+    target_type: valuation
+  - field: Fees
+    cardinality: has_many
+    target_type: fees
+- schema: LettingsInstruction
+  resource_type: lettings_instruction
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: valuation
+    cardinality: has_one
+    target_type: valuation
+- schema: Vendor
+  resource_type: vendor
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: Solicitor
+  resource_type: solicitor
+  relationships:
+  - field: solicitorFirm
+    cardinality: has_one
+    target_type: null
+  - field: applicantSolicitorSale
+    cardinality: has_many
+    target_type: applicant_solicitor_sale
+  - field: ownerSolicitorSale
+    cardinality: has_many
+    target_type: owner_solicitor_sale
+- schema: InterestedApplicant
+  resource_type: interested_applicant
+  relationships:
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+  - field: property
+    cardinality: has_one
+    target_type: property
+- schema: Inspection
+  resource_type: inspection
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: bookedBy
+    cardinality: has_one
+    target_type: booked_by
+  - field: inspector
+    cardinality: has_one
+    target_type: inspector
+- schema: Invoice
+  resource_type: invoice
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: line_items
+    cardinality: has_many
+    target_type: fee
+- schema: Viewing
+  resource_type: viewing
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+  - field: viewer
+    cardinality: has_one
+    target_type: viewer
+  - field: notes
+    cardinality: has_many
+    target_type: note
+- schema: PhotoAndMeasure
+  resource_type: photo_and_measure
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: notes
+    cardinality: has_many
+    target_type: note
+  - field: photographer
+    cardinality: has_one
+    target_type: photographer
+- schema: IncludedApplicant
+  resource_type: applicant
+  relationships:
+  - field: people
+    cardinality: has_many
+    target_type: person
+- schema: IncludedOutsideSpace
+  resource_type: outside_space
+  relationships:
+  - field: media
+    cardinality: has_many
+    target_type: media
+- schema: IncludedOwner
+  resource_type: owner
+  relationships:
+  - field: people
+    cardinality: has_many
+    target_type: person
+  - field: company
+    cardinality: has_one
+    target_type: company
+- schema: IncludedInterestedApplicant
+  resource_type: interested_applicant
+  relationships:
+  - field: applicant
+    cardinality: has_one
+    target_type: applicant
+- schema: IncludedInvoice
+  resource_type: invoice
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: property
+  - field: owner
+    cardinality: has_one
+    target_type: owner
+  - field: line_items
+    cardinality: has_many
+    target_type: fee
+- schema: IncludedParking
+  resource_type: parking_space
+  relationships:
+  - field: media
+    cardinality: has_many
+    target_type: media
+- schema: IncludedProperty
+  resource_type: property
+  relationships:
+  - field: branch
+    cardinality: has_one
+    target_type: branch
+- schema: IncludedRoom
+  resource_type: room
+  relationships:
+  - field: media
+    cardinality: has_many
+    target_type: media
+- schema: IncludedVendor
+  resource_type: vendor
+  relationships:
+  - field: people
+    cardinality: has_many
+    target_type: person
+- schema: MoveOut
+  resource_type: move_out
+  relationships:
+  - field: properties
+    cardinality: has_many
+    target_type: property
+  - field: tenancies
+    cardinality: has_many
+    target_type: tenancy
+  - field: meterReadings
+    cardinality: has_many
+    target_type: meter_reading
+- schema: EsignDocument
+  resource_type: esign_document
+  relationships:
+  - field: recipients
+    cardinality: has_many
+    target_type: esign_document_recipient
+- schema: PortalListing
+  resource_type: portal_listing
+  relationships:
+  - field: property
+    cardinality: has_one
+    target_type: null
+  - field: portal
+    cardinality: has_one
+    target_type: null
+  - field: salesListing
+    cardinality: has_one
+    target_type: null
+  - field: lettingsListing
+    cardinality: has_one
+    target_type: null
+- schema: IncludedQuestionnaire
+  resource_type: questionnaire
+  relationships:
+  - field: sections
+    cardinality: has_many
+    target_type: questionnaire_section
+- schema: IncludedQuestionnaireSection
+  resource_type: questionnaire_section
+  relationships:
+  - field: questions
+    cardinality: has_many
+    target_type: questionnaire_question
+- schema: IncludedQuestionnaireQuestion
+  resource_type: questionnaire_question
+  relationships:
+  - field: options
+    cardinality: has_many
+    target_type: questionnaire_question_option
+- schema: IncludedQuestionnaireAnswer
+  resource_type: questionnaire_response_answer
+  relationships:
+  - field: question
+    cardinality: has_one
+    target_type: questionnaire_question
+  - field: values
+    cardinality: has_many
+    target_type: questionnaire_response_answer_value
+- schema: IncludedQuestionnaireAnswerValue
+  resource_type: questionnaire_response_answer_value
+  relationships:
+  - field: option
+    cardinality: has_one
+    target_type: questionnaire_question_option

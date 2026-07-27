@@ -1,0 +1,114 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api
+docs:
+- https://developers.street.co.uk/docs/street-open-api
+- https://developers.street.co.uk/docs/street-open-api/guides/jsonapi-standard
+- https://developers.street.co.uk/docs/street-open-api/guides/pagination
+- https://developers.street.co.uk/docs/street-property-feed-api
+- https://developers.street.co.uk/docs/spectre-api-docs
+summary: >-
+  All three Street.co.uk APIs are JSON:API implementations over HTTPS with HTTP bearer tokens.
+  Cross-cutting semantics (envelope, pagination, includes, filtering, sparse fieldsets, error
+  shape) are inherited from the JSON:API specification rather than invented by Street, which
+  is the single most useful fact for a client or an agent: existing JSON:API tooling works.
+style:
+  architecture: REST
+  standard: JSON:API 1.x
+  standard_url: https://jsonapi.org
+  media_type: application/vnd.api+json
+  request_headers:
+    Accept: application/vnd.api+json
+    Content-Type: application/vnd.api+json
+    Authorization: Bearer YOUR_API_TOKEN
+  case: snake_case URL parameters (changed from camelCase on 2023-06-28 per the Open API updates page)
+authentication:
+  scheme: http bearer
+  artifact: authentication/street-co-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key header, idempotency parameter, or idempotency guidance appears anywhere
+    on developers.street.co.uk or in the three harvested OpenAPI documents (grepped for
+    "idempoten" — zero matches across 1.6 MB of contract). Write operations (POST /enquiries,
+    POST /todos, POST /notes, POST /documents, POST /follow-ups, POST /maintenance-requests,
+    POST /activity, POST /key-features/{property_id}, POST /property-reports/reports) are not
+    safe to blind-retry.
+pagination:
+  style: page-number
+  params:
+  - name: page[number]
+    description: The page of results to return (1-based).
+  - name: page[size]
+    description: Records per request, an integer from 1 to 100. Capped at 100.
+  max_page_size: 100
+  response_fields:
+    meta.pagination:
+    - total
+    - count
+    - per_page
+    - current_page
+    - total_pages
+    links:
+    - self
+    - first
+    - prev
+    - next
+    - last
+  note: Bracketed query parameters must be percent-encoded in practice.
+  docs: https://developers.street.co.uk/docs/street-open-api/guides/pagination
+expansion:
+  style: jsonapi-include
+  param: include
+  description: >-
+    Related resources are side-loaded with ?include=, e.g. include=pdf or
+    include=accounts,company,company.reportTemplates on the Spectre API, and property
+    relationship includes (invoices, property keys, line items) on the Street Open API. Related
+    objects are returned once in the top-level `included` array, not nested — Street explicitly
+    recommends using a JSON:API client library rather than reassembling them by hand.
+sparse_fieldsets:
+  supported: true
+  param: fields[TYPE]
+  note: Inherited from JSON:API; not separately documented by Street.
+filtering:
+  style: jsonapi-filter
+  param: filter[...]
+  examples:
+  - filter[max_price_sales]
+  - filter[min_price_sales]
+  - filter[max_price_lettings]
+  - filter[min_price_lettings]
+  note: >-
+    Per-endpoint filters are documented in the API reference. filter[max_price] and
+    filter[min_price] were deprecated on 2025-06-19 in favour of the sales/lettings-specific
+    variants.
+metadata:
+  supported: true
+  field: meta
+  note: JSON:API top-level meta object; carries the pagination block.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation-id header is documented or declared in the specs.
+versioning:
+  scheme: uri-path
+  current: v1
+  examples:
+  - https://street.co.uk/open-api/v1
+  - https://street.co.uk/api/property-feed/v1
+  - https://api.spectre.uk.com/v1
+  introduced: '2023-07-07'
+  artifact: lifecycle/street-co-lifecycle.yml
+errors:
+  envelope: jsonapi-errors
+  media_type: application/vnd.api+json
+  root_field: errors
+  rfc9457: false
+  artifact: errors/street-co-problem-types.yml
+rate_limits:
+  documented: true
+  headers_published: false
+  artifact: rate-limits/street-co-rate-limits.yml
+webhooks:
+  supported: true
+  artifact: asyncapi/street-co-webhooks.yml

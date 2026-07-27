@@ -1,0 +1,56 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api
+summary: >-
+  Street.co.uk separates live and test by ENVIRONMENT (a staging host), not by key prefix or a
+  test mode flag. The staging hosts are declared as servers[] in two of the three published
+  OpenAPI documents, so they are machine-discoverable, but a token for them is not self-serve:
+  a developer who is not already a paying Street customer must email the API team to be issued
+  one. No magic test values (test cards, test identifiers, seeded fixtures) are published.
+model: separate-environment
+test_vs_live:
+  separation: hostname
+  key_prefix: null
+  mode_flag: null
+environments:
+- name: production
+  api: Street Open API
+  url: https://street.co.uk/open-api/v1
+  token_issuance: Self-serve inside an authenticated Street CRM account — Settings > Account
+    Administration > Applications (company admin only).
+- name: staging
+  api: Street Open API
+  url: https://demo.street.co.uk/open-api/v1
+  token_issuance: Email apis@street.co.uk to request a sandbox token.
+  quote: >-
+    "It is not recommended to develop an integration using a production API token for a live
+    account. Instead, if you would like a sandbox account on our staging environment, please
+    email apis@street.co.uk to request a token."
+- name: production
+  api: Street Property Feed API
+  url: https://street.co.uk/api/property-feed/v1
+  token_issuance: Self-serve via Settings > Applications in the Street CRM.
+- name: demo
+  api: Street Property Feed API
+  url: https://demo.street.co.uk/api/property-feed/v1
+  token_issuance: Tokens requested from the Street.co.uk support team.
+- name: production
+  api: Spectre API
+  url: https://api.spectre.uk.com/v1
+  token_issuance: Email apis@spectre.uk.com — the Spectre team issues tokens; no staging host
+    is published for Spectre.
+test_data:
+  published: false
+  test_cards: []
+  magic_identifiers: []
+  fixtures: []
+  note: >-
+    Street.co.uk publishes no seeded test records, magic identifiers, or fixture generators.
+    A sandbox account on staging is populated by the developer (or by Street on request).
+time_simulation:
+  supported: false
+self_serve_signup:
+  available: false
+  note: >-
+    There is no public developer sign-up form. Access is either commercial (be a Street
+    customer, or be handed a customer's token) or a reviewed email request for staging.

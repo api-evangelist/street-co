@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Property Feed
+  version: 1.0.0
+extends: openapi/street-co-property-feed-api-openapi.yml
+x-generated: '2026-07-26'
+x-method: generated
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: street-co
+    x-apievangelist-artifacts:
+      authentication: authentication/street-co-authentication.yml
+      conventions: conventions/street-co-conventions.yml
+      errors: errors/street-co-problem-types.yml
+      rate-limits: rate-limits/street-co-rate-limits.yml
+      lifecycle: lifecycle/street-co-lifecycle.yml
+      data-model: data-model/street-co-data-model.yml
+      webhooks: asyncapi/street-co-webhooks.yml
+      agentic-access: agentic-access/street-co-agentic-access.yml
+    x-apievangelist-conformance:
+    - jsonapi-1.x
+    - openapi-3.1
+    - http-bearer
+    x-apievangelist-operations: 5
+    x-apievangelist-tags:
+    - Properties
+    - Lettings
+    - Meta
+    - Sales
+- target: $.info
+  update:
+    x-rate-limits: see rate-limits/street-co-rate-limits.yml (documented per verb class, no response headers
+      published)

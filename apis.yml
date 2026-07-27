@@ -73,8 +73,19 @@ apis:
   - type: Support
     url: https://api-support.street.co.uk/
   - type: ChangeLog
-    url: https://developers.street.co.uk/docs/street-open-api/updates
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
     name: Open API Updates
+  - type: OpenAPI
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference/openapi.json
+    name: Published OpenAPI 3.1 download (live provider URL)
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+    name: Webhook event catalog
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+    name: 600 GET/min, 100 write/min
 - aid: street-co:street-property-feed-api
   name: Street Property Feed API
   description: A read-only property feed API for powering an agency's own website and
@@ -103,6 +114,17 @@ apis:
   - type: Sandbox
     url: https://demo.street.co.uk/api/property-feed/v1
     name: Staging environment
+  - type: OpenAPI
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference/openapi.json
+    name: Published OpenAPI 3.1 download (live provider URL)
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+    name: Property Feed Updates
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+    name: 600 requests/min
 - aid: street-co:spectre-api
   name: Spectre API
   description: The public API for the Spectre products, documented on the Street.co.uk
@@ -128,13 +150,102 @@ apis:
     url: https://developers.street.co.uk/docs/spectre-api-docs
   - type: APIReference
     url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: OpenAPI
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference/openapi.json
+    name: Published OpenAPI 3.1 download (live provider URL)
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+    name: Spectre API token requests
 common:
+- type: DomainSecurity
+  url: security/street-co-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/street-co-agentic-access.yml
+- type: Authentication
+  url: authentication/street-co-authentication.yml
+- type: Conventions
+  url: conventions/street-co-conventions.yml
+  name: JSON:API conventions — envelope, pagination, includes, filtering, versioning
+- type: ErrorCatalog
+  url: errors/street-co-problem-types.yml
+  name: JSON:API error catalog (not RFC 9457)
+- type: RateLimits
+  url: rate-limits/street-co-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/street-co-lifecycle.yml
+- type: Deprecation
+  url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  name: Deprecations announced with named replacements on the Open API updates page (no formal
+    sunset policy)
+- type: ChangeLog
+  url: changelog/street-co-changelog.yml
+  name: Structured changelog captured from both dated updates pages
+- type: Conformance
+  url: conformance/street-co-conformance.yml
+- type: DataModel
+  url: data-model/street-co-data-model.yml
+  name: 46 JSON:API entities, 154 relationships derived from the Street Open API
+- type: Webhooks
+  url: asyncapi/street-co-webhooks.yml
+  name: 19 named webhook events recovered from the Open API updates page (no AsyncAPI published)
+- type: Sandbox
+  url: sandbox/street-co-sandbox.yml
+  name: Staging environments and token-request process
+- type: Packages
+  url: packages/street-co-packages.yml
+  name: No first-party SDKs; provider-recommended JSON:API client libraries
+- type: WellKnown
+  url: well-known/street-co-well-known.yml
+  name: /.well-known/ probe results (no discovery surface published)
+- type: MCPServer
+  url: mcp/street-co-mcp.yml
+  name: Candidate MCP tool surface derived from the three OpenAPIs (Street publishes no MCP server)
+- type: ToolCrosswalk
+  url: mcp/street-co-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+  name: Agent Skills index
+- type: AgentSkill
+  url: skills/street-co-sync-property-portfolio.md
+  name: Sync an agency's property portfolio from Street
+- type: AgentSkill
+  url: skills/street-co-capture-enquiry-and-follow-up.md
+  name: Capture a lead into Street and schedule the follow-up
+- type: AgentSkill
+  url: skills/street-co-power-website-property-search.md
+  name: Power an agency website property search with the Street Property Feed
+- type: AgentSkill
+  url: skills/street-co-tenancy-and-maintenance.md
+  name: Read tenancies and raise a maintenance request
+- type: AgentSkill
+  url: skills/street-co-invoice-reconciliation.md
+  name: Reconcile Street invoices and mark them paid
+- type: AgentSkill
+  url: skills/street-co-spectre-property-report.md
+  name: Generate a Spectre property report and collect its leads
+- type: Overlay
+  url: overlays/street-co-open-api-overlay.yaml
+  name: API Evangelist enhancements for the Street Open API
+- type: Overlay
+  url: overlays/street-co-property-feed-api-overlay.yaml
+  name: API Evangelist enhancements for the Property Feed API
+- type: Overlay
+  url: overlays/street-co-spectre-api-overlay.yaml
+  name: API Evangelist enhancements for the Spectre API
+- type: LLMsTxt
+  url: llms/street-co-llms.txt
+  name: Generated llms.txt index of Street.co.uk APIs and artifacts
 - type: Website
   url: https://street.co.uk/
 - type: DeveloperPortal
   url: https://developers.street.co.uk/
 - type: Documentation
   url: https://developers.street.co.uk/docs/street-open-api
+- type: GettingStarted
+  url: https://developers.street.co.uk/docs/street-open-api
+  name: Street Open API getting started — auth, environments, rate limits
 - type: Blog
   url: https://street.co.uk/blog
 - type: Pricing
@@ -143,11 +254,21 @@ common:
   url: https://street.co.uk/integrations
 - type: Support
   url: https://api-support.street.co.uk/
+- type: HelpCenter
+  url: https://intercom.help/streetcouk/en/
+  name: Street.co.uk Help Centre
+- type: Login
+  url: https://street.co.uk/login
+- type: TermsOfService
+  url: https://street.co.uk/terms
+- type: PrivacyPolicy
+  url: https://street.co.uk/privacy
 - type: Contact
   url: mailto:apis@street.co.uk
   name: API team contact (sandbox and rate-limit requests)
 - type: LLMsText
   url: https://developers.street.co.uk/llms.txt
+  name: Provider-published llms.txt (single link to the docs home)
 - type: Review
   url: review.yml
 maintainers:

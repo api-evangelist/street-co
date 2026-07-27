@@ -1,0 +1,118 @@
+generated: '2026-07-26'
+method: derived
+source: openapi/*.yml 4xx/5xx responses + https://developers.street.co.uk/docs/spectre-api-docs
+format: jsonapi-errors
+note: Street.co.uk does NOT use RFC 9457 application/problem+json. All three APIs are JSON:API and return
+  an errors[] array of JSON:API error objects under media type application/vnd.api+json.
+envelope:
+  media_type: application/vnd.api+json
+  root_field: errors
+  error_object_fields:
+  - title
+  - code
+  - detail
+  - status
+  - source
+  schemas:
+  - jsonApiError
+  - jsonApiErrorResponseBody
+  - jsonApiMultiErrorResponseBody
+  example: '{"errors":[{"title":"Unauthorized","code":"401"}]}'
+problems:
+- status: 400
+  title: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process
+    the request due to something that is perceived to be a client
+  description: The HTTP 400 Bad Request response status code indicates that the server cannot or will
+    not process the request due to something that is perceived to be a client error.
+  operations: 86
+  apis:
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 401
+  title: The HTTP 401 Unauthorized response status code indicates that the client request has not been
+    completed because it lacks valid authentication credentials for th
+  description: The HTTP 401 Unauthorized response status code indicates that the client request has not
+    been completed because it lacks valid authentication credentials for the requested resource.
+  operations: 91
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 403
+  title: The HTTP 403 Forbidden response status code indicates that the server understands the request
+    but refuses to authorize it
+  description: The HTTP 403 Forbidden response status code indicates that the server understands the request
+    but refuses to authorize it.
+  operations: 91
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 404
+  title: The HTTP 404 Not Found response status code indicates that the server cannot find the requested
+    resource
+  description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested
+    resource.
+  operations: 65
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 406
+  title: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce
+    a response matching the list of acceptable values defined in the
+  description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot
+    produce a response matching the list of acceptable values defined in the request's proactive content
+    negotiation headers, and that the server is unwilling to supply a default representation.
+  operations: 91
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 409
+  title: The HTTP 409 Conflict response status code indicates a request conflict with the current state
+    of the target resource
+  description: The HTTP 409 Conflict response status code indicates a request conflict with the current
+    state of the target resource.
+  operations: 12
+  apis:
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 415
+  title: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses
+    to accept the request because the payload format is in an unsup
+  description: The HTTP 415 Unsupported Media Type client error response code indicates that the server
+    refuses to accept the request because the payload format is in an unsupported format.
+  operations: 88
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 422
+  title: The 422 Unprocessable Content response status code indicates that the server understands the
+    content type of the request entity, and the syntax of the request e
+  description: The 422 Unprocessable Content response status code indicates that the server understands
+    the content type of the request entity, and the syntax of the request entity is correct, but it was
+    unable to process the contained instructions.
+  operations: 8
+  apis:
+  - Property Feed
+  - Street Open API
+  media_type: application/vnd.api+json
+- status: 500
+  title: The HTTP 500 Internal Server Error server error response code indicates that the server encountered
+    an unexpected condition that prevented it from fulfilling th
+  description: The HTTP 500 Internal Server Error server error response code indicates that the server
+    encountered an unexpected condition that prevented it from fulfilling the request.
+  operations: 91
+  apis:
+  - Property Feed
+  - Spectre API
+  - Street Open API
+  media_type: application/vnd.api+json

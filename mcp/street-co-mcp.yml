@@ -1,0 +1,577 @@
+generated: '2026-07-26'
+method: derived
+status: candidate
+source: openapi/street-co-open-api-openapi.yml, openapi/street-co-property-feed-api-openapi.yml, openapi/street-co-spectre-api-openapi.yml
+note: Street.co.uk publishes no MCP server. This is a candidate tool surface derived one-to-one from the
+  three published OpenAPI 3.1 contracts; every tool inherits its input schema from the referenced operation.
+  Not a Street.co.uk product claim.
+server:
+  name: street-co
+  transport: http
+  url: null
+  auth: HTTP bearer token issued in the Street CRM under Settings > Account Administration > Applications
+tools:
+- name: create_activity
+  description: Create a activity log
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-activity
+  method: POST
+  path: /activity
+- name: list_lettings_applicants
+  description: Get all Lettings Applicants
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-applicants
+  method: GET
+  path: /lettings-applicants
+- name: get_lettings_applicants
+  description: Get a single Lettings Applicant
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-applicants-applicantId
+  method: GET
+  path: /lettings-applicants/{applicant_id}
+- name: list_sales_applicants
+  description: Get all Sales Applicants
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-applicants
+  method: GET
+  path: /sales-applicants
+- name: get_sales_applicants
+  description: Get a single Sales Applicant
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-applicants-applicantId
+  method: GET
+  path: /sales-applicants/{applicant_id}
+- name: list_areas
+  description: Get all Areas
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-areas
+  method: GET
+  path: /areas
+- name: list_branches
+  description: Get all Branches
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-branches
+  method: GET
+  path: /branches
+- name: get_branches
+  description: Get a single Branch
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-branch
+  method: GET
+  path: /branches/{branch_id}
+- name: list_brands
+  description: Get all Brands
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-brands
+  method: GET
+  path: /brands
+- name: get_brands
+  description: Get a single Brand
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-brand
+  method: GET
+  path: /brands/{brand_id}
+- name: get_lettings_applications
+  description: Get a single Lettings Application
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-applications-application_id
+  method: GET
+  path: /lettings-applications/{application_id}
+- name: list_companies
+  description: Get all Companies
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-companies
+  method: GET
+  path: /companies
+- name: get_companies
+  description: Get a single Company
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-companies-companyId
+  method: GET
+  path: /companies/{company_id}
+- name: create_documents
+  description: Create a Document
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-documents
+  method: POST
+  path: /documents
+- name: update_photos_media
+  description: Update a photos details
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#patch-photos-propertyId-imageId
+  method: PATCH
+  path: /photos/{property_id}/media/{media_id}
+- name: delete_photos_media
+  description: Delete a photo from a property
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#delete-photos-propertyId-imageId
+  method: DELETE
+  path: /photos/{property_id}/media/{media_id}
+- name: delete_floorplans_media
+  description: Delete a floorplan from a property
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#delete-floorplans-propertyId-imageId
+  method: DELETE
+  path: /floorplans/{property_id}/media/{media_id}
+- name: list_enquiries
+  description: Get all Enquiries
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-enquiries
+  method: GET
+  path: /enquiries
+- name: create_enquiries
+  description: Create an Enquiry
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-enquiries
+  method: POST
+  path: /enquiries
+- name: get_enquiries
+  description: Get a single Enquiry
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-enquiries-enquiryId
+  method: GET
+  path: /enquiries/{enquiry_id}
+- name: list_follow_ups
+  description: Get all Follow Ups
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-follow-ups
+  method: GET
+  path: /follow-ups
+- name: create_follow_ups
+  description: Create a Follow Up
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-follow-ups
+  method: POST
+  path: /follow-ups
+- name: list_todos
+  description: Get all Tasks
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-todos
+  method: GET
+  path: /todos
+- name: create_todos
+  description: Create a Task
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-todos
+  method: POST
+  path: /todos
+- name: list_todo_types
+  description: Get all Task Types
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-todo-types
+  method: GET
+  path: /todo-types
+- name: get_todo_types
+  description: Get a single Task Type
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-todo-types-todoTypeID
+  method: GET
+  path: /todo-types/{todo_type_id}
+- name: list_solicitors
+  description: Get all Solicitors
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-solicitors
+  method: GET
+  path: /solicitors
+- name: get_solicitors
+  description: Get a single Solicitor
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-solicitors-solicitorID
+  method: GET
+  path: /solicitors/{solicitor_id}
+- name: list_landlords
+  description: Get all Landlords
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-landlords
+  method: GET
+  path: /landlords
+- name: get_landlords
+  description: Get a single Landlord
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-landlords-landlordId
+  method: GET
+  path: /landlords/{landlord_id}
+- name: list_lettings_offers
+  description: Get all Lettings Offers
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-offers
+  method: GET
+  path: /lettings-offers
+- name: get_lettings_offers
+  description: Get a single Lettings Offer
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-offers-lettingsOfferId
+  method: GET
+  path: /lettings-offers/{lettings_offer_id}
+- name: list_maintenance_jobs
+  description: Get all Maintence Jobs
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-maintenance-jobs
+  method: GET
+  path: /maintenance-jobs
+- name: get_maintenance_jobs
+  description: Get a single Maintence Job
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-maintenance-job
+  method: GET
+  path: /maintenance-jobs/{maintenance_job_id}
+- name: create_maintenance_requests
+  description: Create a new maintenance request
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-maintenance-requests
+  method: POST
+  path: /maintenance-requests
+- name: create_notes
+  description: Create a Note
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-notes
+  method: POST
+  path: /notes
+- name: list_people
+  description: Get all People
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-people
+  method: GET
+  path: /people
+- name: get_people
+  description: Get a single Person
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-people-personId
+  method: GET
+  path: /people/{person_id}
+- name: update_people
+  description: Update a Person
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#patch-people-personId
+  method: PATCH
+  path: /people/{person_id}
+- name: list_properties
+  description: Get all Properties
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-properties
+  method: GET
+  path: /properties
+- name: get_properties
+  description: Get a single Property
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-properties-propertyId
+  method: GET
+  path: /properties/{property_id}
+- name: update_properties
+  description: Patch Property details
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#patch-properties-propertyId
+  method: PATCH
+  path: /properties/{property_id}
+- name: create_key_features
+  description: Update Property Key Features
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#post-key-features-property-id
+  method: POST
+  path: /key-features/{property_id}
+- name: delete_key_features_features
+  description: Delete a Property Key Feature
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#delete-key-features-property-features
+  method: DELETE
+  path: /key-features/{property_id}/features/{feature_id}
+- name: list_property_keys
+  description: Get all Property Keys
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-property-keys
+  method: GET
+  path: /property-keys
+- name: get_property_keys
+  description: Get a single Property Key
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-single-property-key
+  method: GET
+  path: /property-keys/{property_key_id}
+- name: get_questionnaire_responses
+  description: Get a Questionnaire Response
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-questionnaire-responses-questionnaireResponseId
+  method: GET
+  path: /questionnaire-responses/{questionnaire_response_id}
+- name: list_sales
+  description: Get all Sales
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales
+  method: GET
+  path: /sales
+- name: get_sales
+  description: Get a single Sale
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-saleId
+  method: GET
+  path: /sales/{sale_id}
+- name: list_sales_offers
+  description: Get all Sales Offers
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-offers
+  method: GET
+  path: /sales-offers
+- name: get_sales_offers
+  description: Get a single Sales Offer
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-offers-salesOfferId
+  method: GET
+  path: /sales-offers/{sales_offer_id}
+- name: list_tenancies
+  description: Get all Tenancies
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-tenancies
+  method: GET
+  path: /tenancies
+- name: get_tenancies
+  description: Get a single Tenancy
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-tenancies-tenancy_id
+  method: GET
+  path: /tenancies/{tenancy_id}
+- name: list_tenants
+  description: Get all Tenants
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-tenants
+  method: GET
+  path: /tenants
+- name: get_tenants
+  description: Get a single Tenant
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-tenants-tenantId
+  method: GET
+  path: /tenants/{tenant_id}
+- name: list_users
+  description: Get all Users
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-users
+  method: GET
+  path: /users
+- name: get_users
+  description: Get a single User
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-users-userId
+  method: GET
+  path: /users/{user_id}
+- name: list_valuations
+  description: Get all Valuations
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-valuations
+  method: GET
+  path: /valuations
+- name: get_valuations
+  description: Get a single Valuation
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-valuations-valuationId
+  method: GET
+  path: /valuations/{valuation_id}
+- name: list_vendors
+  description: Get all Vendors
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-vendors
+  method: GET
+  path: /vendors
+- name: get_vendors
+  description: Get a single Vendor
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-vendors-vendorId
+  method: GET
+  path: /vendors/{vendor_id}
+- name: list_viewings
+  description: Get all Viewings
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-viewings
+  method: GET
+  path: /viewings
+- name: get_viewings
+  description: Get a single Viewing
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-viewings-viewingId
+  method: GET
+  path: /viewings/{viewing_id}
+- name: list_interested_applicants
+  description: Get all Interested Applicants
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-interested-applicants
+  method: GET
+  path: /interested-applicants
+- name: get_interested_applicants
+  description: Get a single Interested Applicant.
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-interested-applicants-interested_applicant_id
+  method: GET
+  path: /interested-applicants/{interested_applicant_id}
+- name: list_inspections
+  description: Get all Inspections
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-inspections
+  method: GET
+  path: /inspections
+- name: get_inspections
+  description: Get a single Inspection.
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-inspections-inspection_id
+  method: GET
+  path: /inspections/{inspection_id}
+- name: list_invoices
+  description: Get all Invoices
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-invoices
+  method: GET
+  path: /invoices
+- name: get_invoices
+  description: Get a single Invoice.
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-invoices-invoice_id
+  method: GET
+  path: /invoices/{invoice_id}
+- name: update_invoices
+  description: Mark an Invoice as paid
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#patch-invoices-invoiceId
+  method: PATCH
+  path: /invoices/{invoice_id}
+- name: list_photo_and_measures
+  description: Get all Photo & Measures
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-photo-and-measures
+  method: GET
+  path: /photo-and-measures
+- name: get_photo_and_measures
+  description: Get a single Photo & Measure
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-photo-and-measures-photoAndMeasureId
+  method: GET
+  path: /photo-and-measures/{photo_and_measure_id}
+- name: list_sales_instructions
+  description: Get all Sales Instructions
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-instructions
+  method: GET
+  path: /sales-instructions
+- name: get_sales_instructions
+  description: Get a single Sales Instruction
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-sales-instructions-salesInstructionId
+  method: GET
+  path: /sales-instructions/{sales_instruction_id}
+- name: list_lettings_instructions
+  description: Get all Lettings Instructions
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-instructions
+  method: GET
+  path: /lettings-instructions
+- name: get_lettings_instructions
+  description: Get a single Lettings Instruction
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-lettings-instructions-lettingsInstructionId
+  method: GET
+  path: /lettings-instructions/{lettings_instruction_id}
+- name: list_move_outs
+  description: Get all Move outs
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-move-outs
+  method: GET
+  path: /move-outs
+- name: get_move_outs
+  description: Get a single MoveOut
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-moveOuts-MoveOutId
+  method: GET
+  path: /move-outs/{move_out_id}
+- name: get_esign_documents
+  description: Get a single E-Sign Document
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-esign-documents-esign-document-id
+  method: GET
+  path: /esign-documents/{esign_document_id}
+- name: get_portal_listings
+  description: Get Portal Listing by ID
+  api: Street Open API
+  source_operation: openapi/street-co-open-api-openapi.yml#get-portal-listings-listing-id
+  method: GET
+  path: /portal-listings/{listing_id}
+- name: property_feed_get_properties
+  description: Retrieve a Property
+  api: Property Feed
+  source_operation: openapi/street-co-property-feed-api-openapi.yml#get-propertyId
+  method: GET
+  path: /properties/{property}
+- name: property_feed_list_lettings_search
+  description: Search for Lettings Properties
+  api: Property Feed
+  source_operation: openapi/street-co-property-feed-api-openapi.yml#get-lettings-search
+  method: GET
+  path: /lettings/search
+- name: property_feed_list_sales_search
+  description: Search for Sales Properties
+  api: Property Feed
+  source_operation: openapi/street-co-property-feed-api-openapi.yml#get-sales-search
+  method: GET
+  path: /sales/search
+- name: property_feed_list_areas
+  description: Get Areas
+  api: Property Feed
+  source_operation: openapi/street-co-property-feed-api-openapi.yml#get-areas
+  method: GET
+  path: /areas
+- name: property_feed_list_features
+  description: Get Features
+  api: Property Feed
+  source_operation: openapi/street-co-property-feed-api-openapi.yml#get-features
+  method: GET
+  path: /features
+- name: spectre_list_property_reports_user
+  description: Get current user
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#get-property-reports-user
+  method: GET
+  path: /property-reports/user
+- name: spectre_list_property_reports_reports
+  description: Get all reports
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#get-property-reports-reports
+  method: GET
+  path: /property-reports/reports
+- name: spectre_create_property_reports_reports
+  description: Create a new report
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#post-property-reports-reports
+  method: POST
+  path: /property-reports/reports
+- name: spectre_get_property_reports_reports
+  description: Get a single report
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#get-property-reports-report
+  method: GET
+  path: /property-reports/reports/{reportId}
+- name: spectre_list_property_reports_leads
+  description: Get all leads
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#get-property-reports-leads
+  method: GET
+  path: /property-reports/leads
+- name: spectre_create_property_reports_leads
+  description: Create a new lead
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#post-property-reports-leads
+  method: POST
+  path: /property-reports/leads
+- name: spectre_create_email_contacts
+  description: Create a new contact
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#post-email-contacts
+  method: POST
+  path: /email/contacts
+- name: spectre_list_email_segments
+  description: Get all segments
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#get-email-segments
+  method: GET
+  path: /email/segments
+- name: spectre_create_email_segments
+  description: Create a new uploaded segment
+  api: Spectre API
+  source_operation: openapi/street-co-spectre-api-openapi.yml#post-email-segments
+  method: POST
+  path: /email/segments

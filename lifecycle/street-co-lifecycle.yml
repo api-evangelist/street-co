@@ -1,0 +1,68 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+summary: >-
+  Street.co.uk runs a single, long-lived v1 of each API with an additive change policy,
+  documented as a dated public changelog per API. Deprecations are announced in that changelog
+  with a named replacement field or relationship and the deprecated members are also flagged
+  deprecated: true inside the published OpenAPI. There is no separate deprecation-policy
+  document, no Sunset/Deprecation response headers (RFC 8594), no published SLA, and no public
+  status page.
+versioning:
+  scheme: uri-path
+  current: v1
+  introduced: '2023-07-07'
+  breaking_change_policy: >-
+    Not published as a policy document. Observed practice across 111 dated changelog entries
+    (2022-10-06 to 2026-03-06) is additive-only within v1: fields and endpoints are added,
+    superseded members are marked Deprecated with a replacement rather than removed.
+  docs: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+deprecation:
+  policy_url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  policy_document: false
+  practice: changelog-announced, replacement-named, flagged in the OpenAPI
+  sunset_header: false
+  deprecation_header: false
+  removal_window_published: false
+  spec_flags:
+    open_api_deprecated_members: 10
+    property_feed_deprecated_members: 5
+    note: 'count of "deprecated": true occurrences in the harvested verbatim specs'
+  recent_deprecations:
+  - date: '2026-03-06'
+    items:
+    - '`type` → `question_type` (QuestionnaireQuestionAttributes)'
+    - '`type` → `valuation_type` (ValuationAttributes)'
+    - '`type` → `viewing_type` (ViewingAttributes)'
+    - '`type` → `certificate_type` (SafetyCertificateAttributes)'
+    - '`type` → `space_type` (OutsideSpace included resource)'
+    - '`type` → `meter_type` (MeterReading included resource)'
+    - '`subject_id` → the `subject` relationship (FollowUpAttributes)'
+    - '`subject_id` → the `subject` relationship (TodoAttributes)'
+  - date: '2026-01-08'
+    items:
+    - '`has_parking` deprecated (Property Feed and Open API) — not used in the CRM'
+  - date: '2025-06-19'
+    items:
+    - 'filter[max_price] / filter[min_price] → filter[max_price_sales], filter[min_price_sales],
+      filter[max_price_lettings], filter[min_price_lettings]'
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA or uptime commitment is published on street.co.uk or developers.street.co.uk.
+status_page: null
+status_page_probes:
+- url: https://status.street.co.uk
+  status: 0
+  result: no DNS / not reachable
+- url: https://street.co.uk/status
+  status: 404
+support:
+  helpdesk: https://api-support.street.co.uk/
+  email: apis@street.co.uk
+  note: Ticketed developer support; feature requests accepted through the same helpdesk.
+notification:
+  channels:
+  - Email announcements to API users
+  - Slack channels (per the developer portal FAQ; automatic update posting added 2023-05-18)
+changelog_artifact: changelog/street-co-changelog.yml

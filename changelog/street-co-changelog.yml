@@ -1,0 +1,290 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+docs:
+- https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+- https://developers.street.co.uk/docs/street-property-feed-api/updates
+scheme:
+  versioning: uri-path v1 (single major since 2023-07-07); changes are additive and announced as dated
+    entries, no semantic version numbers
+current_version: v1
+format: keep-a-changelog style, dated headings with Added/Changed/Updated/Fixed/Deprecated sections
+coverage:
+  open_api_entries_published: 89
+  property_feed_entries_published: 22
+  earliest_entry: '2022-10-06'
+  latest_entry: '2026-03-06'
+  entries_captured_here: 52
+  window: 2025-06-01 onward — the live pages remain the source of truth for full history
+notification_channels:
+- Email announcements to API users
+- Street Slack channels (per the developer portal FAQ)
+- Automatic updates posted to Slack (added 2023-05-18)
+entries:
+- date: '2026-03-06'
+  api: Street Open API
+  added:
+  - '`question_type` added to `QuestionnaireQuestionAttributes`'
+  - '`valuation_type` added to `ValuationAttributes`'
+  - '`viewing_type` added to `ViewingAttributes`'
+  - '`certificate_type` added to `SafetyCertificateAttributes`'
+  - '`space_type` added to `OutsideSpace` included resource'
+  - '`meter_type` added to `MeterReading` included resource'
+  deprecated:
+  - '`type` attribute deprecated in `QuestionnaireQuestionAttributes` — use `question_type` instead'
+  - '`type` attribute deprecated in `ValuationAttributes` — use `valuation_type` instead'
+  - '`type` attribute deprecated in `ViewingAttributes` — use `viewing_type` instead'
+  - '`type` attribute deprecated in `SafetyCertificateAttributes` — use `certificate_type` instead'
+  - '`type` attribute deprecated in `OutsideSpace` included resource — use `space_type` instead'
+  - '`type` attribute deprecated in `MeterReading` included resource — use `meter_type` instead'
+  - '`subject_id` deprecated in `FollowUpAttributes` — use the `subject` relationship instead'
+  - '`subject_id` deprecated in `TodoAttributes` — use the `subject` relationship instead'
+- date: '2026-02-25'
+  api: Street Open API
+  added:
+  - The `/invoices/{invoice_id}` endpoint have been added for marking an invoice as paid.
+  - '`invoices` include added to `GET /v1/properties` and `GET /v1/properties/{property_id}` endpoints'
+  fixed:
+  - '`line_items` relationship on Invoice corrected from a singular object to an array, matching the plural
+    relationship schema'
+- date: '2026-02-20'
+  api: Street Open API
+  added:
+  - '`tenancy_type` Added Assured Periodic Tenancy to the Tenancy type enum'
+- date: '2026-02-18'
+  api: Street Open API
+  added:
+  - '`line_items` include added to `/invoices` and `/invoices/{invoice_id}` endpoints. Returns fees associated
+    with the invoice, filtered by invoice type (`upfront` or `completion`).'
+- date: '2026-02-10'
+  api: Street Open API
+  added:
+  - '`lead_source` field added to Property'
+- date: '2026-02-09'
+  api: Street Open API
+  added:
+  - Added `marketing_status` field to `sales-listing` object.
+- date: '2026-02-09'
+  api: Street Property Feed API
+  changed:
+  - Corrected `errors` field type from object to array in error response schema
+- date: '2026-01-26'
+  api: Street Open API
+  added:
+  - Webhook added for `person.marketing-preferences.updated` - fires when a person's marketing preferences
+    are updated (emails and property match)
+- date: '2026-01-20'
+  api: Street Open API
+  added:
+  - Webhook added for `invoice.created` - fires when a sales invoice is generated
+- date: '2026-01-18'
+  api: Street Open API
+  updated:
+  - Renamed `Todos` to `Tasks` across the Open API specification, for consistency with the UI.
+- date: '2026-01-08'
+  api: Street Open API
+  added:
+  - Deprecated the `has_parking` field as it is not used in CRM
+- date: '2026-01-08'
+  api: Street Property Feed API
+  added:
+  - Deprecated the `has_parking` field as it is not used in CRM
+- date: '2025-14-01'
+  api: Street Open API
+  added:
+  - The `/brands` & `/brands/{brand_id}` endpoints have been added for retrieving brand resources
+- date: '2025-12-17'
+  api: Street Open API
+  added:
+  - Added `brand_id` to `sales-listing` and `lettings-listing` objects to allow to see a listing's associated
+    brand.
+- date: '2025-12-10'
+  api: Street Open API
+  added:
+  - 'Webhooks added for:'
+  - '`branch.created`'
+  - '`branch.deleted`'
+- date: '2025-11-27'
+  api: Street Open API
+  added:
+  - Added timestamp fields to `lettingsListing` and `salesListing` includes.
+- date: '2025-11-26'
+  api: Street Open API
+  added:
+  - Added `include_in_listing` field to ParkingSpace include to indicate if the parking space should be
+    included in listing.
+- date: '2025-11-21'
+  api: Street Open API
+  added:
+  - Property keys can now be included in both the “Get all properties” and “Get a single property” endpoints.
+  updated:
+  - The `/enquiries` create endpoint has been updated to accept a custom_source up to 25 characters
+- date: '2025-11-12'
+  api: Street Open API
+  added:
+  - The `/property-keys` & `/property-keys/{property-keys_id}` endpoints have been added for retrieving
+    property key resources
+- date: '2025-11-10'
+  api: Street Open API
+  added:
+  - '`maintenance` and `inspection` relationship added to `/notes` endpoint.'
+- date: '2025-11-06'
+  api: Street Open API
+  added:
+  - '`tenant_type` field added to Tenant attribute schema and Company Tenant attribute schema'''
+  - Ability to include Company Tenants in `/tenancies` using the `tenants` include
+- date: '2025-11-06'
+  api: Street Open API
+  added:
+  - '`original_term_start_date` field added to Tenancy attributes schema'
+- date: '2025-11-04'
+  api: Street Open API
+  added:
+  - '`deactivated_at` field added to User attributes schema'
+- date: '2025-10-28'
+  api: Street Open API
+  added:
+  - '`lead_rating` field added to Applicant attributes schema'
+  - '`filter[lead_rating]` parameter added to both `/sales-applicants` and `/lettings-applicants` endpoints
+    to filter applicants by their lead rating'
+- date: '2025-10-21'
+  api: Street Open API
+  changed:
+  - Amended styling of sidebar to make endpoints easier to navigate to.
+  - Refactored some relationship definitions to be more accurate.
+- date: '2025-10-14'
+  api: Street Open API
+  added:
+  - '`collection` has been added to the `media` and `downloadableMedia` responses to help differentiate
+    between media types'
+- date: '2025-10-10'
+  api: Street Open API
+  added:
+  - 'Key Features endpoints added for managing property key features:'
+  - '`POST /open-api/v1/key-features/{property_id}` - Create or update key features for a property'
+  - '`DELETE /open-api/v1/key-features/{property_id}/features/{feature_id}` - Delete a specific key feature
+    from a property'
+  - '`id` field added to the `features` array in Property attributes to support individual feature identification'
+- date: '2025-10-08'
+  api: Street Open API
+  added:
+  - '`filter[areas]` has been added to the `sales-applicants` and `lettings-applicants` index endpoints
+    to allow you to filter by an applicants interested areas'
+- date: '2025-10-07'
+  api: Street Open API
+  added:
+  - Todo Types endpoints `GET /open-api/v1/todo-types` and `GET /open-api/v1/todo-types\{todo_type_id}`
+    added for retrieving todo types (custom task types).
+- date: '2025-09-29'
+  api: Street Open API
+  added:
+  - Todos endpoints `GET /open-api/v1/todos` and `POST /open-api/v1/todos` added for retrieving and creating
+    todos (tasks).
+- date: '2025-09-11'
+  api: Street Open API
+  added:
+  - '`matching_links_to_website` field on the Branch object to see if custom property matching links are
+    enabled for the branch.'
+  - '`matching_url_pattern` field on the Branch object to see the URL pattern for custom property matching
+    links for the branch.'
+- date: '2025-09-10'
+  api: Street Open API
+  added:
+  - Portal Listings endpoint `GET /open-api/v1/portal-listings/{listing_id}` added for retrieving portal
+    listing details
+  - '`property_id` field added to Portal Listing attributes to provide direct access to the associated
+    property UUID'
+- date: '2025-09-10'
+  api: Street Property Feed API
+  changed:
+  - Corrected documentation of areas filter for `/sales/search` endpoint
+- date: '2025-09-05'
+  api: Street Property Feed API
+  changed:
+  - Added `line_4`, `line_5` and `country` to the address object
+- date: '2025-08-14'
+  api: Street Open API
+  added:
+  - '`ApplicantPreferenceChoice` schema updated to include `Must Have` option'
+  - '`new_property_type_preferences` object added to `ApplicantAttributes`'
+  - '`deprecated` flag added to `property_type_preferences` attribute of `ApplicantAttributes`'
+- date: '2025-08-14'
+  api: Street Open API
+  added:
+  - 'New endpoints for managing individual photos and floorplans:'
+  - '`PUT /photos/{property_id}/media/{media_id}` - Update a photo for a property'
+  - '`DELETE /photos/{property_id}/media/{image_id}` - Delete a photo from a property'
+  - '`DELETE /floorplans/{property_id}/media/{image_id}` - Delete a floorplan from a property'
+- date: '2025-08-11'
+  api: Street Open API
+  added:
+  - '`virtual_tour` and `property_urls` fields added to `/properties` and `/properties/{property_id}`.'
+  - '`/properties/{property_id}` patch endpoint now supports updating virtual tour URLs and property URLs'
+- date: '2025-07-18'
+  api: Street Open API
+  added:
+  - 'Webhook added for:'
+  - '`questionnaire-response.submitted`'
+- date: '2025-07-18'
+  api: Street Open API
+  added:
+  - Questionnaire Response endpoint `GET /open-api/v1/questionnaire-responses/{questionnaire_response_id}`
+    added for retrieving complete PIQ data including sections, questions, answers, property and people
+- date: '2025-07-16'
+  api: Street Open API
+  updated:
+  - '`IncludedOwner` schema updated to include the `company` relationship.'
+- date: '2025-07-15'
+  api: Street Open API
+  added:
+  - Property description fields (`full_description`, `short_description`, `location_summary`, `full_description_lettings`,
+    `short_description_lettings`, `location_summary_lettings`) available in the property object. Property
+    descriptions can be updated via the `/properties/{property_id}` endpoint
+- date: '2025-07-14'
+  api: Street Open API
+  added:
+  - '`guarantors` added to the `/tenancies` & `/tenancies/{tenancy_id}` endpoints as an include.'
+- date: '2025-06-30'
+  api: Street Open API
+  added:
+  - '`disclaimer` added the branch object and includes'
+- date: '2025-06-30'
+  api: Street Property Feed API
+  changed:
+  - Added `disclaimer` to the branch include
+- date: '2025-06-27'
+  api: Street Open API
+  added:
+  - '`rooms.media` added to the includes for all `/properties`'
+- date: '2025-06-25'
+  api: Street Open API
+  added:
+  - '`archived_at` to PropertyTransformer'
+- date: '2025-06-24'
+  api: Street Open API
+  added:
+  - Webhooks for the `property.archived` & `property.unarchived` events are now available
+- date: '2025-06-20'
+  api: Street Open API
+  added:
+  - Added the following endpoints to allow you to POST images using a remote URL into Street
+  - '`/photos/{id}`'
+  - '`/floorplans/{id}`'
+- date: '2025-06-19'
+  api: Street Open API
+  updated:
+  - The filters `filter[max_price]` and `filter[min_price]` have now been deprecated in favour of `filter[max_price_sales]`,
+    `filter[max_price_lettings]`, `filter[min_price_sales]`, `filter[min_price_lettings]`. To allow for
+    greater control of the data returned.
+- date: '2025-06-17'
+  api: Street Open API
+  updated:
+  - '`sources_of_flooding` type changed to an array of strings'
+- date: '2025-06-16'
+  api: Street Open API
+  added:
+  - '`flood_risk` added to PropertyTransformer'
+- date: '2025-06-13'
+  api: Street Open API
+  added:
+  - '`is_listed_building` and `is_conservation_area` property added to PropertyTransformer'

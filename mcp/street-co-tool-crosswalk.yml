@@ -1,0 +1,776 @@
+generated: '2026-07-26'
+method: derived
+source: mcp/street-co-mcp.yml + openapi/*.yml
+surfaces:
+  openapi:
+  - openapi/street-co-open-api-openapi.yml
+  - openapi/street-co-property-feed-api-openapi.yml
+  - openapi/street-co-spectre-api-openapi.yml
+  graphql: null
+  mcp:
+    url: null
+    status: candidate
+    note: no hosted MCP server published by Street.co.uk; tools/list not probeable
+crosswalk:
+- tool: create_activity
+  category: Activity
+  rest:
+  - post-activity
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_lettings_applicants
+  category: Applicants
+  rest:
+  - get-lettings-applicants
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_lettings_applicants
+  category: Applicants
+  rest:
+  - get-lettings-applicants-applicantId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_sales_applicants
+  category: Applicants
+  rest:
+  - get-sales-applicants
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_sales_applicants
+  category: Applicants
+  rest:
+  - get-sales-applicants-applicantId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_areas
+  category: Areas
+  rest:
+  - get-areas
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_branches
+  category: Branches
+  rest:
+  - get-branches
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_branches
+  category: Branches
+  rest:
+  - get-branch
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_brands
+  category: Brands
+  rest:
+  - get-brands
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_brands
+  category: Brands
+  rest:
+  - get-brand
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_lettings_applications
+  category: Lettings Applications
+  rest:
+  - get-lettings-applications-application_id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_companies
+  category: Companies
+  rest:
+  - get-companies
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_companies
+  category: Companies
+  rest:
+  - get-companies-companyId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_documents
+  category: Documents
+  rest:
+  - post-documents
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: update_photos_media
+  category: Images
+  rest:
+  - patch-photos-propertyId-imageId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: delete_photos_media
+  category: Images
+  rest:
+  - delete-photos-propertyId-imageId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: delete_floorplans_media
+  category: Images
+  rest:
+  - delete-floorplans-propertyId-imageId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_enquiries
+  category: Enquiries
+  rest:
+  - get-enquiries
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_enquiries
+  category: Enquiries
+  rest:
+  - post-enquiries
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_enquiries
+  category: Enquiries
+  rest:
+  - get-enquiries-enquiryId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_follow_ups
+  category: Follow Ups
+  rest:
+  - get-follow-ups
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_follow_ups
+  category: Follow Ups
+  rest:
+  - post-follow-ups
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_todos
+  category: Tasks
+  rest:
+  - get-todos
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_todos
+  category: Tasks
+  rest:
+  - post-todos
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_todo_types
+  category: Tasks
+  rest:
+  - get-todo-types
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_todo_types
+  category: Tasks
+  rest:
+  - get-todo-types-todoTypeID
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_solicitors
+  category: Solicitors
+  rest:
+  - get-solicitors
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_solicitors
+  category: Solicitors
+  rest:
+  - get-solicitors-solicitorID
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_landlords
+  category: Landlords
+  rest:
+  - get-landlords
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_landlords
+  category: Landlords
+  rest:
+  - get-landlords-landlordId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_lettings_offers
+  category: Lettings Offers
+  rest:
+  - get-lettings-offers
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_lettings_offers
+  category: Lettings Offers
+  rest:
+  - get-lettings-offers-lettingsOfferId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_maintenance_jobs
+  category: Maintenance Jobs
+  rest:
+  - get-maintenance-jobs
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_maintenance_jobs
+  category: Maintenance Jobs
+  rest:
+  - get-maintenance-job
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_maintenance_requests
+  category: Maintenance Requests
+  rest:
+  - post-maintenance-requests
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_notes
+  category: Notes
+  rest:
+  - post-notes
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_people
+  category: People
+  rest:
+  - get-people
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_people
+  category: People
+  rest:
+  - get-people-personId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: update_people
+  category: People
+  rest:
+  - patch-people-personId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_properties
+  category: Properties
+  rest:
+  - get-properties
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_properties
+  category: Properties
+  rest:
+  - get-properties-propertyId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: update_properties
+  category: Properties
+  rest:
+  - patch-properties-propertyId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: create_key_features
+  category: Properties
+  rest:
+  - post-key-features-property-id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: delete_key_features_features
+  category: Properties
+  rest:
+  - delete-key-features-property-features
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_property_keys
+  category: Property Keys
+  rest:
+  - get-property-keys
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_property_keys
+  category: Property Keys
+  rest:
+  - get-single-property-key
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_questionnaire_responses
+  category: Questionnaire Responses
+  rest:
+  - get-questionnaire-responses-questionnaireResponseId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_sales
+  category: Sales
+  rest:
+  - get-sales
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_sales
+  category: Sales
+  rest:
+  - get-sales-saleId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_sales_offers
+  category: Sales Offers
+  rest:
+  - get-sales-offers
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_sales_offers
+  category: Sales Offers
+  rest:
+  - get-sales-offers-salesOfferId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_tenancies
+  category: Tenancies
+  rest:
+  - get-tenancies
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_tenancies
+  category: Tenancies
+  rest:
+  - get-tenancies-tenancy_id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_tenants
+  category: Tenants
+  rest:
+  - get-tenants
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_tenants
+  category: Tenants
+  rest:
+  - get-tenants-tenantId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_users
+  category: Users
+  rest:
+  - get-users
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_users
+  category: Users
+  rest:
+  - get-users-userId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_valuations
+  category: Valuations
+  rest:
+  - get-valuations
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_valuations
+  category: Valuations
+  rest:
+  - get-valuations-valuationId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_vendors
+  category: Vendors
+  rest:
+  - get-vendors
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_vendors
+  category: Vendors
+  rest:
+  - get-vendors-vendorId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_viewings
+  category: Viewings
+  rest:
+  - get-viewings
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_viewings
+  category: Viewings
+  rest:
+  - get-viewings-viewingId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_interested_applicants
+  category: Interested Applicants
+  rest:
+  - get-interested-applicants
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_interested_applicants
+  category: Interested Applicants
+  rest:
+  - get-interested-applicants-interested_applicant_id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_inspections
+  category: Inspections
+  rest:
+  - get-inspections
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_inspections
+  category: Inspections
+  rest:
+  - get-inspections-inspection_id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_invoices
+  category: Invoices
+  rest:
+  - get-invoices
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_invoices
+  category: Invoices
+  rest:
+  - get-invoices-invoice_id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: update_invoices
+  category: Invoices
+  rest:
+  - patch-invoices-invoiceId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_photo_and_measures
+  category: Photos and Measures
+  rest:
+  - get-photo-and-measures
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_photo_and_measures
+  category: Photos and Measures
+  rest:
+  - get-photo-and-measures-photoAndMeasureId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_sales_instructions
+  category: Sales Instructions
+  rest:
+  - get-sales-instructions
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_sales_instructions
+  category: Sales Instructions
+  rest:
+  - get-sales-instructions-salesInstructionId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_lettings_instructions
+  category: Lettings Instructions
+  rest:
+  - get-lettings-instructions
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_lettings_instructions
+  category: Lettings Instructions
+  rest:
+  - get-lettings-instructions-lettingsInstructionId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: list_move_outs
+  category: Move Outs
+  rest:
+  - get-move-outs
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_move_outs
+  category: Move Outs
+  rest:
+  - get-moveOuts-MoveOutId
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_esign_documents
+  category: E-Sign Documents
+  rest:
+  - get-esign-documents-esign-document-id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: get_portal_listings
+  category: Portal Listings
+  rest:
+  - get-portal-listings-listing-id
+  binding: rest
+  confidence: high
+  api: Street Open API
+  spec: openapi/street-co-open-api-openapi.yml
+- tool: property_feed_get_properties
+  category: Properties
+  rest:
+  - get-propertyId
+  binding: rest
+  confidence: high
+  api: Property Feed
+  spec: openapi/street-co-property-feed-api-openapi.yml
+- tool: property_feed_list_lettings_search
+  category: Lettings
+  rest:
+  - get-lettings-search
+  binding: rest
+  confidence: high
+  api: Property Feed
+  spec: openapi/street-co-property-feed-api-openapi.yml
+- tool: property_feed_list_sales_search
+  category: Sales
+  rest:
+  - get-sales-search
+  binding: rest
+  confidence: high
+  api: Property Feed
+  spec: openapi/street-co-property-feed-api-openapi.yml
+- tool: property_feed_list_areas
+  category: Meta
+  rest:
+  - get-areas
+  binding: rest
+  confidence: high
+  api: Property Feed
+  spec: openapi/street-co-property-feed-api-openapi.yml
+- tool: property_feed_list_features
+  category: Meta
+  rest:
+  - get-features
+  binding: rest
+  confidence: high
+  api: Property Feed
+  spec: openapi/street-co-property-feed-api-openapi.yml
+- tool: spectre_list_property_reports_user
+  category: Property Reports
+  rest:
+  - get-property-reports-user
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_list_property_reports_reports
+  category: Property Reports
+  rest:
+  - get-property-reports-reports
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_create_property_reports_reports
+  category: Property Reports
+  rest:
+  - post-property-reports-reports
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_get_property_reports_reports
+  category: Property Reports
+  rest:
+  - get-property-reports-report
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_list_property_reports_leads
+  category: Property Reports
+  rest:
+  - get-property-reports-leads
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_create_property_reports_leads
+  category: Property Reports
+  rest:
+  - post-property-reports-leads
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_create_email_contacts
+  category: Email
+  rest:
+  - post-email-contacts
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_list_email_segments
+  category: Email
+  rest:
+  - get-email-segments
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+- tool: spectre_create_email_segments
+  category: Email
+  rest:
+  - post-email-segments
+  binding: rest
+  confidence: high
+  api: Spectre API
+  spec: openapi/street-co-spectre-api-openapi.yml
+mcp_only: []
+rest_only: []
+coverage:
+  tools_named: 94
+  tools_bound: 94
+  mcp_only: 0
+  rest_operations_total: 94
+  rest_operations_with_tool: 94
+note: 'One-to-one crosswalk: the candidate MCP surface is derived from the REST contracts, so there are
+  no MCP-only or REST-only divergences in this round. Re-derive if Street.co.uk ships a real MCP server.'

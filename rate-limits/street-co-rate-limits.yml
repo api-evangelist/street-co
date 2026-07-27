@@ -1,0 +1,52 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api
+docs:
+- https://developers.street.co.uk/docs/street-open-api
+- https://developers.street.co.uk/docs/street-property-feed-api
+summary: >-
+  Street.co.uk documents fixed per-minute request ceilings in prose on each API's getting
+  started page. Limits are split by verb class on the Street Open API and are flat on the
+  Property Feed API. No rate-limit response headers (X-RateLimit-*, RateLimit-*, Retry-After)
+  are documented or declared in any of the three published OpenAPI 3.1 contracts, so a client
+  can only discover throttling by observing HTTP status. Raising a limit is a manual request
+  to the API team by email.
+rate_limits:
+- api: Street Open API
+  scope: GET requests
+  limit_count: 600
+  interval: minute
+  unit: requests
+  enforced_on: token
+  source: https://developers.street.co.uk/docs/street-open-api
+- api: Street Open API
+  scope: POST, PUT, PATCH and DELETE requests
+  limit_count: 100
+  interval: minute
+  unit: requests
+  enforced_on: token
+  source: https://developers.street.co.uk/docs/street-open-api
+- api: Street Property Feed API
+  scope: all requests
+  limit_count: 600
+  interval: minute
+  unit: requests
+  enforced_on: token
+  source: https://developers.street.co.uk/docs/street-property-feed-api
+- api: Spectre API
+  scope: all requests
+  limit_count: null
+  interval: null
+  unit: requests
+  note: No rate limit is published for the Spectre API on developers.street.co.uk.
+headers:
+  published: false
+  note: >-
+    No rate-limit signalling headers are documented on the developer portal, and none appear
+    in any response definition across the three harvested OpenAPI documents (grepped for
+    x-ratelimit / ratelimit / retry-after — zero matches).
+increase_process:
+  method: email
+  contact: apis@street.co.uk
+  quote: >-
+    "If you require this limit raising, please contact our API team at apis@street.co.uk."

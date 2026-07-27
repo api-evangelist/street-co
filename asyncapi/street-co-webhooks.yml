@@ -1,0 +1,105 @@
+generated: '2026-07-26'
+method: searched
+source: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+spec_type: none
+summary: >-
+  Street.co.uk operates a real webhook surface on the Street Open API — a NetworkSettings
+  object in the published OpenAPI carries a webhooks_enabled boolean, and the Open API updates
+  page announces individual webhook events as they ship. But there is NO AsyncAPI document, no
+  webhook reference page, and no webhook subscription endpoint in any of the three OpenAPI
+  contracts: the event names below were recovered from dated changelog entries, which is the
+  only public description of the event surface. Payload schemas, delivery/retry semantics,
+  signature verification and subscription management are all undocumented publicly and are
+  presumably configured inside the CRM.
+asyncapi_published: false
+webhook_reference_page: false
+subscription_api: false
+configuration:
+  where: Street CRM (network/company settings)
+  spec_evidence: components.schemas.NetworkSettings.webhooks_enabled (boolean) in
+    openapi/street-co-open-api-openapi.yml
+  note: No public endpoint to create, list, or delete a webhook subscription.
+delivery:
+  transport: HTTP callback
+  signature_verification: undocumented
+  retry_policy: undocumented
+  payload_schema: undocumented
+events:
+- name: person.marketing-preferences.updated
+  announced: '2026-01-26'
+  description: Fires when a person's marketing preferences are updated (emails and property match).
+  resource: person
+- name: invoice.created
+  announced: '2026-01-20'
+  description: Fires when a sales invoice is generated.
+  resource: invoice
+- name: branch.created
+  announced: '2025-12-10'
+  resource: branch
+- name: branch.deleted
+  announced: '2025-12-10'
+  resource: branch
+- name: questionnaire-response.submitted
+  announced: '2025-07-18'
+  resource: questionnaire-response
+- name: property.archived
+  announced: '2025-06-24'
+  resource: property
+- name: property.unarchived
+  announced: '2025-06-24'
+  resource: property
+- name: listing.sales.created
+  announced: '2024-11-18'
+  resource: sales-listing
+- name: listing.sales.updated
+  announced: '2024-11-18'
+  resource: sales-listing
+- name: listing.sales.removed
+  announced: '2024-11-18'
+  resource: sales-listing
+- name: listing.lettings.created
+  announced: '2024-11-18'
+  resource: lettings-listing
+- name: listing.lettings.updated
+  announced: '2024-11-18'
+  resource: lettings-listing
+- name: listing.lettings.removed
+  announced: '2024-11-18'
+  resource: lettings-listing
+- name: instruction.sales.created
+  announced: '2024-11-18'
+  resource: sales-instruction
+- name: instruction.sales.updated
+  announced: '2024-11-18'
+  resource: sales-instruction
+- name: instruction.sales.revoked
+  announced: '2024-11-18'
+  resource: sales-instruction
+- name: instruction.lettings.created
+  announced: '2024-11-18'
+  resource: lettings-instruction
+- name: instruction.lettings.updated
+  announced: '2024-11-18'
+  resource: lettings-instruction
+- name: instruction.lettings.revoked
+  announced: '2024-11-18'
+  resource: lettings-instruction
+event_groups_announced_without_names:
+- announced: '2025-04-15'
+  description: Webhooks added for E-Sign Document events (event names not published).
+  resource: esign-document
+- announced: '2025-04-15'
+  description: Webhooks added for sales and lettings listings being withdrawn (event names not
+    published).
+  resource: listing
+- announced: '2024-11-27'
+  description: Webhooks added for inspection events (event names not published).
+  resource: inspection
+coverage:
+  events_named: 19
+  event_groups_unnamed: 3
+  payloads_documented: 0
+  note: >-
+    NO FABRICATION — nothing here is inferred beyond the provider's own changelog wording. A
+    complete event catalog would require Street to publish a webhooks reference or an AsyncAPI
+    document.

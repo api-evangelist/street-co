@@ -1,0 +1,74 @@
+generated: '2026-07-26'
+method: searched
+docs: https://developers.street.co.uk/docs/street-open-api
+source: openapi/street-co-open-api-openapi.yml, openapi/street-co-property-feed-api-openapi.yml,
+  openapi/street-co-spectre-api-openapi.yml
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  api_key_in: []
+  scopes: false
+model: >-
+  A single HTTP bearer token per application, applied globally in all three OpenAPI documents
+  via a root-level security requirement. There is no OAuth 2.0 flow, no OIDC discovery, no
+  scope vocabulary and no refresh mechanism published — a token is a long-lived opaque bearer
+  credential carrying the permissions of the issuing Street account, which is why Street's own
+  help centre warns that handing a Public API token to a third party gives that supplier access
+  to client data in the account.
+schemes:
+- name: your-api-token
+  type: http
+  scheme: bearer
+  header: Authorization
+  format: 'Authorization: Bearer YOUR_API_TOKEN_HERE'
+  sources:
+  - openapi/street-co-open-api-openapi.yml
+  - openapi/street-co-spectre-api-openapi.yml
+- name: your_api_token
+  type: http
+  scheme: bearer
+  header: Authorization
+  sources:
+  - openapi/street-co-property-feed-api-openapi.yml
+token_issuance:
+- api: Street Open API
+  method: self-serve-in-product
+  path: Settings > Account Administration > Applications
+  requires: An active Street.co.uk subscription and a company-admin user in that account.
+  docs: https://intercom.help/streetcouk/en/articles/8474378-generating-an-api-token
+  note: >-
+    The help centre asks the admin to name the application and pick the relevant feed from an
+    "API token scope" drop-down — that selects between the Property Feed API and the Public
+    (Open) API. It is a feed selector, not an OAuth scope vocabulary; no scope strings are
+    published.
+- api: Street Open API (staging)
+  method: email-request
+  contact: apis@street.co.uk
+  quote: >-
+    "if you would like a sandbox account on our staging environment, please email
+    apis@street.co.uk to request a token."
+- api: Street Property Feed API
+  method: self-serve-in-product
+  path: Settings > Applications
+- api: Spectre API
+  method: email-request
+  contact: apis@spectre.uk.com
+  quote: If you do not have an API token, please contact the Spectre team at apis@spectre.uk.com.
+token_handling:
+  rotation_policy: undocumented
+  expiry: undocumented
+  revocation: Delete the application in the Street CRM Applications screen.
+  transport: HTTPS only (HSTS enabled on street.co.uk, max-age 31536000)
+unverified_third_party_claim: >-
+  A third-party supplier directory describes Street's API as offering "OAuth". No OAuth flow,
+  authorization endpoint or scope list exists anywhere on developers.street.co.uk and all three
+  contracts declare HTTP bearer only. Recorded as an unverified external claim.
+related:
+  scopes: null
+  conventions: conventions/street-co-conventions.yml
+  sandbox: sandbox/street-co-sandbox.yml

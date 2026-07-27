@@ -1,0 +1,52 @@
+generated: '2026-07-26'
+method: searched
+source: npm, PyPI, Packagist, RubyGems, GitHub search + https://developers.street.co.uk/docs/street-property-feed-api
+summary: >-
+  Street.co.uk ships NO first-party client libraries and has no public GitHub organisation.
+  Searches of npm (street.co.uk, streetcouk), PyPI, Packagist, RubyGems and the GitHub user/org
+  search all returned zero first-party results. Instead the Property Feed documentation points
+  developers at generic JSON:API client libraries and one third-party WordPress plugin — a
+  deliberate consequence of building on JSON:API: existing tooling substitutes for a vendor SDK.
+first_party:
+  count: 0
+  note: No official SDK, no CLI, no published package in any registry.
+registries_probed:
+- {registry: npm, query: 'street.co.uk / streetcouk', results: 0}
+- {registry: pypi, query: street-co-uk, status: 404}
+- {registry: packagist, query: street.co.uk, first_party_results: 0}
+- {registry: rubygems, query: street.co.uk, results: 0}
+- {registry: github, query: 'org/user street.co.uk, streetcouk, street-co-uk', results: 0}
+packages: []
+recommended_by_provider:
+- language: php
+  registry: packagist
+  name: swisnl/json-api-client
+  url: https://github.com/swisnl/json-api-client
+  official: false
+  recommended_in: https://developers.street.co.uk/docs/street-property-feed-api
+  purpose: Navigating and deserialising the JSON:API responses of the Property Feed API.
+- language: php
+  registry: packagist
+  name: woohoolabs/yang
+  url: https://github.com/woohoolabs/yang
+  official: false
+  recommended_in: https://developers.street.co.uk/docs/street-property-feed-api
+  purpose: PHP JSON:API client library.
+- language: php
+  registry: wordpress
+  name: Property Hive + Property Import Add-On
+  url: https://wp-property-hive.com
+  official: false
+  recommended_in: https://developers.street.co.uk/docs/street-property-feed-api
+  purpose: >-
+    Street's recommended route for WordPress agency websites consuming the Property Feed API
+    rather than a bespoke integration.
+- language: any
+  registry: jsonapi.org
+  name: JSON:API implementations directory
+  url: https://jsonapi.org/implementations/
+  official: false
+  recommended_in: https://developers.street.co.uk/docs/street-open-api/guides/jsonapi-standard
+  purpose: >-
+    Street explicitly recommends using an existing JSON:API client library in place of hand
+    reassembly of the included[] array — their substitute for a first-party SDK.

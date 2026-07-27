@@ -1,0 +1,38 @@
+generated: '2026-07-26'
+method: generated
+source: openapi/*.yml + conventions/street-co-conventions.yml + errors/street-co-problem-types.yml
+note: >-
+  Street.co.uk publishes no AGENTS.md or agent skills of its own. These five are generated from
+  the three published OpenAPI 3.1 contracts; every operationId referenced was verified verbatim
+  against the specs.
+skills:
+- file: street-co-sync-property-portfolio.md
+  name: Sync an agency's property portfolio from Street
+  api: openapi/street-co-open-api-openapi.yml
+  operations: [get-properties, get-properties-propertyId, get-branches, get-brands, get-areas]
+- file: street-co-capture-enquiry-and-follow-up.md
+  name: Capture a lead into Street and schedule the follow-up
+  api: openapi/street-co-open-api-openapi.yml
+  operations: [post-enquiries, get-enquiries, get-enquiries-enquiryId, get-people,
+    patch-people-personId, post-notes, post-follow-ups, post-activity]
+- file: street-co-power-website-property-search.md
+  name: Power an agency website property search with the Street Property Feed
+  api: openapi/street-co-property-feed-api-openapi.yml
+  operations: [get-sales-search, get-lettings-search, get-propertyId, get-areas, get-features]
+- file: street-co-tenancy-and-maintenance.md
+  name: Read tenancies and raise a maintenance request
+  api: openapi/street-co-open-api-openapi.yml
+  operations: [get-tenancies, get-tenancies-tenancy_id, get-tenants, get-tenants-tenantId,
+    get-landlords, get-landlords-landlordId, post-maintenance-requests, get-maintenance-jobs,
+    get-maintenance-job, get-inspections, get-move-outs]
+- file: street-co-invoice-reconciliation.md
+  name: Reconcile Street invoices and mark them paid
+  api: openapi/street-co-open-api-openapi.yml
+  operations: [get-invoices, get-invoices-invoice_id, patch-invoices-invoiceId,
+    get-properties-propertyId, get-branches]
+- file: street-co-spectre-property-report.md
+  name: Generate a Spectre property report and collect its leads
+  api: openapi/street-co-spectre-api-openapi.yml
+  operations: [get-property-reports-user, post-property-reports-reports, get-property-reports-reports,
+    get-property-reports-report, get-property-reports-leads, post-property-reports-leads,
+    post-email-contacts, get-email-segments, post-email-segments]

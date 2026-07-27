@@ -1,0 +1,62 @@
+generated: '2026-07-26'
+method: searched
+source: live probes of every apis.yml baseURL host, every OpenAPI servers[] host, and the docs host
+summary: >-
+  Street.co.uk serves no /.well-known/ discovery surface. Every RFC 9116 security.txt, OIDC
+  discovery, RFC 8414 authorization-server metadata, RFC 9727 api-catalog and ai-plugin probe
+  returned 404 across all four hosts. The developer portal (developers.street.co.uk) is a
+  Scalar single-page app that answers 200 with an HTML shell for ANY path, including
+  /.well-known/security.txt — that 200 is not a document and is recorded here as a false
+  positive so a later round does not mistake it for a real security.txt.
+hosts:
+- host: https://street.co.uk
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /security.txt, status: 404}
+- host: https://demo.street.co.uk
+  note: staging host declared in the Street Open API and Property Feed OpenAPI servers[]
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://api.spectre.uk.com
+  note: Spectre API production host
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://spectre.uk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+- host: https://developers.street.co.uk
+  spa: true
+  note: >-
+    Scalar docs SPA — returns HTTP 200 with an HTML app shell for every unmatched path. Treat
+    all 200s below as SPA shells, not documents; verified by inspecting the body.
+  documents:
+  - {path: /.well-known/security.txt, status: 200, real_document: false, body: HTML app shell}
+  - {path: /.well-known/mcp.json, status: 200, real_document: false, body: HTML app shell}
+  - {path: /llms.txt, status: 200, real_document: true, file: ../llms/street-co-llms-published.txt,
+     bytes: 71}
+  - {path: /mcp, status: 404}
+findings:
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  llms_txt: true
