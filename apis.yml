@@ -34,7 +34,7 @@ tags:
 - Conveyancing
 created: '2026-07-26'
 modified: '2026-07-26'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: street-co:street-open-api
   name: Street Open API
