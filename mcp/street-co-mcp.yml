@@ -575,3 +575,9 @@ tools:
   source_operation: openapi/street-co-spectre-api-openapi.yml#post-email-segments
   method: POST
   path: /email/segments
+deployment:
+  mode: none
+  verified: derived
+  tools: 94
+  checked: '2026-08-12'
+  source: catalog MCP census

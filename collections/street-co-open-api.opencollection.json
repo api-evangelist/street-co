@@ -1,0 +1,3707 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Street Open API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Activity",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a activity log",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/activity",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `Activity Log` record by providing core information such as the entity the `Activity Log` relates to and optionally the content/body of the `Activity Log`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Applicants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Lettings Applicants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-applicants",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by Branch."
+              },
+              {
+                "name": "filter[areas]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by a comma-separated list of area names."
+              },
+              {
+                "name": "filter[price_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their minimum budget."
+              },
+              {
+                "name": "filter[price_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their maximum budget."
+              },
+              {
+                "name": "filter[min_bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by the minimum number of bedrooms they require"
+              },
+              {
+                "name": "filter[furnished]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by wether or not the require furnished properties."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `branch,offers,viewings,people,notes`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[follow_ups_due_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to applicants with a follow up after the provided ISO8601 date."
+              },
+              {
+                "name": "filter[follow_ups_due_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to applicants with a follow up before the provided ISO8601 date."
+              },
+              {
+                "name": "filter[lead_rating]",
+                "value": "",
+                "type": "query",
+                "description": "Filter applicants by their lead rating. Accepts: hot, warm, cold, or null. Can pass multiple values."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated applicants along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Lettings Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-applicants/:applicant_id",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Applicant."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `branch,offers,viewings,people,notes`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single applicant by its `UUID`."
+        },
+        {
+          "info": {
+            "name": "Get all Sales Applicants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-applicants",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by Branch."
+              },
+              {
+                "name": "filter[areas]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by a comma-separated list of area names."
+              },
+              {
+                "name": "filter[price_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their minimum budget."
+              },
+              {
+                "name": "filter[price_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their maximum budget."
+              },
+              {
+                "name": "filter[min_bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by the minimum number of bedrooms they require"
+              },
+              {
+                "name": "filter[buying_position]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by their buying position.\n\nAvailable values are:\n  - FTB (First-time buyer)\n  - INV (Investor)\n  - BTLI (Buy to let investor)\n  - NPTS (No property to sell)\n  - NOM (In process of selling - Valuation)\n  - OTM (In process of selling - On the market)\n  - SSTC (In process of selling - Sold STC)\n  - UO (In process of selling - Under Offer)\n  - PTS (Property to sell)\n  - DEV (Developer)\n  - BUY (Buying Agent)\n"
+              },
+              {
+                "name": "filter[financial_position]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Applicants by their financial position.\n\nAvailable values are:\n  - NIP (Nothing in place)\n  - SOAQ (Seeking own advice / quotes)\n  - SAMA (Currently seeing agent’s mortgage advisor)\n  - AIP (Agreement in Principle in place)\n  - NFCB (Does not need Finance (Cash Buyer))\n  - CBFS (Cash Buyer, proceeds from Sale)\n  - PMTG (Porting Mortgage)\n"
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `branch,offers,viewings,people,notes,sales`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[follow_ups_due_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to applicants with a follow up after the provided ISO8601 date."
+              },
+              {
+                "name": "filter[follow_ups_due_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results to applicants with a follow up before the provided ISO8601 date."
+              },
+              {
+                "name": "filter[lead_rating]",
+                "value": "",
+                "type": "query",
+                "description": "Filter applicants by their lead rating. Accepts: hot, warm, cold, or null. Can pass multiple values."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated applicants along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Sales Applicant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-applicants/:applicant_id",
+            "params": [
+              {
+                "name": "applicant_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Applicant."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `branch,offers,viewings,people,notes,sales`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single applicant by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Areas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Areas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/areas",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated areas along with `meta` and `pagination` information."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Branches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Branches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/branches",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated branches along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/branches/:branch_id",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "branch_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Branch."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single branch by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Brands",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Brands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/brands",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated brands along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Brand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/brands/:brand_id",
+            "params": [
+              {
+                "name": "brand_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Brand."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single brand by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lettings Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a single Lettings Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-applications/:application_id",
+            "params": [
+              {
+                "name": "application_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Application."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single lettings application by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Companies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Companies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/companies",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by the telephone number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated companies along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/companies/:company_id",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Company."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single company by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `Document` attached to an entity by providing a publically accessible URL for the file.\n        In addition you can add relevant information such as a title and description of the file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a photos details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://street.co.uk/open-api/v1/photos/:property_id/media/:media_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              },
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Image."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update a photo details."
+        },
+        {
+          "info": {
+            "name": "Delete a photo from a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://street.co.uk/open-api/v1/photos/:property_id/media/:media_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              },
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Image."
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to delete a photo from a property."
+        },
+        {
+          "info": {
+            "name": "Delete a floorplan from a property",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://street.co.uk/open-api/v1/floorplans/:property_id/media/:media_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              },
+              {
+                "name": "media_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Image."
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to delete a floorplan from a property."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Enquiries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Enquiries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/enquiries",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter enquiries by the provided email address"
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter enquiries by the provided telephone number"
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated enquiries along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Create an Enquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/enquiries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create an `Enquiry` record by providing core information such as name, email address and enquiry details alongside any appointment requests such as viewings or valuations."
+        },
+        {
+          "info": {
+            "name": "Get a single Enquiry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/enquiries/:enquiry_id",
+            "params": [
+              {
+                "name": "enquiry_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Enquiry."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,branch,person`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single enquiry by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Follow Ups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Follow Ups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/follow-ups",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "filter[subject]",
+                "value": "",
+                "type": "query",
+                "description": "Filter Follow Ups by the subject entity they relate to."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[property]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property. Provide the UUID of a property to filter follow ups by a specific property."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated follow ups along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Create a Follow Up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/follow-ups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `Follow Up` record by providing core information such as the entity the `Follow Up` relates to and optionally the content/body of the `Follow Up`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/todos",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "filter[subject]",
+                "value": "",
+                "type": "query",
+                "description": "Filter tasks by the subject entity they relate to."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[property]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property. Provide the UUID of a property to filter follow ups by a specific property."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated tasks along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Create a Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/todos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `Task` record by providing core information such as the entity the `Task` relates to and optionally the content/body of the `Task`."
+        },
+        {
+          "info": {
+            "name": "Get all Task Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/todo-types",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated task types along with `meta` and `pagination` information. Returns both network-specific and global (null network_id) task types."
+        },
+        {
+          "info": {
+            "name": "Get a single Task Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/todo-types/:todo_type_id",
+            "params": [
+              {
+                "name": "todo_type_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Task Type."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single task type by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Solicitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Solicitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/solicitors",
+            "params": [
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter enquiries by the provided email address"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated solicitors along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Solicitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/solicitors/:solicitor_id",
+            "params": [
+              {
+                "name": "solicitor_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Solicitor."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single solicitor by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Landlords",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Landlords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/landlords",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by wether they are Current or Previous."
+              },
+              {
+                "name": "filter[property_status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Landlords by the Status of their Properties."
+              },
+              {
+                "name": "filter[address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their address, this is a fuzzy wildcard match on the full address string."
+              },
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated email address"
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated telephone number. The number must be in full international dialing format e.g. +441614960137"
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated landlords along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Landlord",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/landlords/:landlord_id",
+            "params": [
+              {
+                "name": "landlord_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Landlord."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single landlord by their `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lettings Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Lettings Offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-offers",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results with specific statuses."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated lettings offers along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Lettings Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-offers/:lettings_offer_id",
+            "params": [
+              {
+                "name": "lettings_offer_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Lettings Offer."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single lettings offer by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Maintenance Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Maintence Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/maintenance-jobs",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results by the provided status, e.g. `awaiting_instruction,awaiting_quote,awaiting_quote_approval`"
+              },
+              {
+                "name": "filter[reported_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results reported after the provided date."
+              },
+              {
+                "name": "filter[reported_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results reported before the provided date."
+              },
+              {
+                "name": "filter[completed_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results completed after the provided date."
+              },
+              {
+                "name": "filter[completed_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results completed before the provided date."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list, e.g. `attachments,property`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated maintence jobs along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Maintence Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/maintenance-jobs/:maintenance_job_id",
+            "params": [
+              {
+                "name": "maintenance_job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single maintenance job by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Maintenance Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new maintenance request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/maintenance-requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `maintenance request` record."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/notes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create a `Note` record by providing core information such as the entity the `Note` relates to, the content/body of the `Note` and any related tags."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all People",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/people",
+            "params": [
+              {
+                "name": "filter[address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their address, this is a fuzzy wildcard match on the full address string."
+              },
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated email address"
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated telephone number. The number must be in full international dialing format e.g. +441614960137"
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated people along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/people/:person_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Person."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single company by its `UUID`."
+        },
+        {
+          "info": {
+            "name": "Update a Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://street.co.uk/open-api/v1/people/:person_id",
+            "params": [
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Person."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update specific fields with a `Person` record via their `UUID` by providing amended core information such as name, address and contact details or marketing and contact preference changes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/properties",
+            "params": [
+              {
+                "name": "filter[category]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the property by sales or lettings"
+              },
+              {
+                "name": "filter[address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their address, this is a fuzzy wildcard match on the full address string."
+              },
+              {
+                "name": "filter[bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "The exact number of bedrooms for search results."
+              },
+              {
+                "name": "filter[min_bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum number of bedrooms for search results."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[max_price_sales]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum sales listing price for search results."
+              },
+              {
+                "name": "filter[min_price_sales]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum sales listing price for search results."
+              },
+              {
+                "name": "filter[max_price_lettings]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum lettings listing price for search results."
+              },
+              {
+                "name": "filter[min_price_lettings]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum lettings listing price for search results."
+              },
+              {
+                "name": "filter[postcode]",
+                "value": "",
+                "type": "query",
+                "description": "This filter will narrow your search results by first or partial postcode.\n\nA value of `M` will return all properties who's postcode begins with M, including `M1 1JU` & `M28 2PD`.\n\nEntering in `M28 2` will return all active properties in that postcode sector."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property status. You can use a comma separated list for multiple statuses."
+              },
+              {
+                "name": "filter[tags]",
+                "value": "",
+                "type": "query",
+                "description": "Tags are entered by the agent in the Street UI and enable you to filter properties according to custom criteria. This can be used to power featured properties, carousels, hot property lists etc.\n\nThese tags should be passed to the API in lowercase and urlencoded.\n\nYou can also enter a semi-colon seperated list to return all properties with any of those tags."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list, e.g. `branch,sales,notes`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[include_archived]",
+                "value": "",
+                "type": "query",
+                "description": "Include archived properties in the result set"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated properties along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/properties/:property_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list, e.g. `branch,sales,note`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single property by its `UUID`."
+        },
+        {
+          "info": {
+            "name": "Patch Property details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://street.co.uk/open-api/v1/properties/:property_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to update the property descriptions of a Property record via its `UUID` by providing amended details in the request body."
+        },
+        {
+          "info": {
+            "name": "Update Property Key Features",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://street.co.uk/open-api/v1/key-features/:property_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Property"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to create or update key features for a Property record via its `ID`.\n\n- To create new features, omit the `id` field in each feature object\n- To update existing features, include the `id` field with the feature's ID\n- The endpoint will return the updated property with all its current key features"
+        },
+        {
+          "info": {
+            "name": "Delete a Property Key Feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://street.co.uk/open-api/v1/key-features/:property_id/features/:feature_id",
+            "params": [
+              {
+                "name": "property_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Property"
+              },
+              {
+                "name": "feature_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Feature to delete"
+              }
+            ]
+          },
+          "docs": "This endpoint allows you to delete a key feature from a specific property by providing both the property's `ID` and the feature's `ID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Property Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Property Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/property-keys",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[ident]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result for a chosen ident."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated property keys along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Property Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/property-keys/:property_key_id",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "property_key_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property Key."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single Property Key by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Questionnaire Responses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a Questionnaire Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/questionnaire-responses/:questionnaire_response_id",
+            "params": [
+              {
+                "name": "questionnaire_response_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the questionnaire response to get data for."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves the most recent questionnaire response by its UUID, including all sections, questions, and answers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Sales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results with specific statuses."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated sales along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales/:sale_id",
+            "params": [
+              {
+                "name": "sale_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Sale."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single sale by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Sales Offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-offers",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results with specific statuses."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated sales offers along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Sales Offer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-offers/:sales_offer_id",
+            "params": [
+              {
+                "name": "sales_offer_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Sales Offer."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,applicant,branch,notes`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single sales offer by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tenancies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Tenancies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/tenancies",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated tenancies along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Tenancy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/tenancies/:tenancy_id",
+            "params": [
+              {
+                "name": "tenancy_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Tenancy."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results supplied as a comma separated list."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single tenancy by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Tenants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Tenants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/tenants",
+            "params": [
+              {
+                "name": "filter[address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their address, this is a fuzzy wildcard match on the full address string."
+              },
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated email address"
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated telephone number. The number must be in full international dialing format e.g. +441614960137"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by wether they are Current or Previous."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated tenants along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Tenant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/tenants/:tenant_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Tenant."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single tenant by their `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/users",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated users along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the User."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `branch,ownedProperties,applicants`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single user by their `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Valuations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Valuations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/valuations",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Valuations by Branch."
+              },
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter Valuations by either Sales or Lettings."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Valuations by their status."
+              },
+              {
+                "name": "filter[booked_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[booked_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,branch,notes,followUp,owner,valuer`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated valuations along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Valuation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/valuations/:valuation_id",
+            "params": [
+              {
+                "name": "valuation_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Valuation."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,branch,notes,followUp,owner,valuer`"
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single valuation by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vendors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Vendors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/vendors",
+            "params": [
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by wether they are Current or Previous."
+              },
+              {
+                "name": "filter[property_status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Vendors by the Status of their Properties."
+              },
+              {
+                "name": "filter[address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by their address, this is a fuzzy wildcard match on the full address string."
+              },
+              {
+                "name": "filter[email_address]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated email address"
+              },
+              {
+                "name": "filter[telephone_number]",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by an associated telephone number. The number must be in full international dialing format e.g. +441614960137"
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `properties,properties.branch,valuations,notes,negotiator`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated vendors along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Vendor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/vendors/:vendor_id",
+            "params": [
+              {
+                "name": "vendor_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Vendor."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `properties,properties.branch,valuations,notes,negotiator`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single vendor by their `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Viewings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Viewings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/viewings",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Viewings by Branch."
+              },
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter Viewings by either Sales or Lettings."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Viewings by their status. Supports comma-separated values for multiple statuses."
+              },
+              {
+                "name": "filter[booked_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[booked_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,applicant,branch,notes,owner,viewer`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated viewings along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Viewing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/viewings/:viewing_id",
+            "params": [
+              {
+                "name": "viewing_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Viewing."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,applicant,branch,notes,owner,viewer`"
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single viewing by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Interested Applicants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Interested Applicants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/interested-applicants",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[property]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the property the interested applicants belong to (by property id)"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated interested applicants along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Interested Applicant.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/interested-applicants/:interested_applicant_id",
+            "params": [
+              {
+                "name": "interested_applicant_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single interested applicant by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Inspections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Inspections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/inspections",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the status of inspections."
+              },
+              {
+                "name": "filter[due_date_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the inspections due date from the input date."
+              },
+              {
+                "name": "filter[due_date_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the inspections due date to the input date."
+              },
+              {
+                "name": "filter[booked_from]",
+                "value": "",
+                "type": "query",
+                "description": "If the inspection has been booked in, filter the inspections booked date from the input date."
+              },
+              {
+                "name": "filter[booked_to]",
+                "value": "",
+                "type": "query",
+                "description": "If the inspection has been booked in, filter the inspections booked date to the input date."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort the inspections by the input value."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated inspections along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Inspection.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/inspections/:inspection_id",
+            "params": [
+              {
+                "name": "inspection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single inspection by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Invoices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/invoices",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "filter[paid]",
+                "value": "",
+                "type": "query",
+                "description": "Filter whether the invoice is paid or not"
+              },
+              {
+                "name": "filter[voided]",
+                "value": "",
+                "type": "query",
+                "description": "Filter whether the invoice is voided or not"
+              },
+              {
+                "name": "filter[invoice_type]",
+                "value": "",
+                "type": "query",
+                "description": "Optional filter to filter between sales and lettings invoices."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated invoices along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Invoice.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/invoices/:invoice_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single Invoice by its `UUID`."
+        },
+        {
+          "info": {
+            "name": "Mark an Invoice as paid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://street.co.uk/open-api/v1/invoices/:invoice_id",
+            "params": [
+              {
+                "name": "invoice_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint allows you to mark an Invoice as paid by providing a `paid_at` date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Photos and Measures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Photo & Measures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/photo-and-measures",
+            "params": [
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Photo & Measures by Branch."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter the Photo & Measures by their status."
+              },
+              {
+                "name": "filter[booked_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[booked_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results booked before the provided date."
+              },
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,branch,notes,owner,photographer`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated photo & measures along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Photo & Measure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/photo-and-measures/:photo_and_measure_id",
+            "params": [
+              {
+                "name": "photo_and_measure_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Photo & Measure."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,branch,notes,owner,photographer`"
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single photo & measure by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales Instructions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Sales Instructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-instructions",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,owner`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated sales instructions along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Sales Instruction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/sales-instructions/:sales_instruction_id",
+            "params": [
+              {
+                "name": "sales_instruction_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Sales Instruction."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,owner`"
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single sales instruction by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lettings Instructions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Lettings Instructions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-instructions",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "filter[created_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created after the provided date."
+              },
+              {
+                "name": "filter[created_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results created before the provided date."
+              },
+              {
+                "name": "filter[updated_from]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated after the provided date."
+              },
+              {
+                "name": "filter[updated_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by results updated before the provided date."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,owner`"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated lettings instructions along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single Lettings Instruction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/lettings-instructions/:lettings_instruction_id",
+            "params": [
+              {
+                "name": "lettings_instruction_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Lettings Instruction."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results, e.g. `property,owner`"
+              },
+              {
+                "name": "filter[cancelled]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH cancelled results or return ONLY cancelled results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single lettings instruction by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Move Outs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Move outs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/move-outs",
+            "params": [
+              {
+                "name": "filter[trashed]",
+                "value": "",
+                "type": "query",
+                "description": "Optionally return result WITH deleted results or return ONLY deleted results."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves multiple paginated MoveOuts along with `meta` and `pagination` information."
+        },
+        {
+          "info": {
+            "name": "Get a single MoveOut",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/move-outs/:move_out_id",
+            "params": [
+              {
+                "name": "move_out_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the MoveOut."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single MoveOut by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "E-Sign Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a single E-Sign Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/esign-documents/:esign_document_id",
+            "params": [
+              {
+                "name": "esign_document_id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the E-Sign Document."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single E-Sign Document by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portal Listings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Portal Listing by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/open-api/v1/portal-listings/:listing_id",
+            "params": [
+              {
+                "name": "listing_id",
+                "value": "",
+                "type": "path",
+                "description": "External listing ID from the portal"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of relationships to include, e.g. `property,portal`"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single portal listing by its external listing ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

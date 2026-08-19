@@ -1,0 +1,313 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Property Feed",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Properties",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a Property",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/api/property-feed/v1/properties/:property",
+            "params": [
+              {
+                "name": "property",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the Property."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single property by its `UUID`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Lettings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for Lettings Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/api/property-feed/v1/lettings/search",
+            "params": [
+              {
+                "name": "filter[areas]",
+                "value": "",
+                "type": "query",
+                "description": "Areas are entered by the agent in the Street UI and enable you to filter properties according to custom areas. This can be used to power user friendly searches using familiar geographic areas.\n\nThese areas should be passed to the API in lowercase and urlencoded.\n\nYou can also enter a comma seperated list to return all properties within any of those areas."
+              },
+              {
+                "name": "filter[bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "The exact number of bedrooms for search results."
+              },
+              {
+                "name": "filter[min_bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum number of bedrooms for search results."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[features]",
+                "value": "",
+                "type": "query",
+                "description": "Features are entered by the agent as part of the Property description - these could be things such as \"Garden\" or \"Off Road Parking\".\n\nThese features should be passed to the API in lowercase and urlencoded.\n\nYou can also enter a semi-colon seperated list to return all properties with any of those features."
+              },
+              {
+                "name": "filter[include_land]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property type. Defaults to false. By setting this to true, the feed will also include land-only properties."
+              },
+              {
+                "name": "filter[max_price]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum listing price for search results."
+              },
+              {
+                "name": "filter[min_price]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum listing price for search results."
+              },
+              {
+                "name": "filter[postcode]",
+                "value": "",
+                "type": "query",
+                "description": "This filter will narrow your search results by first or partial postcode.\n\nA value of `M` will return all properties who's postcode begins with M, including `M1 1JU` & `M28 2PD`.\n\nEntering in `M28 2` will return all active properties in that postcode sector."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property status. You can use a comma separated list for multiple statuses."
+              },
+              {
+                "name": "filter[tags]",
+                "value": "",
+                "type": "query",
+                "description": "Tags are entered by the agent in the Street UI and enable you to filter properties according to custom criteria. This can be used to power featured properties, carousels, hot property lists etc.These tags should be passed to the API in lowercase and urlencoded.You can also enter a comma seperated list to return all properties with any of those tags."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "A field by which to sort. Prefixing with a minus symbol denotes a DESC order."
+              },
+              {
+                "name": "filter[include_archived]",
+                "value": "",
+                "type": "query",
+                "description": "Include archived properties within the result set"
+              }
+            ]
+          },
+          "docs": "This endpoint returns all active lettings properties in your Street account. \n\nBy default it will only return 'active' properties i.e. those with a status of `To Let`, `For Sale and To Let` or `Let Agreed`.\n\nIt will also return properties for **ALL** branches within your Street account, if you wish to limit to a specific branch you can use the `filter[branch]` query param and pass the `UUID` of the desired branch."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for Sales Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/api/property-feed/v1/sales/search",
+            "params": [
+              {
+                "name": "filter[areas]",
+                "value": "",
+                "type": "query",
+                "description": "Areas are entered by the agent in the Street UI and enable you to filter properties according to custom areas. This can be used to power user friendly searches using familiar geographic areas.\n\nThese areas should be passed to the API in lowercase and urlencoded.\n\nYou can also enter a comma seperated list to return all properties within any of those areas."
+              },
+              {
+                "name": "filter[bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "The exact number of bedrooms for search results."
+              },
+              {
+                "name": "filter[min_bedrooms]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum number of bedrooms for search results."
+              },
+              {
+                "name": "filter[branch]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch."
+              },
+              {
+                "name": "filter[features]",
+                "value": "",
+                "type": "query",
+                "description": "Features are entered by the agent as part of the Property description - these could be things such as \"Garden\" or \"Off Road Parking\".\n\nThese features should be passed to the API in lowercase and urlencoded.\n\nYou can also enter a semi-colon seperated list to return all properties with any of those features."
+              },
+              {
+                "name": "filter[include_land]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property type. Defaults to false. By setting this to true, the feed will also include land-only properties."
+              },
+              {
+                "name": "filter[max_price]",
+                "value": "",
+                "type": "query",
+                "description": "Maximum listing price for search results."
+              },
+              {
+                "name": "filter[min_price]",
+                "value": "",
+                "type": "query",
+                "description": "Minimum listing price for search results."
+              },
+              {
+                "name": "filter[postcode]",
+                "value": "",
+                "type": "query",
+                "description": "This filter will narrow your search results by first or partial postcode.\n\nA value of `M` will return all properties who's postcode begins with M, including `M1 1JU` & `M28 2PD`.\n\nEntering in `M28 2` will return all active properties in that postcode sector."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by property status. You can use a comma separated list for multiple statuses."
+              },
+              {
+                "name": "filter[tags]",
+                "value": "",
+                "type": "query",
+                "description": "Tags are entered by the agent in the Street UI and enable you to filter properties according to custom criteria. This can be used to power featured properties, carousels, hot property lists etc.These tags should be passed to the API in lowercase and urlencoded.You can also enter a comma seperated list to return all properties with any of those tags."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results."
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Set the page number."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Set the number of results per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "A field by which to sort. Prefixing with a minus symbol denotes a DESC order."
+              },
+              {
+                "name": "filter[include_archived]",
+                "value": "",
+                "type": "query",
+                "description": "Include archived properties within the result set"
+              }
+            ]
+          },
+          "docs": "This endpoint returns all active sales properties in your Street account. \n\nBy default it will only return 'active' properties i.e. those with a status of `For Sale`, `For Sale and To Let`, `Under Offer` or `Sold STC`.\n\nIt will also return properties for **ALL** branches within your Street account, if you wish to limit to a specific branch you can use the `filter[branch]` query param and pass the `UUID` of the desired branch."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Meta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Areas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/api/property-feed/v1/areas"
+          },
+          "docs": "Get all Areas in your Street account. This endpoint can be used to power additional searches on your own website."
+        },
+        {
+          "info": {
+            "name": "Get Features",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://street.co.uk/api/property-feed/v1/features"
+          },
+          "docs": "Get all property Features in your Street account. This endpoint can be used to power additional searches on your own website."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Spectre API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Property Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spectre.uk.com/v1/property-reports/user",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves the current user."
+        },
+        {
+          "info": {
+            "name": "Get all reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spectre.uk.com/v1/property-reports/reports",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves all the reports the current user."
+        },
+        {
+          "info": {
+            "name": "Create a new report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spectre.uk.com/v1/property-reports/reports",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new report"
+        },
+        {
+          "info": {
+            "name": "Get a single report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spectre.uk.com/v1/property-reports/reports/:reportId",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Optional related entities to include in the results"
+              }
+            ]
+          },
+          "docs": "This endpoint retrieves a single report by UUID for the current user."
+        },
+        {
+          "info": {
+            "name": "Get all leads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spectre.uk.com/v1/property-reports/leads"
+          },
+          "docs": "This endpoint retrieves all the leads the current user."
+        },
+        {
+          "info": {
+            "name": "Create a new lead",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spectre.uk.com/v1/property-reports/leads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new lead"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Email",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spectre.uk.com/v1/email/contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new contact."
+        },
+        {
+          "info": {
+            "name": "Get all segments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.spectre.uk.com/v1/email/segments",
+            "params": [
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "This endpoint gets all segments."
+        },
+        {
+          "info": {
+            "name": "Create a new uploaded segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.spectre.uk.com/v1/email/segments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint creates a new uploaded segment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
