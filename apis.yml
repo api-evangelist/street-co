@@ -21,6 +21,18 @@ description: >-
   not with the CRM vendors.
 image: https://street.co.uk/apple-touch-icon.png
 tags:
+- Real-Estate
+- United Kingdom
+- PropTech
+- CRM
+- Property Listings
+- Property Management
+- Rentals
+- Lettings
+- Estate Agency
+- Valuation
+- Conveyancing
+tags_raw:
 - Real Estate
 - United Kingdom
 - PropTech
@@ -47,6 +59,14 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Real-Estate
+  - CRM
+  - Property Listings
+  - Lettings
+  - Property Management
+  - Valuation
+  - United Kingdom
+  tags_raw:
   - Real Estate
   - CRM
   - Property Listings
@@ -96,6 +116,12 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-property-feed-api
   baseURL: https://street.co.uk/api/property-feed/v1
   tags:
+  - Real-Estate
+  - Property Listings
+  - Search
+  - Rentals
+  - United Kingdom
+  tags_raw:
   - Real Estate
   - Property Listings
   - Search
@@ -135,6 +161,12 @@ apis:
   humanURL: https://developers.street.co.uk/docs/spectre-api-docs
   baseURL: https://api.spectre.uk.com/v1
   tags:
+  - Real-Estate
+  - Property Reports
+  - Marketing
+  - Lead Generation
+  - United Kingdom
+  tags_raw:
   - Real Estate
   - Property Reports
   - Marketing
