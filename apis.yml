@@ -48,148 +48,1985 @@ created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'
 apis:
-- aid: street-co:street-open-api
-  name: Street Open API
-  description: The main Street.co.uk platform API — a JSON:API-conformant REST interface
-    over the estate agency system of record, covering properties, sales and lettings
-    instructions, offers, applicants, viewings, valuations, tenancies, tenants, landlords,
-    vendors, maintenance jobs and requests, inspections, invoices, documents, e-sign
-    documents, notes, tasks, users, branches and brands, plus read access to portal
-    listings. 74 paths and 80 operations documented in a published OpenAPI 3.1 contract.
+- aid: street-co:street-co-activity-api
+  name: Street.co.uk Activity API
+  description: Activity endpoints for this API.
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
-  - Real-Estate
-  - CRM
-  - Property Listings
-  - Lettings
-  - Property Management
-  - Valuation
-  - United Kingdom
-  tags_raw:
-  - Real Estate
-  - CRM
-  - Property Listings
-  - Lettings
-  - Property Management
-  - Valuation
-  - United Kingdom
+  - Activity
   properties:
   - type: OpenAPI
-    url: openapi/street-co-open-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/_original/street-co-open-api-openapi.json
-    name: Street Open API OpenAPI (verbatim source)
+    url: openapi/street-co-activity-api-openapi.yml
   - type: Documentation
     url: https://developers.street.co.uk/docs/street-open-api
   - type: APIReference
     url: https://developers.street.co.uk/docs/street-open-api/api-reference
   - type: Documentation
     url: https://street.co.uk/developers/api
-    name: Open API product page
   - type: Sandbox
     url: https://demo.street.co.uk/open-api/v1
-    name: Staging environment (sandbox token by email request)
   - type: Support
     url: https://api-support.street.co.uk/
   - type: ChangeLog
     url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
-    name: Open API Updates
-  - type: OpenAPI
-    url: https://developers.street.co.uk/docs/street-open-api/api-reference/openapi.json
-    name: Published OpenAPI 3.1 download (live provider URL)
   - type: GettingStarted
     url: https://developers.street.co.uk/docs/street-open-api
   - type: Webhooks
     url: asyncapi/street-co-webhooks.yml
-    name: Webhook event catalog
   - type: RateLimits
     url: rate-limits/street-co-rate-limits.yml
-    name: 600 GET/min, 100 write/min
-- aid: street-co:street-property-feed-api
-  name: Street Property Feed API
-  description: A read-only property feed API for powering an agency's own website and
-    property search — sales search, lettings search, a single property record, area
-    lookups and a property features list. Five paths, all GET, documented in a published
-    OpenAPI 3.1 contract. Serves the UK's portal-and-agency-website distribution model
-    rather than any MLS or IDX arrangement.
-  humanURL: https://developers.street.co.uk/docs/street-property-feed-api
-  baseURL: https://street.co.uk/api/property-feed/v1
-  tags:
-  - Real-Estate
-  - Property Listings
-  - Search
-  - Rentals
-  - United Kingdom
-  tags_raw:
-  - Real Estate
-  - Property Listings
-  - Search
-  - Rentals
-  - United Kingdom
-  properties:
-  - type: OpenAPI
-    url: openapi/street-co-property-feed-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/_original/street-co-property-feed-api-openapi.json
-    name: Property Feed OpenAPI (verbatim source)
   - type: Documentation
     url: https://developers.street.co.uk/docs/street-property-feed-api
   - type: APIReference
     url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
   - type: Sandbox
     url: https://demo.street.co.uk/api/property-feed/v1
-    name: Staging environment
-  - type: OpenAPI
-    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference/openapi.json
-    name: Published OpenAPI 3.1 download (live provider URL)
   - type: GettingStarted
     url: https://developers.street.co.uk/docs/street-property-feed-api
   - type: ChangeLog
     url: https://developers.street.co.uk/docs/street-property-feed-api/updates
-    name: Property Feed Updates
-  - type: RateLimits
-    url: rate-limits/street-co-rate-limits.yml
-    name: 600 requests/min
-- aid: street-co:spectre-api
-  name: Spectre API
-  description: The public API for the Spectre products, documented on the Street.co.uk
-    developer portal and integrated into the Street CRM. Covers Spectre Property Reports
-    (create and retrieve property reports, retrieve report leads) and Spectre email
-    marketing (contacts and segments). Six paths documented in a published OpenAPI
-    3.1 contract; tokens are issued by the Spectre team on email request.
-  humanURL: https://developers.street.co.uk/docs/spectre-api-docs
-  baseURL: https://api.spectre.uk.com/v1
-  tags:
-  - Real-Estate
-  - Property Reports
-  - Marketing
-  - Lead Generation
-  - United Kingdom
-  tags_raw:
-  - Real Estate
-  - Property Reports
-  - Marketing
-  - Lead Generation
-  - United Kingdom
-  properties:
-  - type: OpenAPI
-    url: openapi/street-co-spectre-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/_original/street-co-spectre-api-openapi.json
-    name: Spectre API OpenAPI (verbatim source)
   - type: Documentation
     url: https://developers.street.co.uk/docs/spectre-api-docs
   - type: APIReference
     url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
-  - type: OpenAPI
-    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference/openapi.json
-    name: Published OpenAPI 3.1 download (live provider URL)
   - type: GettingStarted
     url: https://developers.street.co.uk/docs/spectre-api-docs
   - type: Contact
     url: mailto:apis@spectre.uk.com
-    name: Spectre API token requests
+- aid: street-co:street-co-applicants-api
+  name: Street.co.uk Applicants API
+  description: Applicants endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Applicants
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-applicants-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-areas-api
+  name: Street.co.uk Areas API
+  description: Area endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Areas
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-areas-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-branches-api
+  name: Street.co.uk Branches API
+  description: Branches endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Branches
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-branches-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-brands-api
+  name: Street.co.uk Brands API
+  description: Brands endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Brands
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-brands-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-companies-api
+  name: Street.co.uk Companies API
+  description: Companies endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Companies
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-documents-api
+  name: Street.co.uk Documents API
+  description: Documents endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-e-sign-documents-api
+  name: Street.co.uk E-Sign Documents API
+  description: E-Sign Documents endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - E-Sign Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-e-sign-documents-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-email-api
+  name: Street.co.uk Email API
+  description: The Email API from Street.co.uk — 2 operation(s) for email.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-email-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-enquiries-api
+  name: Street.co.uk Enquiries API
+  description: Enquiries endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Enquiries
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-enquiries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-follow-ups-api
+  name: Street.co.uk Follow Ups API
+  description: Follow Ups endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Follow Ups
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-follow-ups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-images-api
+  name: Street.co.uk Images API
+  description: Image endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-images-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-inspections-api
+  name: Street.co.uk Inspections API
+  description: Inspections endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Inspections
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-inspections-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-interested-applicants-api
+  name: Street.co.uk Interested Applicants API
+  description: Interested Applicants endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Interested Applicants
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-interested-applicants-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-invoices-api
+  name: Street.co.uk Invoices API
+  description: Invoices endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-landlords-api
+  name: Street.co.uk Landlords API
+  description: Landlords endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Landlords
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-landlords-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-lettings-api
+  name: Street.co.uk Lettings API
+  description: These are the lettings specific API Endpoints.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Lettings
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-lettings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-lettings-applications-api
+  name: Street.co.uk Lettings Applications API
+  description: Lettings Application endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Lettings Applications
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-lettings-applications-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-lettings-instructions-api
+  name: Street.co.uk Lettings Instructions API
+  description: Lettings Instruction endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Lettings Instructions
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-lettings-instructions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-lettings-offers-api
+  name: Street.co.uk Lettings Offers API
+  description: Lettings Offers endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Lettings Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-lettings-offers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-maintenance-jobs-api
+  name: Street.co.uk Maintenance Jobs API
+  description: Maintenance Jobs endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Maintenance Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-maintenance-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-maintenance-requests-api
+  name: Street.co.uk Maintenance Requests API
+  description: Maintenance Request endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Maintenance Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-maintenance-requests-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-meta-api
+  name: Street.co.uk Meta API
+  description: >-
+    These are specific API Endpoints for retrieving meta information such as Areas or Features.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-meta-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-move-outs-api
+  name: Street.co.uk Move Outs API
+  description: Move Outs endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Move Outs
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-move-outs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-notes-api
+  name: Street.co.uk Notes API
+  description: Notes endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-notes-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-people-api
+  name: Street.co.uk People API
+  description: People endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - People
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-people-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-photos-and-measures-api
+  name: Street.co.uk Photos and Measures API
+  description: Photo and Measure endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Photos and Measures
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-photos-and-measures-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-portal-listings-api
+  name: Street.co.uk Portal Listings API
+  description: Portal Listings endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Portal Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-portal-listings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-properties-api
+  name: Street.co.uk Properties API
+  description: Properties endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Properties
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-properties-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-property-keys-api
+  name: Street.co.uk Property Keys API
+  description: Property Key endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Property Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-property-keys-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-property-reports-api
+  name: Street.co.uk Property Reports API
+  description: All endpoints for Spectre Property Reports
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Property Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-property-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-questionnaire-responses-api
+  name: Street.co.uk Questionnaire Responses API
+  description: Questionnaire Response endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Questionnaire Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-questionnaire-responses-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-sales-api
+  name: Street.co.uk Sales API
+  description: Sales endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Sales
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-sales-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-sales-instructions-api
+  name: Street.co.uk Sales Instructions API
+  description: Sales Instructions endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Sales Instructions
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-sales-instructions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-sales-offers-api
+  name: Street.co.uk Sales Offers API
+  description: Sales Offers endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Sales Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-sales-offers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-solicitors-api
+  name: Street.co.uk Solicitors API
+  description: Solicitors endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Solicitors
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-solicitors-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-tasks-api
+  name: Street.co.uk Tasks API
+  description: Tasks endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-tenancies-api
+  name: Street.co.uk Tenancies API
+  description: Tenancies endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Tenancies
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-tenancies-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-tenants-api
+  name: Street.co.uk Tenants API
+  description: Tenants endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Tenants
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-tenants-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-users-api
+  name: Street.co.uk Users API
+  description: Users endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-valuations-api
+  name: Street.co.uk Valuations API
+  description: Valuations endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Valuations
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-valuations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-vendors-api
+  name: Street.co.uk Vendors API
+  description: Vendors endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
+- aid: street-co:street-co-viewings-api
+  name: Street.co.uk Viewings API
+  description: Viewings endpoints for this API.
+  humanURL: https://developers.street.co.uk/docs/street-open-api
+  baseURL: https://street.co.uk/open-api/v1
+  tags:
+  - Viewings
+  properties:
+  - type: OpenAPI
+    url: openapi/street-co-viewings-api-openapi.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-open-api/api-reference
+  - type: Documentation
+    url: https://street.co.uk/developers/api
+  - type: Sandbox
+    url: https://demo.street.co.uk/open-api/v1
+  - type: Support
+    url: https://api-support.street.co.uk/
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-open-api/updates/open-api-updates
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-open-api
+  - type: Webhooks
+    url: asyncapi/street-co-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/street-co-rate-limits.yml
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/street-property-feed-api/api-reference
+  - type: Sandbox
+    url: https://demo.street.co.uk/api/property-feed/v1
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/street-property-feed-api
+  - type: ChangeLog
+    url: https://developers.street.co.uk/docs/street-property-feed-api/updates
+  - type: Documentation
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: APIReference
+    url: https://developers.street.co.uk/docs/spectre-api-docs/api-reference
+  - type: GettingStarted
+    url: https://developers.street.co.uk/docs/spectre-api-docs
+  - type: Contact
+    url: mailto:apis@spectre.uk.com
 common:
 - type: DomainSecurity
   url: security/street-co-domain-security.yml
