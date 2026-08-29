@@ -19,6 +19,18 @@ description: >-
   RESO, no OData $metadata, and no open government data is published by Street.co.uk
   itself; the open UK property data layer sits with HM Land Registry and Ordnance Survey,
   not with the CRM vendors.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://street.co.uk/apple-touch-icon.png
 tags:
 - Real-Estate
@@ -2028,6 +2040,9 @@ apis:
   - type: Contact
     url: mailto:apis@spectre.uk.com
 common:
+- type: CapabilityMap
+  url: capabilities/street-co-capability-edges.yml
+  name: Street.co.uk Business Capability Map
 - type: DomainSecurity
   url: security/street-co-domain-security.yml
 - type: AgenticAccess
