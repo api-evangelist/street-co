@@ -1,0 +1,292 @@
+openapi: 3.2.0
+info:
+  version: '1.0'
+  title: Property Feed Meta API
+  description: The Street.co.uk Property Feed API is designed to power your agency's website and property search functionality.
+  summary: The Street.co.uk Property Feed API is designed to power your agency's website and property search functionality.
+  contact:
+    name: Street API Development Team
+    url: street.co.uk
+    email: apis@street.co.uk
+servers:
+- url: https://street.co.uk/api/property-feed/v1
+  description: The live/production API. Tokens for this can self generated via the settings area of the CRM.
+- url: https://demo.street.co.uk/api/property-feed/v1
+  description: The demo API. Tokens can be requested from the support team at Street.co.uk.
+security:
+- your_api_token: []
+tags:
+- name: Meta
+  description: These are specific API Endpoints for retrieving meta information such as Areas or Features.
+paths:
+  /areas:
+    get:
+      summary: Get Areas
+      tags:
+      - Meta
+      responses:
+        '200':
+          description: A successful response will return array of areas that are present in your Street.co.uk account. This endpoint does **NOT** paginate the results.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Area'
+              examples:
+                example-1:
+                  value:
+                    data:
+                    - type: area
+                      id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      attributes:
+                        name: Dumfries & Galloway
+                        property_count: 172
+                        polygon:
+                        - - -3.0588741
+                          - -3.0588741
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '406':
+          $ref: '#/components/responses/notAcceptable'
+        '415':
+          $ref: '#/components/responses/unsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/serverError'
+      operationId: get-areas
+      description: Get all Areas in your Street account. This endpoint can be used to power additional searches on your own website.
+  /features:
+    get:
+      summary: Get Features
+      tags:
+      - Meta
+      responses:
+        '200':
+          description: A successful response will return array of key features that are present in your Street.co.uk account. This endpoint does **NOT** paginate the results.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Feature'
+              examples:
+                example-1:
+                  value:
+                    data:
+                    - type: feature
+                      id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      attributes:
+                        name: Four Double Bedrooms
+        '401':
+          $ref: '#/components/responses/unauthorized'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '406':
+          $ref: '#/components/responses/notAcceptable'
+        '415':
+          $ref: '#/components/responses/unsupportedMediaType'
+        '500':
+          $ref: '#/components/responses/serverError'
+      operationId: get-features
+      description: Get all property Features in your Street account. This endpoint can be used to power additional searches on your own website.
+components:
+  schemas:
+    jsonApiError:
+      title: JSON:API Error Object
+      description: An object representing error information, defined by the JSON:API specification.
+      type: object
+      properties:
+        errors:
+          type: array
+          maxItems: 1
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              detail:
+                type: string
+              code:
+                type: string
+            required:
+            - title
+            - detail
+            - code
+      required:
+      - errors
+      x-tags:
+      - JSON:API Structures
+      examples:
+      - detail: Something went wrong
+        code: 100
+    Feature:
+      title: Feature
+      x-stoplight:
+        id: 5iiuyfhyt5ng5
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: feature
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Four Double Bedrooms
+    BaseModel:
+      title: Base Model
+      x-stoplight:
+        id: 87gp5ijnjbr1s
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: An inheritable schema used for documentation.
+    Area:
+      title: Area
+      x-stoplight:
+        id: ozr077zsdck7a
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: area
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Dumfries & Galloway
+              property_count:
+                type: integer
+                example: 172
+              polygon:
+                type: array
+                items:
+                  type: array
+                  minItems: 2
+                  maxItems: 2
+                  items:
+                    type: number
+                    example: -3.0588741
+      examples:
+      - type: area
+        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        attributes:
+          name: Dumfries & Galloway
+          property_count: 172
+          polygon:
+          - - -3.0325611
+            - 55.0388624
+  responses:
+    serverError:
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Internal Server Error
+                  detail: There was an internal server error.
+                  code: '500'
+    unauthorized:
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Unauthorized
+                  detail: The request was made by an unauthenticated user.
+                  code: '401'
+    notAcceptable:
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Not Acceptable
+                  detail: The request could not be accepted.
+                  code: '406'
+    forbidden:
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Forbidden
+                  detail: The user is forbidden from accessing this resource.
+                  code: '403'
+    unsupportedMediaType:
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Unsupported Media Type
+                  detail: The request media type is not supported.
+                  code: '415'
+    notFound:
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Not Found
+                  detail: The resource was not found.
+                  code: '404'
+  securitySchemes:
+    your_api_token:
+      type: http
+      scheme: bearer
+x-stoplight:
+  id: r3ay7phqkp8ld
+x-ext-urls: {}

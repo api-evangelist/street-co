@@ -1,0 +1,214 @@
+openapi: 3.2.0
+info:
+  title: Spectre Email API
+  description: Public API for the Spectre products
+  version: '1.0'
+  contact:
+    name: Spectre API Development Team
+    url: https://spectre.uk.com
+    email: apis@spectre.uk.com
+servers:
+- url: https://api.spectre.uk.com/v1
+  description: production
+security:
+- your-api-token: []
+tags:
+- name: Email
+paths:
+  /email/contacts:
+    post:
+      summary: Create a new contact
+      operationId: post-email-contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact'
+      tags:
+      - Email
+      description: This endpoint creates a new contact.
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - required:
+                - email
+                properties:
+                  title:
+                    type: string
+                    maxLength: 255
+                  first_name:
+                    type: string
+                    maxLength: 255
+                  last_name:
+                    type: string
+                    maxLength: 255
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 255
+                  phone:
+                    type: string
+                    maxLength: 255
+                  subscription_status:
+                    $ref: '#/components/schemas/SubsciptionStatus'
+                  segment_id:
+                    type: string
+                    format: uuid
+                    description: Optional ID of a segment with type 'uploaded' to send contacts to.
+              type: object
+        description: ''
+  /email/segments:
+    get:
+      summary: Get all segments
+      operationId: get-email-segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment'
+      tags:
+      - Email
+      description: This endpoint gets all segments.
+      requestBody:
+        content: {}
+        description: ''
+      parameters:
+      - $ref: '#/components/parameters/segment_type'
+    post:
+      summary: Create a new uploaded segment
+      operationId: post-email-segments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Segment'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              allOf:
+              - properties:
+                  name:
+                    type: string
+                    maxLength: 255
+                  description:
+                    type: string
+                    maxLength: 255
+                required:
+                - name
+              type: object
+        description: ''
+      tags:
+      - Email
+      description: This endpoint creates a new uploaded segment.
+components:
+  schemas:
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
+      x-tags:
+      - JSON:API Structures
+    ContactAttributes:
+      title: ContactAttributes
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      examples: []
+    Contact:
+      title: Contact
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: contact
+          attributes:
+            $ref: '#/components/schemas/ContactAttributes'
+    Segment:
+      title: Segment
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: segment
+          attributes:
+            $ref: '#/components/schemas/SegmentAttributes'
+    SegmentAttributes:
+      title: SegmentAttributes
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+    SegmentType:
+      title: SegmentType
+      type: string
+      enum:
+      - static
+      - dynamic
+      - uploaded
+    SubsciptionStatus:
+      title: SubsciptionStatus
+      type: string
+      enum:
+      - subscribed
+      - unsubscribed
+      - non_subscribed
+  parameters:
+    segment_type:
+      name: filter[type]
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/SegmentType'
+  securitySchemes:
+    your-api-token:
+      type: http
+      scheme: bearer
+x-ext-urls: {}

@@ -1,0 +1,1815 @@
+openapi: 3.2.0
+info:
+  title: Street Open Lettings Offers API
+  description: Build on top of the UKs most advanced Estate Agency software.
+  version: '1.0'
+  contact:
+    name: Street API Development Team
+    url: https://street.co.uk
+    email: apis@street.co.uk
+servers:
+- url: https://street.co.uk/open-api/v1
+  description: Production.
+- url: https://demo.street.co.uk/open-api/v1
+  description: Testing.
+security:
+- your-api-token: []
+tags:
+- name: Lettings Offers
+  description: Lettings Offers endpoints for this API.
+paths:
+  /lettings-offers:
+    get:
+      summary: Get all Lettings Offers
+      tags:
+      - Lettings Offers
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LettingsOffer'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedBranch'
+                      - $ref: '#/components/schemas/IncludedProperty'
+                      - $ref: '#/components/schemas/IncludedLettingsListing'
+                      - $ref: '#/components/schemas/IncludedApplicant'
+                      - $ref: '#/components/schemas/IncludedNotes'
+                      - $ref: '#/components/schemas/IncludedPerson'
+                  links:
+                    $ref: '#/components/schemas/Links'
+                  meta:
+                    allOf:
+                    - $ref: '#/components/schemas/Pagination'
+                  jsonapi:
+                    $ref: '#/components/schemas/JsonApi'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-lettings-offers
+      description: This endpoint retrieves multiple paginated lettings offers along with `meta` and `pagination` information.
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - pending
+            - put_to_vendor
+            - accepted
+            - rejected
+          uniqueItems: true
+          minItems: 1
+          maxItems: 5
+          example:
+          - pending
+          - put_to_vendor
+          - accepted
+          - rejected
+        in: query
+        name: filter[status]
+        description: Filter by results with specific statuses.
+        explode: false
+        style: form
+      - $ref: '#/components/parameters/filter_branch'
+      - $ref: '#/components/parameters/filter_trashed'
+      - $ref: '#/components/parameters/filter_created_from'
+      - $ref: '#/components/parameters/filter_created_to'
+      - $ref: '#/components/parameters/filter_updated_from'
+      - $ref: '#/components/parameters/filter_updated_to'
+      - schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - property
+            - lettingsListing
+            - applicant
+            - applicant.people
+            - branch
+            - notes
+          uniqueItems: true
+          minItems: 1
+          example:
+          - property
+          - lettingsListing
+          - applicant
+          - applicant.people
+          - branch
+          - notes
+        in: query
+        name: include
+        description: Optional related entities to include in the results.
+        explode: false
+        style: form
+      - $ref: '#/components/parameters/page_size'
+      - $ref: '#/components/parameters/page_number'
+  /lettings-offers/{lettings_offer_id}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: lettings_offer_id
+      in: path
+      required: true
+      description: The UUID of the Lettings Offer.
+    get:
+      summary: Get a single Lettings Offer
+      tags:
+      - Lettings Offers
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LettingsOffer'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/IncludedBranch'
+                      - $ref: '#/components/schemas/IncludedProperty'
+                      - $ref: '#/components/schemas/IncludedLettingsListing'
+                      - $ref: '#/components/schemas/IncludedApplicant'
+                      - $ref: '#/components/schemas/IncludedNotes'
+                      - $ref: '#/components/schemas/IncludedPerson'
+                  links:
+                    $ref: '#/components/schemas/IncludedLinks'
+                  meta:
+                    type: object
+                  jsonapi:
+                    $ref: '#/components/schemas/JsonApi'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '406':
+          $ref: '#/components/responses/406'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+      operationId: get-lettings-offers-lettingsOfferId
+      description: This endpoint retrieves a single lettings offer by its `UUID`.
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - property
+            - lettingsListing
+            - applicant
+            - applicant.people
+            - branch
+            - notes
+          uniqueItems: true
+          minItems: 1
+          example:
+          - property
+          - lettingsListing
+          - applicant
+          - applicant.people
+          - branch
+          - notes
+        in: query
+        name: include
+        description: Optional related entities to include in the results.
+        explode: false
+        style: form
+components:
+  parameters:
+    page_size:
+      name: page[size]
+      description: Set the number of results per page.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 250
+        example: 25
+    filter_created_from:
+      name: filter[created_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created after the provided date.
+    filter_updated_from:
+      name: filter[updated_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated after the provided date.
+    filter_branch:
+      name: filter[branch]
+      description: Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch.
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+    filter_updated_to:
+      name: filter[updated_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated before the provided date.
+    filter_created_to:
+      name: filter[created_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created before the provided date.
+    filter_trashed:
+      name: filter[trashed]
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - with
+        - only
+      description: Optionally return result WITH deleted results or return ONLY deleted results.
+    page_number:
+      name: page[number]
+      description: Set the page number.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
+  responses:
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+  schemas:
+    IncludedLettingsListing:
+      title: Lettings Listing (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - lettings_listing
+          attributes:
+            $ref: '#/components/schemas/LettingsListingAttributes'
+      x-tags:
+      - Lettings Listings
+    IncludedBranch:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - branch
+          attributes:
+            $ref: '#/components/schemas/BranchAttributes'
+      title: Branch (included)
+    IncludedResource:
+      title: Included Resource
+      type: object
+      examples: []
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type:
+          - object
+          - 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    EmailAddressSimple:
+      title: Email Address (simple)
+      description: An email address, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: john@johndoe.com
+          format: email
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
+    IncludedProperty:
+      title: Property (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - property
+          attributes:
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+    jsonApiErrorResponseBody:
+      title: JSON:API Error Response Body
+      description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
+      type: object
+      properties:
+        meta:
+          type: object
+        source:
+          type: object
+          description: The primary source of the conflict for 409 responses.
+          properties:
+            pointer:
+              type: string
+              description: JSON Pointer to the conflicting request value.
+            parameter:
+              type: string
+              description: URI parameter related to the conflict.
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
+    RelationshipSingular:
+      title: Relationship Singular
+      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+      type: object
+      properties:
+        data:
+          oneOf:
+          - type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                format: uuid
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+            required:
+            - type
+            - id
+          - type: 'null'
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    Pagination:
+      title: Pagination
+      description: Pagination object - JSON:API Standard.
+      type: object
+      properties:
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              example: 226
+            count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 10
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 23
+      x-examples:
+        example-1:
+          pagination:
+            total: 226
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 23
+      examples:
+      - pagination:
+          total: 226
+          count: 10
+          per_page: 10
+          current_page: 1
+          total_pages: 23
+    TelephoneNumberSimple:
+      title: Telephone Number (simple)
+      description: An telephone number, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: '+441632960911'
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
+    PersonAttributes:
+      title: Person (attributes)
+      type: object
+      properties:
+        full_name:
+          type: string
+        title:
+          type:
+          - string
+          - 'null'
+          example: Mrs
+        first_name:
+          type: string
+          example: Jane
+        last_name:
+          type: string
+          example: Doe
+        address:
+          oneOf:
+          - $ref: '#/components/schemas/AddressSimple'
+          - type: 'null'
+        telephone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelephoneNumberSimple'
+        email_addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAddressSimple'
+        marketing_consent:
+          type:
+          - boolean
+          - 'null'
+        contact_preferences:
+          type: object
+          properties:
+            email:
+              type: boolean
+            post:
+              type: boolean
+            text:
+              type: boolean
+            phone:
+              type: boolean
+        statuses:
+          type: object
+          minProperties: 3
+          maxProperties: 3
+          additionalProperties: false
+          properties:
+            vendor:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
+            landlord:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
+            tenant:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+    LettingsOfferAttributes:
+      type: object
+      title: Lettings Offer (attributes)
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        desired_tenancy_length:
+          type: integer
+          example: 12
+          description: Number of months desired
+        desired_move_in_date:
+          type: string
+          format: date-time
+        rent_amount:
+          type: integer
+        rent_frequency:
+          type: string
+          enum:
+          - Per Week
+          - Per 2 Weeks
+          - Per 4 Weeks
+          - Per Calendar Month
+          - Per Quarter
+          - Per 6 Months
+          - Per Annum
+        tenants_under_18:
+          type: integer
+        pets:
+          type: boolean
+        smokers:
+          type: boolean
+        status:
+          type: string
+          enum:
+          - Pending
+          - Relayed To Owner
+          - Rejected
+          - Accepted
+          - Withdrawn
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    BranchAttributes:
+      type: object
+      title: Branch (attributes)
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        name:
+          type: string
+        public_name:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type: string
+          format: email
+        telephone:
+          type: string
+        website:
+          type:
+          - string
+          - 'null'
+          format: uri
+        about_branch_copy:
+          type:
+          - string
+          - 'null'
+        disclaimer:
+          type:
+          - string
+          - 'null'
+        matching_links_to_website:
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+          description: If true, custom property matching links are enabled for the branch.
+        matching_url_pattern:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'Pattern for property match URLs on the agent website: https://www.yourwebsite.co.uk/property/{UUID}'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    PropertyAttributes:
+      type: object
+      title: Property (attributes)
+      properties:
+        is_sales:
+          type: boolean
+        is_lettings:
+          type: boolean
+        company_owned:
+          type: boolean
+        is_commercial:
+          type: boolean
+        is_residential:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        inline_address:
+          type: string
+        public_address:
+          type: string
+        status:
+          type: string
+          enum:
+          - Not On The Market
+          - Valuation Lost
+          - Valuation Booked
+          - Provisional Valuation Booked
+          - Valuation Pending
+          - Valuation Cancelled
+          - Valuation Completed
+          - Instructed
+          - For Sale
+          - Under Offer
+          - Sold STC
+          - Exchanged
+          - Let
+          - To Let
+          - Let Agreed
+          - For Sale and To Let
+          - Withdrawn Sales
+          - Withdrawn Lettings
+          - Withdrawn Sales And Lettings
+          - Completed
+        bedrooms:
+          type: integer
+        bathrooms:
+          type: integer
+        receptions:
+          type: integer
+        floor_area:
+          type:
+          - string
+          - 'null'
+        plot_area:
+          type:
+          - string
+          - 'null'
+        land_area:
+          type:
+          - string
+          - 'null'
+        full_description:
+          type:
+          - string
+          - 'null'
+        short_description:
+          type:
+          - string
+          - 'null'
+        location_summary:
+          type:
+          - string
+          - 'null'
+        full_description_lettings:
+          type:
+          - string
+          - 'null'
+        short_description_lettings:
+          type:
+          - string
+          - 'null'
+        location_summary_lettings:
+          type:
+          - string
+          - 'null'
+        property_type:
+          type: string
+        property_style:
+          type: string
+        property_age_bracket:
+          type: string
+        construction_year:
+          type:
+          - string
+          - integer
+          - 'null'
+        is_listed_building:
+          type:
+          - boolean
+          - 'null'
+        is_conservation_area:
+          type:
+          - boolean
+          - 'null'
+        tenure:
+          type: string
+        tenure_notes:
+          type:
+          - string
+          - 'null'
+        lease_expiry_year:
+          type:
+          - string
+          - 'null'
+        lease_expiry_date:
+          type:
+          - string
+          - 'null'
+          format: date
+        display_property_style:
+          type: string
+        work_required:
+          type: boolean
+        heating_system:
+          type: string
+        council_tax_band:
+          type: string
+        council_tax_cost:
+          type:
+          - integer
+          - 'null'
+        local_authority:
+          type:
+          - string
+          - 'null'
+        service_charge:
+          type: integer
+        service_charge_period:
+          type: string
+          default: month
+        service_charge_notes:
+          type:
+          - string
+          - 'null'
+        ground_rent:
+          type:
+          - integer
+          - 'null'
+        ground_rent_period:
+          type: string
+          default: month
+        ground_rent_review_period_years:
+          type:
+          - integer
+          - 'null'
+        ground_rent_uplift:
+          type:
+          - integer
+          - 'null'
+        ground_rent_expiry:
+          type:
+          - string
+          - 'null'
+        has_outdoor_space:
+          type:
+          - boolean
+          - 'null'
+        shared_ownership:
+          type: boolean
+          default: false
+        shared_ownership_notes:
+          type:
+          - string
+          - 'null'
+        shared_ownership_rent:
+          type:
+          - integer
+          - 'null'
+        shared_ownership_rent_frequency:
+          type:
+          - string
+          - 'null'
+        shared_ownership_percentage_sold:
+          type:
+          - integer
+          - 'null'
+        tags:
+          type: array
+          uniqueItems: true
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              slug:
+                type: string
+              order:
+                type: number
+        features:
+          type: array
+          uniqueItems: true
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+                description: The ID of the feature
+              name:
+                type: string
+              order:
+                type: number
+              include_on_portals:
+                type: boolean
+              highlight:
+                type: boolean
+        material_information:
+          type: object
+          properties:
+            council_tax_band:
+              type:
+              - string
+              - 'null'
+              example: D
+              maxLength: 1
+            lease_expiry_date:
+              type:
+              - string
+              - 'null'
+              format: date
+            ground_rent_pence:
+              type:
+              - integer
+              - 'null'
+            ground_rent_period:
+              type:
+              - string
+              - 'null'
+            ground_rent_expiry:
+              type:
+              - string
+              - 'null'
+              format: date
+            ground_rent_review_period_years:
+              type:
+              - integer
+              - 'null'
+            ground_rent_uplift:
+              type:
+              - integer
+              - 'null'
+              description: Value is a percentage
+            service_charge_pence:
+              type:
+              - integer
+              - 'null'
+            service_charge_period:
+              type:
+              - string
+              - 'null'
+            service_charge_notes:
+              type:
+              - string
+              - 'null'
+            water_supply:
+              type:
+              - array
+              - 'null'
+              uniqueItems: true
+              minItems: 1
+              items:
+                type: string
+                enum:
+                - direct_main_waters
+                - wells
+                - boreholes
+                - springs
+                - other
+            water_supply_other:
+              type:
+              - string
+              - 'null'
+            electricity_supply:
+              type:
+              - array
+              - 'null'
+              uniqueItems: true
+              minItems: 1
+              items:
+                type: string
+                enum:
+                - national_grid
+                - wind_turbine
+                - solar_panels
+                - generator
+                - other
+            electricity_supply_other:
+              type:
+              - string
+              - 'null'
+            sewerage:
+              type:
+              - array
+              - 'null'
+              uniqueItems: true
+              minItems: 1
+              items:
+                type: string
+                enum:
+                - standard
+                - septic_tank
+                - sewage_treatment_plants
+                - cesspit
+                - cesspool
+                - other
+            sewerage_other:
+              type:
+              - string
+              - 'null'
+            heating_supply:
+              type:
+              - array
+              - 'null'
+              uniqueItems: true
+              minItems: 1
+              items:
+                type: string
+                enum:
+                - electric_central
+                - gas_central
+                - gas_other
+                - communal_heating
+                - lpg_central
+                - wood_burner
+                - biomass_boiler
+                - solar_panels
+                - heat_pump
+                - other
+            heating_supply_other:
+              type:
+              - string
+              - 'null'
+            heating_system:
+              type:
+              - string
+              - 'null'
+            broadband:
+              type:
+              - string
+              - 'null'
+              enum:
+              - adsl
+              - cable
+              - fttc
+              - fttp
+              - null
+            has_restrictions:
+              type:
+              - boolean
+              - 'null'
+            has_required_access:
+              type:
+              - boolean
+              - 'null'
+            public_right_of_way:
+              type:
+              - boolean
+              - 'null'
+            flood_risk:
+              type:
+              - boolean
+              - 'null'
+            sources_of_flooding:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+            sources_of_flooding_other:
+              type:
+              - string
+              - 'null'
+            has_flood_defences:
+              type:
+              - boolean
+              - 'null'
+            has_flooded_in_last_five_years:
+              type:
+              - boolean
+              - 'null'
+            adaptations_list:
+              type:
+              - array
+              - 'null'
+              items: {}
+            adaptations_other:
+              type:
+              - string
+              - 'null'
+        viewing_booking_url:
+          type:
+          - string
+          - 'null'
+        last_instructed_sales_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_instructed_lettings_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_exchanged_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        last_completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        custom_meta_data:
+          type:
+          - object
+          - array
+          items: {}
+        lead_source:
+          type:
+          - string
+          - 'null'
+        publish_after:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        archived_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        virtual_tour:
+          type:
+          - string
+          - 'null'
+          format: uri
+        property_urls:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              type:
+                type: string
+                enum:
+                - image
+                - floor_plan
+                - brochure
+                - virtual_tour
+                - audio_tour
+                - ipack
+              url:
+                type: string
+                format: uri
+                maxLength: 2048
+            required:
+            - title
+            - type
+            - url
+    ApplicantAttributes:
+      type: object
+      title: Applicant (attributes)
+      properties:
+        applicant_type:
+          type: string
+          enum:
+          - sales
+          - lettings
+        name:
+          type: string
+          example: Dave Smith & Helen Bloggs
+        financial_position:
+          type:
+          - string
+          - 'null'
+          example: Agreement in Principle in place
+        buying_position:
+          example: Property to sell
+          enum:
+          - First-time buyer
+          - Investor
+          - Buy to let investor
+          - No property to sell
+          - Developer
+          - Buying Agent
+          - In process of selling - Valuation
+          - In process of selling - On the market
+          - In process of selling - Sold STC
+          - Property to sell
+          - In process of selling - Under Offer
+          - null
+        letting_position:
+          type:
+          - string
+          - 'null'
+          enum:
+          - Homeowner
+          - Renting
+          - Living with Family
+          - Selling
+          - Other
+          - null
+        requirements:
+          type: object
+          properties:
+            min_price:
+              type:
+              - integer
+              - 'null'
+            max_price:
+              type:
+              - integer
+              - 'null'
+            min_bedrooms:
+              type:
+              - integer
+              - 'null'
+              minimum: 1
+            preferred_bedrooms:
+              type:
+              - integer
+              - 'null'
+              minimum: 1
+            desired_move_in_date:
+              type:
+              - string
+              - 'null'
+              format: date
+            desired_tenancy_period:
+              type:
+              - integer
+              - 'null'
+            furnished:
+              type:
+              - boolean
+              - 'null'
+            pets_allowed:
+              type:
+              - boolean
+              - 'null'
+            outside_space:
+              oneOf:
+              - $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              - type: 'null'
+            min_land_area:
+              type:
+              - integer
+              - 'null'
+            garage:
+              oneOf:
+              - $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              - type: 'null'
+            new_build:
+              oneOf:
+              - $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              - type: 'null'
+            retirement_property:
+              oneOf:
+              - $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              - type: 'null'
+            min_parking:
+              type:
+              - integer
+              - 'null'
+            preferred_parking:
+              type:
+              - integer
+              - 'null'
+            property_type_preference:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              example:
+                house: Don't Mind
+                flat: Might Consider
+                semi_detached: Would Prefer
+            new_property_type_preference:
+              deprecated: true
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/ApplicantPreferenceChoice'
+              example:
+                house: Don't Mind
+                flat: Might Consider
+                semi_detached: Would Prefer
+            areas:
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+                example: Ellesmere Park
+        active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        lead_rating:
+          type:
+          - string
+          - 'null'
+          enum:
+          - hot
+          - warm
+          - cold
+          - null
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+    IncludedPerson:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - person
+          attributes:
+            $ref: '#/components/schemas/PersonAttributes'
+      title: Person (included)
+    AddressSimple:
+      title: Address (simple)
+      type: object
+      properties:
+        single_line:
+          type: string
+          example: 19 Lansdowne Road, Monton, Manchester
+        anon_single_line:
+          type: string
+          example: Lansdowne Road, Monton, Manchester
+        building_number:
+          type:
+          - string
+          - 'null'
+          example: '19'
+        building_name:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        line_1:
+          type: string
+          example: 19 Lansdowne Road
+        line_2:
+          type:
+          - string
+          - 'null'
+          example: Monton
+        line_3:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        line_4:
+          type:
+          - string
+          - 'null'
+        town:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        country:
+          type: string
+          example: United Kingdom
+        postcode:
+          type: string
+          example: M30 9PA
+        udprn:
+          type:
+          - string
+          - 'null'
+          example: '28327204'
+        geo:
+          type: object
+          properties:
+            lat:
+              type:
+              - number
+              - 'null'
+              example: 0.2365698
+              format: float
+            lng:
+              type:
+              - number
+              - 'null'
+              example: 53.023654
+              format: float
+        royal_mail:
+          type:
+          - object
+          - 'null'
+          properties:
+            postcode:
+              type: string
+            post_town:
+              type: string
+            thoroughfare:
+              type: string
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            department_name:
+              type:
+              - string
+              - 'null'
+            organisation_name:
+              type:
+              - string
+              - 'null'
+            sub_building_name:
+              type:
+              - string
+              - 'null'
+            dependent_locality:
+              type:
+              - string
+              - 'null'
+            dependent_thoroughfare:
+              type:
+              - string
+              - 'null'
+            double_dependent_locality:
+              type:
+              - string
+              - 'null'
+        street_group_property_id:
+          type:
+          - string
+          - 'null'
+    IncludedApplicant:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - applicant
+          attributes:
+            $ref: '#/components/schemas/ApplicantAttributes'
+          relationships:
+            type: object
+            properties:
+              people:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - person
+      title: Applicant (included)
+    Links:
+      title: Links
+      description: Links object - JSON:API Standard.
+      type: object
+      x-examples:
+        example-1:
+          self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+          first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+          last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      examples:
+      - self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      properties:
+        self:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    IncludedNotes:
+      title: Note (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - note
+          attributes:
+            $ref: '#/components/schemas/NoteAttributes'
+      x-tags:
+      - Notes
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
+    jsonApiError:
+      title: JSON:API Error Object
+      description: A JSON:API object representing a single error.
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        code:
+          type: string
+        source:
+          type: object
+          description: An object containing references to the primary source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the value in the request document that caused the error.
+            parameter:
+              type: string
+              description: A string indicating which URI query parameter caused the error.
+      required:
+      - title
+      examples:
+      - title: 401 Unauthorized
+        detail: The requester is not authorized to access the resource.
+        code: '401'
+    NoteAttributes:
+      title: Note (attributes)
+      type: object
+      properties:
+        body:
+          type:
+          - string
+          - 'null'
+        author:
+          type:
+          - string
+          - 'null'
+        pinned_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LettingsOffer:
+      title: LettingsOffer
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - lettings_offer
+          attributes:
+            $ref: '#/components/schemas/LettingsOfferAttributes'
+          relationships:
+            type: object
+            properties:
+              property:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - property
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+              lettingsListing:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - lettings_listing
+              applicant:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - applicant
+              notes:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - note
+      x-tags:
+      - Lettings Offers
+    LettingsListingAttributes:
+      title: Lettings Listing (included)
+      type: object
+      properties:
+        brand_id:
+          type: string
+          format: uuid
+        price_pcm:
+          type: integer
+          example: 850
+        deposit:
+          type: integer
+          example: 1700
+        let_type:
+          type: string
+        allows_pets:
+          type: boolean
+        available_from:
+          type: string
+        furnished:
+          type: boolean
+        is_student_rental:
+          type: boolean
+        is_shared_accommodation:
+          type: boolean
+        min_tenancy_period:
+          type: string
+        archived:
+          type: boolean
+        is_low_profile:
+          type: boolean
+        is_not_in_property_feed_api:
+          type: boolean
+        spectre_social_campaigns:
+          type: boolean
+        spectre_email_campaigns:
+          type: boolean
+        full_description:
+          type: string
+        short_description:
+          type: string
+        location_summary:
+          type: string
+        has_parking:
+          type: boolean
+        virtual_tour:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        deleted_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    jsonApiMultiErrorResponseBody:
+      title: JSON:API Multi-Error Response Body
+      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
+      type: object
+      properties:
+        meta:
+          type: object
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
+    ApplicantPreferenceChoice:
+      title: Applicant Preference Choices
+      type: string
+      enum:
+      - Strong Preference
+      - Don't Mind
+      - Would Prefer
+      - Won't Consider
+      - Might Consider
+      - Must Have
+  securitySchemes:
+    your-api-token:
+      type: http
+      scheme: bearer
+x-ext-urls: {}
