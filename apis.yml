@@ -526,6 +526,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Follow-ups
+  tags_raw:
   - Follow Ups
   properties:
   - type: OpenAPI
@@ -572,6 +574,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -1723,6 +1727,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -1861,6 +1867,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
