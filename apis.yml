@@ -31,6 +31,21 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-03'
+  method: derived
 image: https://street.co.uk/apple-touch-icon.png
 tags:
 - Real-Estate
@@ -2091,8 +2106,9 @@ common:
 - type: WellKnown
   url: well-known/street-co-well-known.yml
   name: /.well-known/ probe results (no discovery surface published)
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/street-co-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
   name: Candidate MCP tool surface derived from the three OpenAPIs (Street publishes no MCP server)
 - type: ToolCrosswalk
   url: mcp/street-co-tool-crosswalk.yml
