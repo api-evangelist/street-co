@@ -637,6 +637,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Inspection
+  tags_raw:
   - Inspections
   properties:
   - type: OpenAPI
@@ -1930,6 +1932,8 @@ apis:
   humanURL: https://developers.street.co.uk/docs/street-open-api
   baseURL: https://street.co.uk/open-api/v1
   tags:
+  - Valuation
+  tags_raw:
   - Valuations
   properties:
   - type: OpenAPI
