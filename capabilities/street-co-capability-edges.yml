@@ -1,0 +1,120 @@
+slug: street-co
+provider: Street.co.uk
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Real Estate
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: Maintenance Jobs
+  spec_file: street-co-maintenance-jobs-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.85
+  evidence: GET /maintenance-jobs 'Get all Maintence Jobs'; schemas MaintenanceJobAttributes, IncludedProperty,
+    IncludedMedia
+  reason: Maintenance jobs against managed properties, with assigned user and media evidence, is property
+    maintenance and work-order management within property management operations.
+- tag: Sales Offers
+  spec_file: street-co-sales-offers-api-openapi.yml
+  capability_id: BC-4960.60
+  capability_id_l1: BC-4960
+  capability_name: Offer & Negotiation Management
+  confidence: 0.85
+  evidence: GET /sales-offers  Get all Sales Offers; schemas SalesOfferAttributes, IncludedApplicant,
+    SalesListingAttributes
+  reason: Offers made by applicants against sales listings held by the agency is squarely offer and negotiation
+    management in brokered residential sales.
+- tag: Maintenance Requests
+  spec_file: street-co-maintenance-requests-api-openapi.yml
+  capability_id: BC-4940.20
+  capability_id_l1: BC-4940
+  capability_name: Property Maintenance & Work Order Management
+  confidence: 0.78
+  evidence: POST /maintenance-requests 'Create a new maintenance request'; schema MaintenanceRequestAttributes
+  reason: Intake of maintenance requests (typically tenant-reported) feeding the work-order process in
+    a property management platform. Slight ambiguity between work-order intake and tenant service request
+    handling.
+- tag: Portal Listings
+  spec_file: street-co-portal-listings-api-openapi.yml
+  capability_id: BC-4960.30
+  capability_id_l1: BC-4960
+  capability_name: Listing Data & MLS Management
+  confidence: 0.78
+  evidence: GET /portal-listings/{listing_id} 'Get Portal Listing by ID'; schemas PortalListing, PortalAttributes,
+    IncludedSalesListing, IncludedLettingsListing
+  reason: Listing records associated with distribution portals (the UK equivalent of MLS/portal syndication
+    per the vendor description) constitute listing data and syndication management.
+- tag: Lettings
+  spec_file: street-co-lettings-api-openapi.yml
+  capability_id: BC-4950.20
+  capability_id_l1: BC-4950
+  capability_name: Vacancy Marketing & Listing
+  confidence: 0.75
+  evidence: 'GET /lettings/search  Search for Lettings Properties; schemas: LettingsListing, Brochure,
+    Floorplan, Epc, PropertyUrl; "designed to power your agency''s website and property search functionality"'
+  reason: Public property feed exposing lettings listings with brochures, floorplans and EPCs to power
+    agency website search — vacancy marketing and listing publication. Could also be read as listing data/portal
+    management (BC-4960.30); chose vacancy marketing given landlord-side lettings listings.
+- tag: Move Outs
+  spec_file: street-co-move-outs-api-openapi.yml
+  capability_id: BC-4950.80
+  capability_id_l1: BC-4950
+  capability_name: Move-Out & Lease Termination Management
+  confidence: 0.72
+  evidence: GET /move-outs 'Get all Move outs'; schemas MoveOutAttributes, IncludedTenancy, IncludedMeterReading
+  reason: Move-out records tied to a tenancy with meter readings correspond to tenant notice/surrender
+    and final accounting at end of tenancy. Some overlap with property-manager move coordination keeps
+    confidence moderate.
+- tag: Sales Instructions
+  spec_file: street-co-sales-instructions-api-openapi.yml
+  capability_id: BC-4960.10
+  capability_id_l1: BC-4960
+  capability_name: Listing Acquisition & Representation
+  confidence: 0.72
+  evidence: GET /sales-instructions  Get all Sales Instructions; schemas SalesInstructionAttributes, IncludedValuation,
+    IncludedFees, IncludedProperty
+  reason: A sales instruction is the seller's mandate to market the property, carrying fees and the preceding
+    valuation — i.e. seller/listing mandate acquisition and representation by the agency.
+- tag: Enquiries
+  spec_file: street-co-enquiries-api-openapi.yml
+  capability_id: BC-4950.30
+  capability_id_l1: BC-4950
+  capability_name: Prospect & Inquiry Management
+  confidence: 0.7
+  evidence: 'GET /enquiries  Get all Enquiries; schemas: LettingsApplicantRelated, SalesApplicantRelated,
+    IncludedProperty, IncludedBranch'
+  reason: Inbound property enquiries linked to a property and to sales/lettings applicants at an estate
+    agency — prospect and inquiry capture. Split between lettings prospect handling (BC-4950.30) and brokerage
+    buyer representation since it covers sales too; mapped to the inquiry-management sub-capability with
+    moderate confidence.
+- tag: Lettings Applications
+  spec_file: street-co-lettings-applications-api-openapi.yml
+  capability_id: BC-4950.50
+  capability_id_l1: BC-4950
+  capability_name: Lease Negotiation & Execution
+  confidence: 0.7
+  evidence: 'GET /lettings-applications/{application_id}  Get a single Lettings Application; schemas:
+    HoldingDepositAttributes, TenancyAgreementAttributes, TenancyAttributes, SafetyCertificateAttributes,
+    IncludedMeterReading'
+  reason: Lettings application including tenancy agreement, holding deposit, safety certificates and meter
+    readings — spans tenant application (BC-4950.40) and lease execution/deposit capture (BC-4950.50);
+    deposit and tenancy-agreement schemas tip it toward lease negotiation and execution.
+- tag: Tenancies
+  spec_file: street-co-tenancies-api-openapi.yml
+  capability_id: BC-4950.60
+  capability_id_l1: BC-4950
+  capability_name: Lease Administration (Landlord-Side)
+  confidence: 0.7
+  evidence: GET /tenancies  Get all Tenancies; schemas Tenancy, SafetyCertificateAttributes, InspectionAttributes,
+    IncludedGuarantor, IncludedLettingsApplication
+  reason: Tenancy records with tenants, guarantors, safety certificates and inspections are landlord/agent-side
+    administration of the letting agreement over its term.
