@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 10
+edge_count: 14
 edges:
 - tag: Maintenance Jobs
   spec_file: street-co-maintenance-jobs-api-openapi.yml
@@ -33,6 +33,17 @@ edges:
     SalesListingAttributes
   reason: Offers made by applicants against sales listings held by the agency is squarely offer and negotiation
     management in brokered residential sales.
+- tag: Invoices
+  spec_file: street-co-invoices-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.8
+  evidence: GET /invoices Get all Invoices; PATCH /invoices/{invoice_id} Mark an Invoice as paid; schemas
+    InvoiceAttributes, FeeAttributes, OwnerAttributes
+  reason: Customer/landlord fee invoices with paid-marking is receivables invoicing and cash application,
+    i.e. Accounts Receivable Management.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Maintenance Requests
   spec_file: street-co-maintenance-requests-api-openapi.yml
   capability_id: BC-4940.20
@@ -53,6 +64,18 @@ edges:
     IncludedSalesListing, IncludedLettingsListing
   reason: Listing records associated with distribution portals (the UK equivalent of MLS/portal syndication
     per the vendor description) constitute listing data and syndication management.
+- tag: Email
+  spec_file: street-co-email-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.75
+  evidence: POST /email/contacts Create a new contact; GET /email/segments Get all segments; schemas SegmentType,
+    SubsciptionStatus
+  reason: Contacts, segments and subscription status are email marketing automation constructs — digital/marketing
+    automation rather than transactional messaging. Could also be read as customer segmentation, hence
+    moderate confidence.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Lettings
   spec_file: street-co-lettings-api-openapi.yml
   capability_id: BC-4950.20
@@ -96,6 +119,17 @@ edges:
     agency — prospect and inquiry capture. Split between lettings prospect handling (BC-4950.30) and brokerage
     buyer representation since it covers sales too; mapped to the inquiry-management sub-capability with
     moderate confidence.
+- tag: Landlords
+  spec_file: street-co-landlords-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: GET /landlords Get all Landlords; schemas LandlordAttributes, PersonSimple, EmailAddressSimple,
+    IncludedProperty, IncludedNotes
+  reason: Landlord records with contact details, linked properties and notes are client master records
+    in the agency CRM — customer data management. Could also be seen as account management, hence 0.7.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Lettings Applications
   spec_file: street-co-lettings-applications-api-openapi.yml
   capability_id: BC-4950.50
@@ -108,6 +142,19 @@ edges:
   reason: Lettings application including tenancy agreement, holding deposit, safety certificates and meter
     readings — spans tenant application (BC-4950.40) and lease execution/deposit capture (BC-4950.50);
     deposit and tenancy-agreement schemas tip it toward lease negotiation and execution.
+- tag: People
+  spec_file: street-co-people-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: GET /people  Get all People; PATCH /people/{person_id}  Update a Person; schemas PersonAttributes,
+    EmailAddressSimple, TelephoneNumberSimple, IncludedApplicant
+  reason: CRUD over person contact records with contact details and applicant links is maintenance of
+    the customer/contact master record in the agency CRM, i.e. Customer Data Management. Some risk that
+    'People' is an internal-user directory, but UserAttributes is absent while ApplicantAttributes is
+    present.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Tenancies
   spec_file: street-co-tenancies-api-openapi.yml
   capability_id: BC-4950.60
