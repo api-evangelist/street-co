@@ -2067,6 +2067,8 @@ apis:
   - type: Contact
     url: mailto:apis@spectre.uk.com
 common:
+- type: Plans
+  url: plans/street-co-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/street-co-capability-edges.yml
   name: Street.co.uk Business Capability Map
