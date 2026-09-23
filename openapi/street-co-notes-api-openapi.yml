@@ -105,85 +105,7 @@ paths:
       - Notes
       x-internal: false
 components:
-  responses:
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '409':
-      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   schemas:
-    SaleRelated:
-      title: Sale (related)
-      type: object
-      additionalProperties: false
-      properties:
-        sale:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - sale
-                id:
-                  type: string
-                  format: uuid
-    CompanyRelated:
-      title: Company (related)
-      type: object
-      properties:
-        company:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - company
-                id:
-                  type: string
-                  format: uuid
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
       description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
@@ -209,42 +131,6 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    ViewingRelated:
-      title: Viewing (related)
-      type: object
-      additionalProperties: false
-      properties:
-        viewing:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - viewing
-                id:
-                  type: string
-                  format: uuid
-    ValuationRelated:
-      title: Valuation (related)
-      type: object
-      additionalProperties: false
-      properties:
-        valuation:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - valuation
-                id:
-                  type: string
-                  format: uuid
     PersonRelated:
       title: Person (related)
       type: object
@@ -259,92 +145,6 @@ components:
                   type: string
                   enum:
                   - person
-                id:
-                  type: string
-                  format: uuid
-    LettingsOfferRelated:
-      title: Lettings Offer (related)
-      type: object
-      properties:
-        lettings_offer:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - lettingsOffer
-                id:
-                  type: string
-                  format: uuid
-    PropertyRelated:
-      title: Property (related)
-      type: object
-      additionalProperties: false
-      properties:
-        property:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - property
-                id:
-                  type: string
-                  format: uuid
-    EnquiryRelated:
-      title: Enquiry (related)
-      type: object
-      properties:
-        enquiry:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - enquiry
-                id:
-                  type: string
-                  format: uuid
-    OwnerRelated:
-      title: Owner (related)
-      type: object
-      properties:
-        owner:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - owner
-                id:
-                  type: string
-                  format: uuid
-    MaintenanceJobRelated:
-      title: MaintenanceJob (related)
-      type: object
-      properties:
-        maintenance:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - maintenance
                 id:
                   type: string
                   format: uuid
@@ -365,11 +165,11 @@ components:
                 id:
                   type: string
                   format: uuid
-    TenancyRelated:
-      title: Tenancy (related)
+    MaintenanceJobRelated:
+      title: MaintenanceJob (related)
       type: object
       properties:
-        tenancy:
+        maintenance:
           type: object
           properties:
             data:
@@ -378,25 +178,7 @@ components:
                 type:
                   type: string
                   enum:
-                  - tenancy
-                id:
-                  type: string
-                  format: uuid
-    LettingsApplicantRelated:
-      title: Lettings Applicant (related)
-      type: object
-      additionalProperties: false
-      properties:
-        lettings_applicant:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - lettingsApplicant
+                  - maintenance
                 id:
                   type: string
                   format: uuid
@@ -418,6 +200,182 @@ components:
                 id:
                   type: string
                   format: uuid
+    SalesOfferRelated:
+      title: Sales Offer (related)
+      type: object
+      properties:
+        sales_offer:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - salesOffer
+                id:
+                  type: string
+                  format: uuid
+    PropertyRelated:
+      title: Property (related)
+      type: object
+      additionalProperties: false
+      properties:
+        property:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - property
+                id:
+                  type: string
+                  format: uuid
+    TenancyRelated:
+      title: Tenancy (related)
+      type: object
+      properties:
+        tenancy:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - tenancy
+                id:
+                  type: string
+                  format: uuid
+    OwnerRelated:
+      title: Owner (related)
+      type: object
+      properties:
+        owner:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - owner
+                id:
+                  type: string
+                  format: uuid
+    ValuationRelated:
+      title: Valuation (related)
+      type: object
+      additionalProperties: false
+      properties:
+        valuation:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - valuation
+                id:
+                  type: string
+                  format: uuid
+    SaleRelated:
+      title: Sale (related)
+      type: object
+      additionalProperties: false
+      properties:
+        sale:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - sale
+                id:
+                  type: string
+                  format: uuid
+    LettingsApplicantRelated:
+      title: Lettings Applicant (related)
+      type: object
+      additionalProperties: false
+      properties:
+        lettings_applicant:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - lettingsApplicant
+                id:
+                  type: string
+                  format: uuid
+    NoteAttributes:
+      title: Note (attributes)
+      type: object
+      properties:
+        body:
+          type:
+          - string
+          - 'null'
+        author:
+          type:
+          - string
+          - 'null'
+        pinned_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LettingsOfferRelated:
+      title: Lettings Offer (related)
+      type: object
+      properties:
+        lettings_offer:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - lettingsOffer
+                id:
+                  type: string
+                  format: uuid
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -445,43 +403,23 @@ components:
       - title: 401 Unauthorized
         detail: The requester is not authorized to access the resource.
         code: '401'
-    Note:
-      title: Note
-      x-tags:
-      - Notes
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - note
-          attributes:
-            $ref: '#/components/schemas/NoteAttributes'
-    NoteAttributes:
-      title: Note (attributes)
+    EnquiryRelated:
+      title: Enquiry (related)
       type: object
       properties:
-        body:
-          type:
-          - string
-          - 'null'
-        author:
-          type:
-          - string
-          - 'null'
-        pinned_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+        enquiry:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - enquiry
+                id:
+                  type: string
+                  format: uuid
     InspectionRelated:
       title: Inspection (related)
       type: object
@@ -499,19 +437,37 @@ components:
                 id:
                   type: string
                   format: uuid
-    BaseModel:
-      title: Base Model
+    Note:
+      title: Note
+      x-tags:
+      - Notes
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - note
+          attributes:
+            $ref: '#/components/schemas/NoteAttributes'
+    CompanyRelated:
+      title: Company (related)
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
+        company:
           type: object
-        relationships:
-          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - company
+                id:
+                  type: string
+                  format: uuid
     jsonApiMultiErrorResponseBody:
       title: JSON:API Multi-Error Response Body
       description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
@@ -526,11 +482,12 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    SalesOfferRelated:
-      title: Sales Offer (related)
+    ViewingRelated:
+      title: Viewing (related)
       type: object
+      additionalProperties: false
       properties:
-        sales_offer:
+        viewing:
           type: object
           properties:
             data:
@@ -539,10 +496,53 @@ components:
                 type:
                   type: string
                   enum:
-                  - salesOffer
+                  - viewing
                 id:
                   type: string
                   format: uuid
+  responses:
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '409':
+      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

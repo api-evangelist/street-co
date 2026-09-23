@@ -102,110 +102,7 @@ paths:
           $ref: '#/components/responses/500'
       description: This endpoint retrieves the most recent questionnaire response by its UUID, including all sections, questions, and answers.
 components:
-  responses:
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '404':
-      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   schemas:
-    IncludedUser:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - user
-          attributes:
-            $ref: '#/components/schemas/UserAttributes'
-      title: User (included)
-    IncludedResource:
-      title: Included Resource
-      type: object
-      examples: []
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type:
-          - object
-          - 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-    IncludedProperty:
-      title: Property (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - property
-          attributes:
-            $ref: '#/components/schemas/PropertyAttributes'
-          relationships:
-            type: object
-            properties:
-              branch:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
       description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
@@ -231,6 +128,170 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
+    IncludedQuestionnaireQuestionOption:
+      title: Questionnaire Question Option (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_question_option
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireQuestionOptionAttributes'
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
+    IncludedQuestionnaireAnswer:
+      title: Questionnaire Answer (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_response_answer
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireResponseAnswerAttributes'
+          relationships:
+            type: object
+            properties:
+              question:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - questionnaire_question
+              values:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_response_answer_value
+    IncludedQuestionnaireAnswerValue:
+      title: Questionnaire Answer Value (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_response_answer_value
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireResponseAnswerValueAttributes'
+          relationships:
+            type: object
+            properties:
+              option:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - questionnaire_question_option
+    IncludedQuestionnaireQuestion:
+      title: Questionnaire Question (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_question
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireQuestionAttributes'
+          relationships:
+            type: object
+            properties:
+              options:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_question_option
+    RelationshipSingular:
+      title: Relationship Singular
+      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+      type: object
+      properties:
+        data:
+          oneOf:
+          - type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                format: uuid
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+            required:
+            - type
+            - id
+          - type: 'null'
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
     UserAttributes:
       title: User (attributes)
       type: object
@@ -270,133 +331,21 @@ components:
         updated_at:
           type: string
           format: date-time
-    QuestionnaireResponseAnswerValueAttributes:
-      title: Questionnaire Response Answer Value (attributes)
-      type: object
-      properties:
-        answer:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedQuestionnaireSection:
-      title: Questionnaire Section (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_section
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireSectionAttributes'
-          relationships:
-            type: object
-            properties:
-              questions:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_question
-    QuestionnaireResponse:
-      title: Questionnaire Response
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_response
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireResponseAttributes'
-          relationships:
-            type: object
-            properties:
-              questionnaire:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - questionnaire
-              answers:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_response_answer
-              submitter:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - user
-                      - type: 'null'
-              property:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - property
-    RelationshipSingular:
-      title: Relationship Singular
-      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
       type: object
       properties:
         data:
-          oneOf:
-          - type: object
+          type: array
+          items:
+            type: object
             properties:
               type:
                 type: string
               id:
                 type: string
-                format: uuid
                 example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-            required:
-            - type
-            - id
-          - type: 'null'
         links:
           type: object
           properties:
@@ -421,17 +370,13 @@ components:
         updated_at:
           type: string
           format: date-time
-    QuestionnaireSectionAttributes:
-      title: Questionnaire Section (attributes)
+    QuestionnaireResponseAnswerAttributes:
+      title: Questionnaire Response Answer (attributes)
       type: object
       properties:
-        name:
-          type: string
-        order:
-          type: integer
-        hidden:
+        dont_know:
           type: boolean
-        is_editable:
+        not_relevant:
           type: boolean
         created_at:
           type: string
@@ -439,51 +384,19 @@ components:
         updated_at:
           type: string
           format: date-time
-    IncludedQuestionnaireQuestion:
-      title: Questionnaire Question (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_question
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireQuestionAttributes'
-          relationships:
-            type: object
-            properties:
-              options:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_question_option
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
+    QuestionnaireResponseAttributes:
+      title: Questionnaire Response (attributes)
+      type: object
+      properties:
+        submitted_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     PropertyAttributes:
       type: object
       title: Property (attributes)
@@ -963,32 +876,59 @@ components:
             - title
             - type
             - url
-    QuestionnaireQuestionAttributes:
-      title: Questionnaire Question (attributes)
+    IncludedUser:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - user
+          attributes:
+            $ref: '#/components/schemas/UserAttributes'
+      title: User (included)
+    IncludedQuestionnaireSection:
+      title: Questionnaire Section (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_section
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireSectionAttributes'
+          relationships:
+            type: object
+            properties:
+              questions:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_question
+    QuestionnaireSectionAttributes:
+      title: Questionnaire Section (attributes)
       type: object
       properties:
-        body:
-          type:
-          - string
-          - 'null'
-        question_type:
-          type: string
-        type:
-          type: string
-          deprecated: true
-          description: 'Deprecated: use question_type instead.'
-        hidden:
-          type: boolean
-        help_text:
+        name:
           type: string
         order:
           type: integer
+        hidden:
+          type: boolean
         is_editable:
           type: boolean
-        meta:
-          type: object
-        identifier:
-          type: string
         created_at:
           type: string
           format: date-time
@@ -1113,39 +1053,6 @@ components:
           type:
           - string
           - 'null'
-    QuestionnaireQuestionOptionAttributes:
-      title: Questionnaire Question Option (attributes)
-      type: object
-      properties:
-        text:
-          type: string
-        additional_data_input_type:
-          type:
-          - string
-          - 'null'
-        prohibited:
-          type: boolean
-        order:
-          type: integer
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    QuestionnaireResponseAttributes:
-      title: Questionnaire Response (attributes)
-      type: object
-      properties:
-        submitted_at:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
     Links:
       title: Links
       description: Links object - JSON:API Standard.
@@ -1179,44 +1086,108 @@ components:
         last:
           type: string
           example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
-    QuestionnaireResponseAnswerAttributes:
-      title: Questionnaire Response Answer (attributes)
+    QuestionnaireResponse:
+      title: Questionnaire Response
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_response
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireResponseAttributes'
+          relationships:
+            type: object
+            properties:
+              questionnaire:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - questionnaire
+              answers:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_response_answer
+              submitter:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - user
+                      - type: 'null'
+              property:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - property
+    QuestionnaireQuestionOptionAttributes:
+      title: Questionnaire Question Option (attributes)
       type: object
       properties:
-        dont_know:
+        text:
+          type: string
+        additional_data_input_type:
+          type:
+          - string
+          - 'null'
+        prohibited:
           type: boolean
-        not_relevant:
-          type: boolean
+        order:
+          type: integer
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-    RelationshipPlural:
-      title: Relationship Plural
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+    BaseModel:
+      title: Base Model
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-        links:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
           type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    IncludedQuestionnaireQuestionOption:
-      title: Questionnaire Question Option (included)
+        relationships:
+          type: object
+    IncludedProperty:
+      title: Property (included)
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -1224,13 +1195,68 @@ components:
           type:
             type: string
             enum:
-            - questionnaire_question_option
+            - property
           attributes:
-            $ref: '#/components/schemas/QuestionnaireQuestionOptionAttributes'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+    QuestionnaireResponseAnswerValueAttributes:
+      title: Questionnaire Response Answer Value (attributes)
       type: object
+      properties:
+        answer:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    QuestionnaireQuestionAttributes:
+      title: Questionnaire Question (attributes)
+      type: object
+      properties:
+        body:
+          type:
+          - string
+          - 'null'
+        question_type:
+          type: string
+        type:
+          type: string
+          deprecated: true
+          description: 'Deprecated: use question_type instead.'
+        hidden:
+          type: boolean
+        help_text:
+          type: string
+        order:
+          type: integer
+        is_editable:
+          type: boolean
+        meta:
+          type: object
+        identifier:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -1258,6 +1284,41 @@ components:
       - title: 401 Unauthorized
         detail: The requester is not authorized to access the resource.
         code: '401'
+    jsonApiMultiErrorResponseBody:
+      title: JSON:API Multi-Error Response Body
+      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
+      type: object
+      properties:
+        meta:
+          type: object
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
+    IncludedResource:
+      title: Included Resource
+      type: object
+      examples: []
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type:
+          - object
+          - 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
     IncludedQuestionnaire:
       title: Questionnaire (included)
       allOf:
@@ -1287,110 +1348,49 @@ components:
                             type: string
                             enum:
                             - questionnaire_section
-    IncludedQuestionnaireAnswer:
-      title: Questionnaire Answer (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_response_answer
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireResponseAnswerAttributes'
-          relationships:
-            type: object
-            properties:
-              question:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - questionnaire_question
-              values:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_response_answer_value
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    jsonApiMultiErrorResponseBody:
-      title: JSON:API Multi-Error Response Body
-      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
-      type: object
-      properties:
-        meta:
-          type: object
-        errors:
-          description: An array of error objects providing additional information about problems encountered while processing the request.
-          type: array
-          items:
-            $ref: '#/components/schemas/jsonApiError'
-      required:
-      - errors
-    IncludedQuestionnaireAnswerValue:
-      title: Questionnaire Answer Value (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_response_answer_value
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireResponseAnswerValueAttributes'
-          relationships:
-            type: object
-            properties:
-              option:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - questionnaire_question_option
+  responses:
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

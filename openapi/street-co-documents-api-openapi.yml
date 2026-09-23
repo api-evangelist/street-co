@@ -108,54 +108,13 @@ paths:
                       - $ref: '#/components/schemas/PropertyRelated'
                       - $ref: '#/components/schemas/SalesApplicantRelated'
                       - $ref: '#/components/schemas/LettingsApplicantRelated'
-      description: "This endpoint allows you to create a `Document` attached to an entity by providing a publically accessible URL for the file.\n        In addition you can add relevant information such as a title and description of the file."
+      description: 'This endpoint allows you to create a `Document` attached to an entity by providing a publically accessible URL for the file.
+
+        In addition you can add relevant information such as a title and description of the file.'
       tags:
       - Documents
       x-internal: false
 components:
-  responses:
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '409':
-      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   schemas:
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
@@ -182,24 +141,6 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    PropertyRelated:
-      title: Property (related)
-      type: object
-      additionalProperties: false
-      properties:
-        property:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - property
-                id:
-                  type: string
-                  format: uuid
     DefaultMedia:
       title: DefaultMedia
       type: object
@@ -244,39 +185,6 @@ components:
           type: string
           example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg
           format: uri
-    LettingsApplicantRelated:
-      title: Lettings Applicant (related)
-      type: object
-      additionalProperties: false
-      properties:
-        lettings_applicant:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - lettingsApplicant
-                id:
-                  type: string
-                  format: uuid
-    PdfMedia:
-      title: PDF
-      type: object
-      properties:
-        media_type:
-          type: string
-          description: A user defined type to enable categorizing generic media items
-          enum:
-          - pdf
-        url:
-          type: string
-          example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.pdf
-          format: uri
-      required:
-      - media_type
     SalesApplicantRelated:
       title: Sales Applicant (related)
       type: object
@@ -295,6 +203,91 @@ components:
                 id:
                   type: string
                   format: uuid
+    PropertyRelated:
+      title: Property (related)
+      type: object
+      additionalProperties: false
+      properties:
+        property:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - property
+                id:
+                  type: string
+                  format: uuid
+    Media:
+      title: Media
+      x-tags:
+      - Media
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - media
+          attributes:
+            $ref: '#/components/schemas/MediaAttributes'
+    PdfMedia:
+      title: PDF
+      type: object
+      properties:
+        media_type:
+          type: string
+          description: A user defined type to enable categorizing generic media items
+          enum:
+          - pdf
+        url:
+          type: string
+          example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.pdf
+          format: uri
+      required:
+      - media_type
+    LettingsApplicantRelated:
+      title: Lettings Applicant (related)
+      type: object
+      additionalProperties: false
+      properties:
+        lettings_applicant:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - lettingsApplicant
+                id:
+                  type: string
+                  format: uuid
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
+    MediaAttributes:
+      title: MediaAttributes
+      allOf:
+      - $ref: '#/components/schemas/DefaultMedia'
+      - oneOf:
+        - $ref: '#/components/schemas/ImageMedia'
+        - $ref: '#/components/schemas/PdfMedia'
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -322,33 +315,6 @@ components:
       - title: 401 Unauthorized
         detail: The requester is not authorized to access the resource.
         code: '401'
-    Media:
-      title: Media
-      x-tags:
-      - Media
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - media
-          attributes:
-            $ref: '#/components/schemas/MediaAttributes'
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
     jsonApiMultiErrorResponseBody:
       title: JSON:API Multi-Error Response Body
       description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
@@ -363,13 +329,49 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    MediaAttributes:
-      title: MediaAttributes
-      allOf:
-      - $ref: '#/components/schemas/DefaultMedia'
-      - oneOf:
-        - $ref: '#/components/schemas/ImageMedia'
-        - $ref: '#/components/schemas/PdfMedia'
+  responses:
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '409':
+      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

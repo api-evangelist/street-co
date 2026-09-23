@@ -228,213 +228,7 @@ paths:
         style: form
       - $ref: '#/components/parameters/filter_cancelled'
 components:
-  parameters:
-    page_size:
-      name: page[size]
-      description: Set the number of results per page.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        maximum: 250
-        example: 25
-    filter_created_from:
-      name: filter[created_from]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results created after the provided date.
-    filter_booked_from:
-      name: filter[booked_from]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results booked before the provided date.
-    filter_updated_from:
-      name: filter[updated_from]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results updated after the provided date.
-    filter_booked_to:
-      name: filter[booked_to]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results booked before the provided date.
-    page_number:
-      name: page[number]
-      description: Set the page number.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        example: 3
-    filter_cancelled:
-      name: filter[cancelled]
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - with
-        - only
-      description: Optionally return result WITH cancelled results or return ONLY cancelled results.
-    filter_updated_to:
-      name: filter[updated_to]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results updated before the provided date.
-    filter_created_to:
-      name: filter[created_to]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results created before the provided date.
-    filter_trashed:
-      name: filter[trashed]
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - with
-        - only
-      description: Optionally return result WITH deleted results or return ONLY deleted results.
-  responses:
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '404':
-      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   schemas:
-    IncludedBranch:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - branch
-          attributes:
-            $ref: '#/components/schemas/BranchAttributes'
-      title: Branch (included)
-    IncludedResource:
-      title: Included Resource
-      type: object
-      examples: []
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type:
-          - object
-          - 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-    EmailAddressSimple:
-      title: Email Address (simple)
-      description: An email address, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: john@johndoe.com
-          format: email
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
-    IncludedProperty:
-      title: Property (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - property
-          attributes:
-            $ref: '#/components/schemas/PropertyAttributes'
-          relationships:
-            type: object
-            properties:
-              branch:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
       description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
@@ -460,6 +254,124 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
+    IncludedValuationLettingsReport:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - valuation_lettings_report
+          attributes:
+            $ref: '#/components/schemas/ValuationLettingsReportAttributes'
+      title: Valuation Lettings Report (included)
+    IncludedValuationSalesReport:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - valuation_sales_report
+          attributes:
+            $ref: '#/components/schemas/ValuationSalesReportAttributes'
+      title: Valuation Sales Report (included)
+    IncludedPerson:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - person
+          attributes:
+            $ref: '#/components/schemas/PersonAttributes'
+      title: Person (included)
+    EmailAddressSimple:
+      title: Email Address (simple)
+      description: An email address, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: john@johndoe.com
+          format: email
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
+    RelationshipSingular:
+      title: Relationship Singular
+      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+      type: object
+      properties:
+        data:
+          oneOf:
+          - type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                format: uuid
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+            required:
+            - type
+            - id
+          - type: 'null'
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    IncludedSalesInstruction:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - sales_instruction
+          attributes:
+            $ref: '#/components/schemas/SalesInstructionAttributes'
+      title: Sales Instruction (included)
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
     UserAttributes:
       title: User (attributes)
       type: object
@@ -499,61 +411,21 @@ components:
         updated_at:
           type: string
           format: date-time
-    IncludedValuationLettingsReport:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - valuation_lettings_report
-          attributes:
-            $ref: '#/components/schemas/ValuationLettingsReportAttributes'
-      title: Valuation Lettings Report (included)
-    IncludedSalesInstruction:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - sales_instruction
-          attributes:
-            $ref: '#/components/schemas/SalesInstructionAttributes'
-      title: Sales Instruction (included)
-    IncludedLettingsInstruction:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - lettings_instruction
-          attributes:
-            $ref: '#/components/schemas/LettingsInstructionAttributes'
-      title: Lettings Instruction (included)
-    RelationshipSingular:
-      title: Relationship Singular
-      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
       type: object
       properties:
         data:
-          oneOf:
-          - type: object
+          type: array
+          items:
+            type: object
             properties:
               type:
                 type: string
               id:
                 type: string
-                format: uuid
                 example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-            required:
-            - type
-            - id
-          - type: 'null'
         links:
           type: object
           properties:
@@ -561,101 +433,6 @@ components:
               $ref: '#/components/schemas/Link'
             related:
               $ref: '#/components/schemas/Link'
-    Pagination:
-      title: Pagination
-      description: Pagination object - JSON:API Standard.
-      type: object
-      properties:
-        pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-              example: 226
-            count:
-              type: integer
-              example: 10
-            per_page:
-              type: integer
-              example: 10
-            current_page:
-              type: integer
-              example: 1
-            total_pages:
-              type: integer
-              example: 23
-      x-examples:
-        example-1:
-          pagination:
-            total: 226
-            count: 10
-            per_page: 10
-            current_page: 1
-            total_pages: 23
-      examples:
-      - pagination:
-          total: 226
-          count: 10
-          per_page: 10
-          current_page: 1
-          total_pages: 23
-    TelephoneNumberSimple:
-      title: Telephone Number (simple)
-      description: An telephone number, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: '+441632960911'
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
-    LostValuationDetailAttributes:
-      title: Lost Valuation Detail (attributes)
-      type: object
-      properties:
-        marketed_again:
-          type: boolean
-        competitor_valuation_amount:
-          type:
-          - string
-          - 'null'
-        fee_type:
-          type: string
-        fee:
-          type: number
-          format: float
-        contract_length_qualifier:
-          type: string
-        contract_length:
-          type: integer
-        upfront_fee_type:
-          type:
-          - string
-          - 'null'
-        upfront_fee:
-          type:
-          - number
-          - 'null'
-          format: float
-        management_fee_type:
-          type:
-          - string
-          - 'null'
-        management_fee:
-          type:
-          - number
-          - 'null'
-          format: float
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
     PersonAttributes:
       title: Person (attributes)
       type: object
@@ -736,337 +513,77 @@ components:
         updated_at:
           type: string
           format: date-time
-    ValuationSalesReportAttributes:
-      title: Valuation Sales Report (attributes)
+    FollowUpAttributes:
+      title: Follow Up (attributes)
       type: object
       properties:
-        valuation_price_qualifier:
-          type: string
-        valuation_amount:
-          type: integer
-        valuation_range_min_amount:
+        subject_id:
           type:
-          - integer
+          - string
           - 'null'
-        valuation_range_max_amount:
+          format: uuid
+          deprecated: true
+          description: 'Deprecated: use the subject relationship instead.'
+        subject_type:
           type:
-          - integer
+          - string
           - 'null'
-        intro_message:
-          type: string
-        sent_to_vendor_at:
+          enum:
+          - property
+          - lettingsApplicant
+          - salesApplicant
+          - sale
+          - valuation
+          - viewing
+          - null
+        due_date:
           type:
           - string
           - 'null'
           format: date-time
-        published_at:
+        note:
           type:
           - string
           - 'null'
-          format: date-time
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-    Valuation:
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+    IncludedLettingsInstruction:
       allOf:
-      - $ref: '#/components/schemas/BaseModel'
+      - $ref: '#/components/schemas/IncludedResource'
       - type: object
         properties:
           type:
             type: string
             enum:
-            - valuation
+            - lettings_instruction
           attributes:
-            $ref: '#/components/schemas/ValuationAttributes'
-          relationships:
-            type: object
-            properties:
-              branch:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
-              property:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - property
-              owner:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - owner
-              notes:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - note
-              follow-up:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - follow-up
-                      - type: 'null'
-              salesReport:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - valuation_sales_report
-                      - type: 'null'
-              lettingsReport:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - valuation_lettings_report
-                      - type: 'null'
-              salesInstruction:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - sales_instruction
-                      - type: 'null'
-              lettingsInstruction:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - lettings_instruction
-                      - type: 'null'
-              valuer:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - valuer
-                      - type: 'null'
-              lostValuationDetail:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - lost_valuation_detail
-                      - type: 'null'
-    ValuationAttributes:
-      title: Valuation (attributes)
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/AddressSimple'
-        start:
+            $ref: '#/components/schemas/LettingsInstructionAttributes'
+      title: Lettings Instruction (included)
+    IncludedValuer:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
           type:
-          - string
-          - 'null'
-          format: date-time
-        end:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        lead_source:
-          type:
-          - string
-          - 'null'
-        valuation_type:
-          type: string
-          enum:
-          - sales
-          - lettings
-          - sales_and_lettings
-        type:
-          type: string
-          deprecated: true
-          description: 'Deprecated: use valuation_type instead.'
-          enum:
-          - sales
-          - lettings
-          - sales_and_lettings
-        years_owned:
-          type:
-          - integer
-          - 'null'
-        work_done:
-          type: array
-          uniqueItems: true
-          minItems: 0
-          items:
             type: string
-            example: Cosmetic (decorating etc...)
-            minLength: 0
-        desired_move_timeframe:
-          type:
-          - string
-          - 'null'
-        move_reason:
-          type:
-          - string
-          - 'null'
-        status:
-          type: string
-        custom_status:
-          type:
-          - string
-          - 'null'
-        cancelled_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    BranchAttributes:
-      type: object
-      title: Branch (attributes)
-      properties:
-        address:
-          $ref: '#/components/schemas/AddressSimple'
-        name:
-          type: string
-        public_name:
-          type:
-          - string
-          - 'null'
-        email_address:
-          type: string
-          format: email
-        telephone:
-          type: string
-        website:
-          type:
-          - string
-          - 'null'
-          format: uri
-        about_branch_copy:
-          type:
-          - string
-          - 'null'
-        disclaimer:
-          type:
-          - string
-          - 'null'
-        matching_links_to_website:
-          type:
-          - boolean
-          - 'null'
-          readOnly: true
-          description: If true, custom property matching links are enabled for the branch.
-        matching_url_pattern:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: 'Pattern for property match URLs on the agent website: https://www.yourwebsite.co.uk/property/{UUID}'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+            enum:
+            - valuer
+          attributes:
+            $ref: '#/components/schemas/UserAttributes'
+      title: Valuer (included)
     PropertyAttributes:
       type: object
       title: Property (attributes)
@@ -1546,28 +1063,81 @@ components:
             - title
             - type
             - url
-    IncludedValuationSalesReport:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
+    BranchAttributes:
+      type: object
+      title: Branch (attributes)
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        name:
+          type: string
+        public_name:
           type:
-            type: string
-            enum:
-            - valuation_sales_report
-          attributes:
-            $ref: '#/components/schemas/ValuationSalesReportAttributes'
-      title: Valuation Sales Report (included)
-    IncludedLinks:
-      title: Included Links
+          - string
+          - 'null'
+        email_address:
+          type: string
+          format: email
+        telephone:
+          type: string
+        website:
+          type:
+          - string
+          - 'null'
+          format: uri
+        about_branch_copy:
+          type:
+          - string
+          - 'null'
+        disclaimer:
+          type:
+          - string
+          - 'null'
+        matching_links_to_website:
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+          description: If true, custom property matching links are enabled for the branch.
+        matching_url_pattern:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'Pattern for property match URLs on the agent website: https://www.yourwebsite.co.uk/property/{UUID}'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ValuationLettingsReportAttributes:
+      title: Valuation Lettings Report (attributes)
       type: object
       properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        related:
-          $ref: '#/components/schemas/Link'
-      examples: []
-    IncludedPerson:
+        valuation_amount:
+          type: integer
+        valuation_period:
+          type: string
+        intro_message:
+          type: string
+        sent_to_vendor_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        published_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    IncludedLostValuationDetail:
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -1575,10 +1145,10 @@ components:
           type:
             type: string
             enum:
-            - person
+            - lost_valuation_detail
           attributes:
-            $ref: '#/components/schemas/PersonAttributes'
-      title: Person (included)
+            $ref: '#/components/schemas/LostValuationDetailAttributes'
+      title: Lost Valuation Detail (included)
     AddressSimple:
       title: Address (simple)
       type: object
@@ -1697,58 +1267,6 @@ components:
           type:
           - string
           - 'null'
-    SalesInstructionAttributes:
-      title: Sales Instruction (attributes)
-      type: object
-      properties:
-        method:
-          type: string
-        marketing_price_qualifier:
-          type:
-          - string
-          - 'null'
-        marketing_price:
-          type: integer
-        instructed_at:
-          type: string
-          format: date-time
-        revoked_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    ValuationLettingsReportAttributes:
-      title: Valuation Lettings Report (attributes)
-      type: object
-      properties:
-        valuation_amount:
-          type: integer
-        valuation_period:
-          type: string
-        intro_message:
-          type: string
-        sent_to_vendor_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        published_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
     Links:
       title: Links
       description: Links object - JSON:API Standard.
@@ -1782,99 +1300,119 @@ components:
         last:
           type: string
           example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
-    RelationshipPlural:
-      title: Relationship Plural
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+    IncludedBranch:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - branch
+          attributes:
+            $ref: '#/components/schemas/BranchAttributes'
+      title: Branch (included)
+    LostValuationDetailAttributes:
+      title: Lost Valuation Detail (attributes)
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    IncludedFollowUp:
-      title: Follow Up (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
+        marketed_again:
+          type: boolean
+        competitor_valuation_amount:
           type:
-            type: string
-            enum:
-            - follow_up
-          attributes:
-            $ref: '#/components/schemas/FollowUpAttributes'
-      x-tags:
-      - Follow Ups
-    jsonApiError:
-      title: JSON:API Error Object
-      description: A JSON:API object representing a single error.
+          - string
+          - 'null'
+        fee_type:
+          type: string
+        fee:
+          type: number
+          format: float
+        contract_length_qualifier:
+          type: string
+        contract_length:
+          type: integer
+        upfront_fee_type:
+          type:
+          - string
+          - 'null'
+        upfront_fee:
+          type:
+          - number
+          - 'null'
+          format: float
+        management_fee_type:
+          type:
+          - string
+          - 'null'
+        management_fee:
+          type:
+          - number
+          - 'null'
+          format: float
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    LettingsInstructionAttributes:
+      title: Lettings Instruction (attributes)
       type: object
       properties:
-        title:
+        method:
           type: string
-        detail:
+        marketing_price_pcm:
+          type: integer
+        marketing_price_period:
           type: string
-        code:
+        instructed_at:
           type: string
-        source:
-          type: object
-          description: An object containing references to the primary source of the error.
-          properties:
-            pointer:
-              type: string
-              description: A JSON Pointer to the value in the request document that caused the error.
-            parameter:
-              type: string
-              description: A string indicating which URI query parameter caused the error.
-      required:
-      - title
-      examples:
-      - title: 401 Unauthorized
-        detail: The requester is not authorized to access the resource.
-        code: '401'
-    IncludedValuer:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
+          format: date-time
+        revoked_at:
           type:
-            type: string
-            enum:
-            - valuer
-          attributes:
-            $ref: '#/components/schemas/UserAttributes'
-      title: Valuer (included)
-    IncludedNotes:
-      title: Note (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ValuationSalesReportAttributes:
+      title: Valuation Sales Report (attributes)
+      type: object
+      properties:
+        valuation_price_qualifier:
+          type: string
+        valuation_amount:
+          type: integer
+        valuation_range_min_amount:
           type:
-            type: string
-            enum:
-            - note
-          attributes:
-            $ref: '#/components/schemas/NoteAttributes'
-      x-tags:
-      - Notes
+          - integer
+          - 'null'
+        valuation_range_max_amount:
+          type:
+          - integer
+          - 'null'
+        intro_message:
+          type: string
+        sent_to_vendor_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        published_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     NoteAttributes:
       title: Note (attributes)
       type: object
@@ -1898,44 +1436,84 @@ components:
         updated_at:
           type: string
           format: date-time
-    FollowUpAttributes:
-      title: Follow Up (attributes)
+    Pagination:
+      title: Pagination
+      description: Pagination object - JSON:API Standard.
       type: object
       properties:
-        subject_id:
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              example: 226
+            count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 10
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 23
+      x-examples:
+        example-1:
+          pagination:
+            total: 226
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 23
+      examples:
+      - pagination:
+          total: 226
+          count: 10
+          per_page: 10
+          current_page: 1
+          total_pages: 23
+    SalesInstructionAttributes:
+      title: Sales Instruction (attributes)
+      type: object
+      properties:
+        method:
+          type: string
+        marketing_price_qualifier:
           type:
           - string
           - 'null'
-          format: uuid
-          deprecated: true
-          description: 'Deprecated: use the subject relationship instead.'
-        subject_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - property
-          - lettingsApplicant
-          - salesApplicant
-          - sale
-          - valuation
-          - viewing
-          - null
-        due_date:
+        marketing_price:
+          type: integer
+        instructed_at:
+          type: string
+          format: date-time
+        revoked_at:
           type:
           - string
           - 'null'
           format: date-time
-        note:
-          type:
-          - string
-          - 'null'
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
+    IncludedFollowUp:
+      title: Follow Up (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - follow_up
+          attributes:
+            $ref: '#/components/schemas/FollowUpAttributes'
+      x-tags:
+      - Follow Ups
     BaseModel:
       title: Base Model
       type: object
@@ -1949,29 +1527,6 @@ components:
           type: object
         relationships:
           type: object
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    jsonApiMultiErrorResponseBody:
-      title: JSON:API Multi-Error Response Body
-      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
-      type: object
-      properties:
-        meta:
-          type: object
-        errors:
-          description: An array of error objects providing additional information about problems encountered while processing the request.
-          type: array
-          items:
-            $ref: '#/components/schemas/jsonApiError'
-      required:
-      - errors
     OwnerAttributes:
       title: Owner (attributes)
       type: object
@@ -1993,42 +1548,6 @@ components:
           - string
           - 'null'
           format: email
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedLostValuationDetail:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - lost_valuation_detail
-          attributes:
-            $ref: '#/components/schemas/LostValuationDetailAttributes'
-      title: Lost Valuation Detail (included)
-    LettingsInstructionAttributes:
-      title: Lettings Instruction (attributes)
-      type: object
-      properties:
-        method:
-          type: string
-        marketing_price_pcm:
-          type: integer
-        marketing_price_period:
-          type: string
-        instructed_at:
-          type: string
-          format: date-time
-        revoked_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
         created_at:
           type: string
           format: date-time
@@ -2076,6 +1595,487 @@ components:
                           type: string
                           enum:
                           - company
+    IncludedProperty:
+      title: Property (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - property
+          attributes:
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+    ValuationAttributes:
+      title: Valuation (attributes)
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        start:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        end:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        lead_source:
+          type:
+          - string
+          - 'null'
+        valuation_type:
+          type: string
+          enum:
+          - sales
+          - lettings
+          - sales_and_lettings
+        type:
+          type: string
+          deprecated: true
+          description: 'Deprecated: use valuation_type instead.'
+          enum:
+          - sales
+          - lettings
+          - sales_and_lettings
+        years_owned:
+          type:
+          - integer
+          - 'null'
+        work_done:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          items:
+            type: string
+            example: Cosmetic (decorating etc...)
+            minLength: 0
+        desired_move_timeframe:
+          type:
+          - string
+          - 'null'
+        move_reason:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        custom_status:
+          type:
+          - string
+          - 'null'
+        cancelled_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    jsonApiError:
+      title: JSON:API Error Object
+      description: A JSON:API object representing a single error.
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        code:
+          type: string
+        source:
+          type: object
+          description: An object containing references to the primary source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the value in the request document that caused the error.
+            parameter:
+              type: string
+              description: A string indicating which URI query parameter caused the error.
+      required:
+      - title
+      examples:
+      - title: 401 Unauthorized
+        detail: The requester is not authorized to access the resource.
+        code: '401'
+    jsonApiMultiErrorResponseBody:
+      title: JSON:API Multi-Error Response Body
+      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
+      type: object
+      properties:
+        meta:
+          type: object
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
+    IncludedResource:
+      title: Included Resource
+      type: object
+      examples: []
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type:
+          - object
+          - 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    TelephoneNumberSimple:
+      title: Telephone Number (simple)
+      description: An telephone number, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: '+441632960911'
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
+    Valuation:
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - valuation
+          attributes:
+            $ref: '#/components/schemas/ValuationAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+              property:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - property
+              owner:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - owner
+              notes:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - note
+              follow-up:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - follow-up
+                      - type: 'null'
+              salesReport:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - valuation_sales_report
+                      - type: 'null'
+              lettingsReport:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - valuation_lettings_report
+                      - type: 'null'
+              salesInstruction:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - sales_instruction
+                      - type: 'null'
+              lettingsInstruction:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - lettings_instruction
+                      - type: 'null'
+              valuer:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - valuer
+                      - type: 'null'
+              lostValuationDetail:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - lost_valuation_detail
+                      - type: 'null'
+    IncludedNotes:
+      title: Note (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - note
+          attributes:
+            $ref: '#/components/schemas/NoteAttributes'
+      x-tags:
+      - Notes
+  parameters:
+    filter_booked_from:
+      name: filter[booked_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results booked before the provided date.
+    filter_booked_to:
+      name: filter[booked_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results booked before the provided date.
+    filter_trashed:
+      name: filter[trashed]
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - with
+        - only
+      description: Optionally return result WITH deleted results or return ONLY deleted results.
+    filter_cancelled:
+      name: filter[cancelled]
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - with
+        - only
+      description: Optionally return result WITH cancelled results or return ONLY cancelled results.
+    filter_created_from:
+      name: filter[created_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created after the provided date.
+    filter_updated_from:
+      name: filter[updated_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated after the provided date.
+    page_size:
+      name: page[size]
+      description: Set the number of results per page.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 250
+        example: 25
+    filter_updated_to:
+      name: filter[updated_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated before the provided date.
+    filter_created_to:
+      name: filter[created_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created before the provided date.
+    page_number:
+      name: page[number]
+      description: Set the page number.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
+  responses:
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

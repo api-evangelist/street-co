@@ -123,6 +123,16 @@ paths:
       description: This endpoint creates a new uploaded segment.
 components:
   schemas:
+    SegmentAttributes:
+      title: SegmentAttributes
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
     BaseModel:
       title: Base Model
       type: object
@@ -141,6 +151,13 @@ components:
       description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
       x-tags:
       - JSON:API Structures
+    SegmentType:
+      title: SegmentType
+      type: string
+      enum:
+      - static
+      - dynamic
+      - uploaded
     ContactAttributes:
       title: ContactAttributes
       type: object
@@ -176,23 +193,6 @@ components:
             default: segment
           attributes:
             $ref: '#/components/schemas/SegmentAttributes'
-    SegmentAttributes:
-      title: SegmentAttributes
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-    SegmentType:
-      title: SegmentType
-      type: string
-      enum:
-      - static
-      - dynamic
-      - uploaded
     SubsciptionStatus:
       title: SubsciptionStatus
       type: string

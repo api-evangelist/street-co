@@ -264,207 +264,7 @@ paths:
         explode: false
         style: form
 components:
-  parameters:
-    page_size:
-      name: page[size]
-      description: Set the number of results per page.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        maximum: 250
-        example: 25
-    filter_created_from:
-      name: filter[created_from]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results created after the provided date.
-    filter_updated_from:
-      name: filter[updated_from]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results updated after the provided date.
-    filter_branch:
-      name: filter[branch]
-      description: Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch.
-      in: query
-      required: false
-      schema:
-        type: string
-        format: uuid
-    filter_updated_to:
-      name: filter[updated_to]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results updated before the provided date.
-    filter_created_to:
-      name: filter[created_to]
-      in: query
-      required: false
-      schema:
-        type: string
-        format: date-time
-      description: Filter by results created before the provided date.
-    filter_trashed:
-      name: filter[trashed]
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - with
-        - only
-      description: Optionally return result WITH deleted results or return ONLY deleted results.
-    page_number:
-      name: page[number]
-      description: Set the page number.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        example: 3
-  responses:
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '404':
-      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '409':
-      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '422':
-      description: The 422 Unprocessable Content response status code indicates that the server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   schemas:
-    IncludedBranch:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - branch
-          attributes:
-            $ref: '#/components/schemas/BranchAttributes'
-      title: Branch (included)
-    EmailAddressSimple:
-      title: Email Address (simple)
-      description: An email address, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: john@johndoe.com
-          format: email
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
-    IncludedResource:
-      title: Included Resource
-      type: object
-      examples: []
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type:
-          - object
-          - 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-    IncludedProperty:
-      title: Property (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - property
-          attributes:
-            $ref: '#/components/schemas/PropertyAttributes'
-          relationships:
-            type: object
-            properties:
-              branch:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
       description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
@@ -490,6 +290,136 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
+    EnquiryAttributes:
+      title: Enquiry (attributes)
+      type: object
+      examples: []
+      properties:
+        first_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type:
+          - string
+          - 'null'
+          format: email
+        telephone_number:
+          type:
+          - string
+          - 'null'
+        message:
+          type: string
+        property_uuid:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        custom_source:
+          type:
+          - string
+          - 'null'
+          maxLength: 25
+          example: website
+        branch_uuid:
+          type:
+          - string
+          - 'null'
+          format: uuid
+        request_viewing:
+          type: boolean
+        request_valuation:
+          type: boolean
+        property_to_sell:
+          type: boolean
+        property_to_let:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
+    SalesApplicantRelated:
+      title: Sales Applicant (related)
+      type: object
+      additionalProperties: false
+      properties:
+        sales_applicant:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - salesApplicant
+                id:
+                  type: string
+                  format: uuid
+    PropertyRelated:
+      title: Property (related)
+      type: object
+      additionalProperties: false
+      properties:
+        property:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - property
+                id:
+                  type: string
+                  format: uuid
+    IncludedPerson:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - person
+          attributes:
+            $ref: '#/components/schemas/PersonAttributes'
+      title: Person (included)
+    EmailAddressSimple:
+      title: Email Address (simple)
+      description: An email address, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: john@johndoe.com
+          format: email
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
     RelationshipSingular:
       title: Relationship Singular
       description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
@@ -516,147 +446,44 @@ components:
               $ref: '#/components/schemas/Link'
             related:
               $ref: '#/components/schemas/Link'
-    Enquiry:
-      title: Enquiry
-      x-tags:
-      - Enquiries
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
       - type: object
+        required:
+        - href
         properties:
-          type:
+          href:
+            description: a string containing the link's URL
             type: string
-            enum:
-            - enquiry
-          attributes:
-            $ref: '#/components/schemas/EnquiryAttributes'
-          relationships:
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
             type: object
             properties:
-              branch:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
-              property:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - property
-                      - type: 'null'
-              person:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      oneOf:
-                      - type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - person
-                      - type: 'null'
-              notes:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - note
-    PropertyRelated:
-      title: Property (related)
-      type: object
-      additionalProperties: false
-      properties:
-        property:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+        links:
           type: object
           properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - property
-                id:
-                  type: string
-                  format: uuid
-    Pagination:
-      title: Pagination
-      description: Pagination object - JSON:API Standard.
-      type: object
-      properties:
-        pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-              example: 226
-            count:
-              type: integer
-              example: 10
-            per_page:
-              type: integer
-              example: 10
-            current_page:
-              type: integer
-              example: 1
-            total_pages:
-              type: integer
-              example: 23
-      x-examples:
-        example-1:
-          pagination:
-            total: 226
-            count: 10
-            per_page: 10
-            current_page: 1
-            total_pages: 23
-      examples:
-      - pagination:
-          total: 226
-          count: 10
-          per_page: 10
-          current_page: 1
-          total_pages: 23
-    TelephoneNumberSimple:
-      title: Telephone Number (simple)
-      description: An telephone number, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: '+441632960911'
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
     PersonAttributes:
       title: Person (attributes)
       type: object
@@ -737,70 +564,86 @@ components:
         updated_at:
           type: string
           format: date-time
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-    BranchAttributes:
+    IncludedLinks:
+      title: Included Links
       type: object
-      title: Branch (attributes)
       properties:
-        address:
-          $ref: '#/components/schemas/AddressSimple'
-        name:
-          type: string
-        public_name:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+    Enquiry:
+      title: Enquiry
+      x-tags:
+      - Enquiries
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
           type:
-          - string
-          - 'null'
-        email_address:
-          type: string
-          format: email
-        telephone:
-          type: string
-        website:
-          type:
-          - string
-          - 'null'
-          format: uri
-        about_branch_copy:
-          type:
-          - string
-          - 'null'
-        disclaimer:
-          type:
-          - string
-          - 'null'
-        matching_links_to_website:
-          type:
-          - boolean
-          - 'null'
-          readOnly: true
-          description: If true, custom property matching links are enabled for the branch.
-        matching_url_pattern:
-          type:
-          - string
-          - 'null'
-          readOnly: true
-          description: 'Pattern for property match URLs on the agent website: https://www.yourwebsite.co.uk/property/{UUID}'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+            type: string
+            enum:
+            - enquiry
+          attributes:
+            $ref: '#/components/schemas/EnquiryAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+              property:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - property
+                      - type: 'null'
+              person:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      oneOf:
+                      - type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - person
+                      - type: 'null'
+              notes:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - note
     PropertyAttributes:
       type: object
       title: Property (attributes)
@@ -1280,18 +1123,54 @@ components:
             - title
             - type
             - url
-    IncludedPerson:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
+    BranchAttributes:
+      type: object
+      title: Branch (attributes)
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressSimple'
+        name:
+          type: string
+        public_name:
           type:
-            type: string
-            enum:
-            - person
-          attributes:
-            $ref: '#/components/schemas/PersonAttributes'
-      title: Person (included)
+          - string
+          - 'null'
+        email_address:
+          type: string
+          format: email
+        telephone:
+          type: string
+        website:
+          type:
+          - string
+          - 'null'
+          format: uri
+        about_branch_copy:
+          type:
+          - string
+          - 'null'
+        disclaimer:
+          type:
+          - string
+          - 'null'
+        matching_links_to_website:
+          type:
+          - boolean
+          - 'null'
+          readOnly: true
+          description: If true, custom property matching links are enabled for the branch.
+        matching_url_pattern:
+          type:
+          - string
+          - 'null'
+          readOnly: true
+          description: 'Pattern for property match URLs on the agent website: https://www.yourwebsite.co.uk/property/{UUID}'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     AddressSimple:
       title: Address (simple)
       type: object
@@ -1410,24 +1289,6 @@ components:
           type:
           - string
           - 'null'
-    LettingsApplicantRelated:
-      title: Lettings Applicant (related)
-      type: object
-      additionalProperties: false
-      properties:
-        lettings_applicant:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - lettingsApplicant
-                id:
-                  type: string
-                  format: uuid
     Links:
       title: Links
       description: Links object - JSON:API Standard.
@@ -1461,12 +1322,24 @@ components:
         last:
           type: string
           example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
-    SalesApplicantRelated:
-      title: Sales Applicant (related)
+    IncludedBranch:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - branch
+          attributes:
+            $ref: '#/components/schemas/BranchAttributes'
+      title: Branch (included)
+    LettingsApplicantRelated:
+      title: Lettings Applicant (related)
       type: object
       additionalProperties: false
       properties:
-        sales_applicant:
+        lettings_applicant:
           type: object
           properties:
             data:
@@ -1475,36 +1348,88 @@ components:
                 type:
                   type: string
                   enum:
-                  - salesApplicant
+                  - lettingsApplicant
                 id:
                   type: string
                   format: uuid
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    RelationshipPlural:
-      title: Relationship Plural
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+    Pagination:
+      title: Pagination
+      description: Pagination object - JSON:API Standard.
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-        links:
+        pagination:
           type: object
           properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
+            total:
+              type: integer
+              example: 226
+            count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 10
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 23
+      x-examples:
+        example-1:
+          pagination:
+            total: 226
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 23
+      examples:
+      - pagination:
+          total: 226
+          count: 10
+          per_page: 10
+          current_page: 1
+          total_pages: 23
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
+    IncludedProperty:
+      title: Property (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - property
+          attributes:
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -1532,28 +1457,6 @@ components:
       - title: 401 Unauthorized
         detail: The requester is not authorized to access the resource.
         code: '401'
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
     jsonApiMultiErrorResponseBody:
       title: JSON:API Multi-Error Response Body
       description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
@@ -1568,69 +1471,166 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    EnquiryAttributes:
-      title: Enquiry (attributes)
+    IncludedResource:
+      title: Included Resource
       type: object
       examples: []
+      required:
+      - type
+      - id
       properties:
-        first_name:
-          type:
-          - string
-          - 'null'
-        last_name:
-          type:
-          - string
-          - 'null'
-        email_address:
-          type:
-          - string
-          - 'null'
-          format: email
-        telephone_number:
-          type:
-          - string
-          - 'null'
-        message:
+        type:
           type: string
-        property_uuid:
-          type:
-          - string
-          - 'null'
+        id:
+          type: string
           format: uuid
-        custom_source:
+        attributes:
+          type: object
+        relationships:
           type:
-          - string
+          - object
           - 'null'
-          maxLength: 25
-          example: website
-        branch_uuid:
-          type:
-          - string
-          - 'null'
-          format: uuid
-        request_viewing:
-          type: boolean
-        request_valuation:
-          type: boolean
-        property_to_sell:
-          type: boolean
-        property_to_let:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedLinks:
-      title: Included Links
+        meta:
+          $ref: '#/components/schemas/Meta'
+    TelephoneNumberSimple:
+      title: Telephone Number (simple)
+      description: An telephone number, can be related to a person and/or a company.
       type: object
       properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        related:
-          $ref: '#/components/schemas/Link'
-      examples: []
+        value:
+          type: string
+          example: '+441632960911'
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
+  responses:
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '422':
+      description: The 422 Unprocessable Content response status code indicates that the server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '409':
+      description: The HTTP 409 Conflict response status code indicates a request conflict with the current state of the target resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+  parameters:
+    filter_trashed:
+      name: filter[trashed]
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - with
+        - only
+      description: Optionally return result WITH deleted results or return ONLY deleted results.
+    filter_created_from:
+      name: filter[created_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created after the provided date.
+    page_size:
+      name: page[size]
+      description: Set the number of results per page.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 250
+        example: 25
+    filter_updated_from:
+      name: filter[updated_from]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated after the provided date.
+    filter_branch:
+      name: filter[branch]
+      description: Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch.
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+    filter_updated_to:
+      name: filter[updated_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results updated before the provided date.
+    filter_created_to:
+      name: filter[created_to]
+      in: query
+      required: false
+      schema:
+        type: string
+        format: date-time
+      description: Filter by results created before the provided date.
+    page_number:
+      name: page[number]
+      description: Set the page number.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
   securitySchemes:
     your-api-token:
       type: http
