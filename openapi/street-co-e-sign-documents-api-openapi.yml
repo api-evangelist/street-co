@@ -86,6 +86,34 @@ paths:
         explode: false
 components:
   schemas:
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+    IncludedEsignDocumentRecipient:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - esign_document_recipient
+          attributes:
+            $ref: '#/components/schemas/EsignDocumentRecipientAttributes'
+      title: Esign Document Recipient (included)
     jsonApiErrorResponseBody:
       title: JSON:API Error Response Body
       description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
@@ -111,43 +139,6 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    IncludedEsignDocumentRecipient:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - esign_document_recipient
-          attributes:
-            $ref: '#/components/schemas/EsignDocumentRecipientAttributes'
-      title: Esign Document Recipient (included)
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    IncludedPerson:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - person
-          attributes:
-            $ref: '#/components/schemas/PersonAttributes'
-      title: Person (included)
     EmailAddressSimple:
       title: Email Address (simple)
       description: An email address, can be related to a person and/or a company.
@@ -163,188 +154,18 @@ components:
           - 'null'
         primary:
           type: boolean
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-    RelationshipPlural:
-      title: Relationship Plural
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    PersonAttributes:
-      title: Person (attributes)
-      type: object
-      properties:
-        full_name:
-          type: string
-        title:
-          type:
-          - string
-          - 'null'
-          example: Mrs
-        first_name:
-          type: string
-          example: Jane
-        last_name:
-          type: string
-          example: Doe
-        address:
-          oneOf:
-          - $ref: '#/components/schemas/AddressSimple'
-          - type: 'null'
-        telephone_numbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelephoneNumberSimple'
-        email_addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmailAddressSimple'
-        marketing_consent:
-          type:
-          - boolean
-          - 'null'
-        contact_preferences:
-          type: object
-          properties:
-            email:
-              type: boolean
-            post:
-              type: boolean
-            text:
-              type: boolean
-            phone:
-              type: boolean
-        statuses:
-          type: object
-          minProperties: 3
-          maxProperties: 3
-          additionalProperties: false
-          properties:
-            vendor:
-              type:
-              - string
-              - 'null'
-              enum:
-              - null
-              - Current
-              - Previous
-            landlord:
-              type:
-              - string
-              - 'null'
-              enum:
-              - null
-              - Current
-              - Previous
-            tenant:
-              type:
-              - string
-              - 'null'
-              enum:
-              - null
-              - Current
-              - Previous
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedLinks:
-      title: Included Links
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        related:
-          $ref: '#/components/schemas/Link'
-      examples: []
-    EsignDocumentAttributes:
-      type: object
-      title: E-Sign Document Attributes
-      properties:
-        name:
-          type: string
-          example: Terms of Business
-        sent_at:
-          type: string
-          format: date-time
-        completed_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        cancelled_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    EsignDocument:
+    IncludedPerson:
       allOf:
-      - $ref: '#/components/schemas/BaseModel'
+      - $ref: '#/components/schemas/IncludedResource'
       - type: object
         properties:
           type:
             type: string
             enum:
-            - esign_document
+            - person
           attributes:
-            $ref: '#/components/schemas/EsignDocumentAttributes'
-          relationships:
-            type: object
-            properties:
-              recipients:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - esign_document_recipient
-      title: EsignDocument
+            $ref: '#/components/schemas/PersonAttributes'
+      title: Person (included)
     AddressSimple:
       title: Address (simple)
       type: object
@@ -463,43 +284,86 @@ components:
           type:
           - string
           - 'null'
-    EsignDocumentRecipientAttributes:
+    PersonAttributes:
+      title: Person (attributes)
       type: object
-      title: E-Sign Document Recipient Attributes
       properties:
-        email:
+        full_name:
           type: string
-        name:
-          type: string
-        sent_at:
+        title:
           type:
           - string
           - 'null'
-          format: date-time
-        signed_at:
+          example: Mrs
+        first_name:
+          type: string
+          example: Jane
+        last_name:
+          type: string
+          example: Doe
+        address:
+          oneOf:
+          - $ref: '#/components/schemas/AddressSimple'
+          - type: 'null'
+        telephone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelephoneNumberSimple'
+        email_addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailAddressSimple'
+        marketing_consent:
           type:
-          - string
+          - boolean
           - 'null'
-          format: date-time
+        contact_preferences:
+          type: object
+          properties:
+            email:
+              type: boolean
+            post:
+              type: boolean
+            text:
+              type: boolean
+            phone:
+              type: boolean
+        statuses:
+          type: object
+          minProperties: 3
+          maxProperties: 3
+          additionalProperties: false
+          properties:
+            vendor:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
+            landlord:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
+            tenant:
+              type:
+              - string
+              - 'null'
+              enum:
+              - null
+              - Current
+              - Previous
         created_at:
           type: string
           format: date-time
         updated_at:
           type: string
           format: date-time
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -527,6 +391,28 @@ components:
       - title: 401 Unauthorized
         detail: The requester is not authorized to access the resource.
         code: '401'
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
     jsonApiMultiErrorResponseBody:
       title: JSON:API Multi-Error Response Body
       description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
@@ -541,6 +427,83 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
+    EsignDocumentAttributes:
+      type: object
+      title: E-Sign Document Attributes
+      properties:
+        name:
+          type: string
+          example: Terms of Business
+        sent_at:
+          type: string
+          format: date-time
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        cancelled_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    EsignDocument:
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - esign_document
+          attributes:
+            $ref: '#/components/schemas/EsignDocumentAttributes'
+          relationships:
+            type: object
+            properties:
+              recipients:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - esign_document_recipient
+      title: EsignDocument
     IncludedResource:
       title: Included Resource
       type: object
@@ -562,6 +525,30 @@ components:
           - 'null'
         meta:
           $ref: '#/components/schemas/Meta'
+    EsignDocumentRecipientAttributes:
+      type: object
+      title: E-Sign Document Recipient Attributes
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        sent_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        signed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     TelephoneNumberSimple:
       title: Telephone Number (simple)
       description: An telephone number, can be related to a person and/or a company.
@@ -576,31 +563,26 @@ components:
           - 'null'
         primary:
           type: boolean
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
   responses:
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
     '401':
       description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
     '500':
       description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
@@ -613,8 +595,26 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
     '404':
       description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
       content:
         application/vnd.api+json:
           schema:

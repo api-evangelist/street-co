@@ -123,41 +123,6 @@ paths:
       description: This endpoint creates a new uploaded segment.
 components:
   schemas:
-    SegmentAttributes:
-      title: SegmentAttributes
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-      required:
-      - type
-      - id
-      - attributes
-      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
-      x-tags:
-      - JSON:API Structures
-    SegmentType:
-      title: SegmentType
-      type: string
-      enum:
-      - static
-      - dynamic
-      - uploaded
     ContactAttributes:
       title: ContactAttributes
       type: object
@@ -182,6 +147,48 @@ components:
             default: contact
           attributes:
             $ref: '#/components/schemas/ContactAttributes'
+    SegmentType:
+      title: SegmentType
+      type: string
+      enum:
+      - static
+      - dynamic
+      - uploaded
+    SegmentAttributes:
+      title: SegmentAttributes
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+    SubsciptionStatus:
+      title: SubsciptionStatus
+      type: string
+      enum:
+      - subscribed
+      - unsubscribed
+      - non_subscribed
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
+      x-tags:
+      - JSON:API Structures
     Segment:
       title: Segment
       allOf:
@@ -193,13 +200,6 @@ components:
             default: segment
           attributes:
             $ref: '#/components/schemas/SegmentAttributes'
-    SubsciptionStatus:
-      title: SubsciptionStatus
-      type: string
-      enum:
-      - subscribed
-      - unsubscribed
-      - non_subscribed
   parameters:
     segment_type:
       name: filter[type]

@@ -48,7 +48,7 @@ accessModel:
   method: derived
 image: https://street.co.uk/apple-touch-icon.png
 tags:
-- Real-Estate
+- Real Estate
 - United Kingdom
 - PropTech
 - CRM
@@ -71,6 +71,7 @@ tags_raw:
 - Estate Agency
 - Valuation
 - Conveyancing
+- Real-Estate
 created: '2026-07-26'
 modified: '2026-07-26'
 specificationVersion: '0.23'

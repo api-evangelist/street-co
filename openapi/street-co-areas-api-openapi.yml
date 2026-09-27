@@ -64,71 +64,6 @@ paths:
       - $ref: '#/components/parameters/page_number'
 components:
   schemas:
-    jsonApiErrorResponseBody:
-      title: JSON:API Error Response Body
-      description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
-      type: object
-      properties:
-        meta:
-          type: object
-        source:
-          type: object
-          description: The primary source of the conflict for 409 responses.
-          properties:
-            pointer:
-              type: string
-              description: JSON Pointer to the conflicting request value.
-            parameter:
-              type: string
-              description: URI parameter related to the conflict.
-        errors:
-          description: An array of error objects providing additional information about problems encountered while processing the request.
-          type: array
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/jsonApiError'
-      required:
-      - errors
-    AreaAttributes:
-      type: object
-      title: Area (attributes)
-      properties:
-        name:
-          type:
-          - string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    Area:
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - area
-          attributes:
-            $ref: '#/components/schemas/AreaAttributes'
-      title: Area
-      x-tags:
-      - Areas
     Links:
       title: Links
       description: Links object - JSON:API Standard.
@@ -162,6 +97,19 @@ components:
         last:
           type: string
           example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+    AreaAttributes:
+      type: object
+      title: Area (attributes)
+      properties:
+        name:
+          type:
+          - string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     Pagination:
       title: Pagination
       description: Pagination object - JSON:API Standard.
@@ -200,19 +148,31 @@ components:
           per_page: 10
           current_page: 1
           total_pages: 23
-    BaseModel:
-      title: Base Model
+    jsonApiErrorResponseBody:
+      title: JSON:API Error Response Body
+      description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
+        meta:
           type: object
-        relationships:
+        source:
           type: object
+          description: The primary source of the conflict for 409 responses.
+          properties:
+            pointer:
+              type: string
+              description: JSON Pointer to the conflicting request value.
+            parameter:
+              type: string
+              description: URI parameter related to the conflict.
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
     jsonApiError:
       title: JSON:API Error Object
       description: A JSON:API object representing a single error.
@@ -254,31 +214,53 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
+      type: object
+      properties:
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Area:
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - area
+          attributes:
+            $ref: '#/components/schemas/AreaAttributes'
+      title: Area
+      x-tags:
+      - Areas
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
   responses:
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
     '401':
       description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
     '500':
       description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
       content:
@@ -291,13 +273,40 @@ components:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
     '404':
       description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
       content:
         application/vnd.api+json:
           schema:
             $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   parameters:
+    page_number:
+      name: page[number]
+      description: Set the page number.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
     filter_trashed:
       name: filter[trashed]
       in: query
@@ -308,15 +317,6 @@ components:
         - with
         - only
       description: Optionally return result WITH deleted results or return ONLY deleted results.
-    page_number:
-      name: page[number]
-      description: Set the page number.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        example: 3
     page_size:
       name: page[size]
       description: Set the number of results per page.
