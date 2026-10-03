@@ -123,30 +123,24 @@ paths:
       description: This endpoint creates a new uploaded segment.
 components:
   schemas:
-    ContactAttributes:
-      title: ContactAttributes
+    BaseModel:
+      title: Base Model
       type: object
       properties:
-        title:
+        type:
           type: string
-        firstName:
+        id:
           type: string
-        lastName:
-          type: string
-        email:
-          type: string
-      examples: []
-    Contact:
-      title: Contact
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: contact
-          attributes:
-            $ref: '#/components/schemas/ContactAttributes'
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
+      x-tags:
+      - JSON:API Structures
     SegmentType:
       title: SegmentType
       type: string
@@ -171,24 +165,19 @@ components:
       - subscribed
       - unsubscribed
       - non_subscribed
-    BaseModel:
-      title: Base Model
+    ContactAttributes:
+      title: ContactAttributes
       type: object
       properties:
-        type:
+        title:
           type: string
-        id:
+        firstName:
           type: string
-          format: uuid
-        attributes:
-          type: object
-      required:
-      - type
-      - id
-      - attributes
-      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
-      x-tags:
-      - JSON:API Structures
+        lastName:
+          type: string
+        email:
+          type: string
+      examples: []
     Segment:
       title: Segment
       allOf:
@@ -200,6 +189,17 @@ components:
             default: segment
           attributes:
             $ref: '#/components/schemas/SegmentAttributes'
+    Contact:
+      title: Contact
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: contact
+          attributes:
+            $ref: '#/components/schemas/ContactAttributes'
   parameters:
     segment_type:
       name: filter[type]
