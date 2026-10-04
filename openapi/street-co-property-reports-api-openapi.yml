@@ -471,6 +471,136 @@ paths:
               type: object
 components:
   responses:
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '403'
+                      title:
+                        type: string
+                        default: Forbidden
+          examples:
+            Example 403 Response:
+              value:
+                errors:
+                - title: Forbidden
+                  code: '403'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        const: '400'
+                      title:
+                        type: string
+                        default: Bad Request
+          examples:
+            Example 400 Response:
+              value:
+                errors:
+                - title: Bad Request
+                  code: '400'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '401'
+                      title:
+                        type: string
+                        default: Unauthorized
+          examples:
+            Example 401 Response:
+              value:
+                errors:
+                - title: Unauthorized
+                  code: '401'
+    '406':
+      description: 'The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request''s proactive content negotiation headers, and that the server is unwilling to supply a default representation. '
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '406'
+                      title:
+                        type: string
+                        default: Not Acceptable
+          examples:
+            Example 406 Response:
+              value:
+                errors:
+                - title: Not Acceptable
+                  code: '406'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/BaseError'
+                  - type: object
+                    properties:
+                      code:
+                        type: string
+                        default: '500'
+                      title:
+                        type: string
+                        default: Internal Server Error
+          examples:
+            Example 500 Response:
+              value:
+                errors:
+                - title: Internal Server Error
+                  code: '500'
     '415':
       description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
       content:
@@ -523,449 +653,7 @@ components:
                 errors:
                 - title: Not Found
                   code: '404'
-    '406':
-      description: 'The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request''s proactive content negotiation headers, and that the server is unwilling to supply a default representation. '
-      content:
-        application/vnd.api+json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/BaseError'
-                  - type: object
-                    properties:
-                      code:
-                        type: string
-                        default: '406'
-                      title:
-                        type: string
-                        default: Not Acceptable
-          examples:
-            Example 406 Response:
-              value:
-                errors:
-                - title: Not Acceptable
-                  code: '406'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/BaseError'
-                  - type: object
-                    properties:
-                      code:
-                        type: string
-                        default: '401'
-                      title:
-                        type: string
-                        default: Unauthorized
-          examples:
-            Example 401 Response:
-              value:
-                errors:
-                - title: Unauthorized
-                  code: '401'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/BaseError'
-                  - type: object
-                    properties:
-                      code:
-                        type: string
-                        const: '400'
-                      title:
-                        type: string
-                        default: Bad Request
-          examples:
-            Example 400 Response:
-              value:
-                errors:
-                - title: Bad Request
-                  code: '400'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/BaseError'
-                  - type: object
-                    properties:
-                      code:
-                        type: string
-                        default: '500'
-                      title:
-                        type: string
-                        default: Internal Server Error
-          examples:
-            Example 500 Response:
-              value:
-                errors:
-                - title: Internal Server Error
-                  code: '500'
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/BaseError'
-                  - type: object
-                    properties:
-                      code:
-                        type: string
-                        default: '403'
-                      title:
-                        type: string
-                        default: Forbidden
-          examples:
-            Example 403 Response:
-              value:
-                errors:
-                - title: Forbidden
-                  code: '403'
   schemas:
-    IncludedMedia:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - media
-          attributes:
-            $ref: '#/components/schemas/MediaAttributes'
-      title: Media (Included)
-      x-tags:
-      - Media
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-      x-tags:
-      - JSON:API Structures
-    ReportTemplateAttributes:
-      title: Report Template (attributes)
-      type: object
-      properties:
-        name:
-          type: string
-      x-tags:
-      - Report Templates
-    Report:
-      title: Report
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: report
-          attributes:
-            $ref: '#/components/schemas/ReportAttributes'
-      x-tags:
-      - Reports
-    CompanyAttributes:
-      title: Company (attributes)
-      type: object
-      properties:
-        name:
-          type: string
-      x-tags:
-      - Companies
-    LeadAttributes:
-      title: Lead (attributes)
-      type: object
-      x-tags:
-      - Leads
-      properties:
-        contactName:
-          type: string
-        contactEmail:
-          type: string
-        contactNumber:
-          type: string
-        contactAddress:
-          type: string
-        preferredValuationDate:
-          type: string
-          format: date-time
-        emailConsent:
-          type: boolean
-        closedAt:
-          type: string
-          format: date-time
-    BaseError:
-      discriminator:
-        propertyName: errorType
-        mapping:
-          '401': '#/components/responses/401'
-          '403': '#/components/responses/403'
-          '404': '#/components/responses/404'
-          '406': '#/components/responses/406'
-          '415': '#/components/responses/415'
-          '500': '#/components/responses/500'
-      title: Basic Error
-      type: object
-      x-tags:
-      - Errors
-      - JSON:API Structures
-      properties:
-        title:
-          type: string
-        code:
-          type: string
-      required:
-      - title
-      - code
-      description: This is a inheritable schema to allow you to easily extend when you need add new error responses.
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-      required:
-      - type
-      - id
-      - attributes
-      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
-      x-tags:
-      - JSON:API Structures
-    MediaAttributes:
-      title: Media (attributes)
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-      x-tags:
-      - Media
-    IncludedLinks:
-      title: Included Links
-      type: object
-      properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        related:
-          $ref: '#/components/schemas/Link'
-      examples: []
-      x-tags:
-      - JSON:API Structures
-    IncludedReportTemplate:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - reportTemplate
-          attributes:
-            $ref: '#/components/schemas/ReportTemplateAttributes'
-      title: Report Templates (included)
-      x-tags:
-      - Report Templates
-    RelationshipSingular:
-      title: Relationship Singular
-      x-tags:
-      - JSON:API Structures
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            type:
-              type: string
-            id:
-              type: string
-              example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:1` relationships.
-    UserAttributes:
-      title: User (attributes)
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-      x-tags:
-      - Users
-      description: ''
-    IncludedCompany:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - company
-          attributes:
-            $ref: '#/components/schemas/CompanyAttributes'
-          relationships:
-            type: object
-            properties:
-              reportTemplates:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - reportTemplate
-      title: Company (included)
-      x-tags:
-      - Companies
-    Meta:
-      title: Meta Information
-      description: The server's implementation
-      type: object
-      additionalProperties: true
-      x-tags:
-      - JSON:API Structures
-    ReportAttributes:
-      title: Report (attributes)
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type: string
-        state:
-          type: string
-        reportUrl:
-          type: string
-        imageUrl:
-          type: string
-        imageSource:
-          type: string
-      x-tags:
-      - Reports
-    IncludedAccount:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - account
-          attributes:
-            $ref: '#/components/schemas/AccountAttributes'
-      title: Account (included)
-      x-tags:
-      - Accounts
-    RelationshipPlural:
-      title: Relationship Plural
-      x-tags:
-      - JSON:API Structures
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
-    PropertyBarcode:
-      title: PropertyBarcode
-      type: object
-      x-tags:
-      - Reports
-      properties:
-        property_barcode:
-          type: string
-    PropertyAddress:
-      title: PropertyAddress
-      type: object
-      properties:
-        property_address:
-          type: string
-        property_postcode:
-          type: string
-      x-tags:
-      - Reports
-      description: ''
-    AccountAttributes:
-      title: Account (attributes)
-      type: object
-      properties:
-        name:
-          type: string
-      x-tags:
-      - Accounts
-    Lead:
-      title: Lead
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: lead
-          attributes:
-            $ref: '#/components/schemas/LeadAttributes'
-      x-tags:
-      - Leads
     User:
       title: User
       allOf:
@@ -1005,6 +693,215 @@ components:
                         type:
                           type: string
                           default: company
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: This is a base schema that can be inherited by your main schemas to prevent duplicating boilerplate. You should use this for 'models' such as `User` or `Profile`
+      x-tags:
+      - JSON:API Structures
+    ReportAttributes:
+      title: Report (attributes)
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        state:
+          type: string
+        reportUrl:
+          type: string
+        imageUrl:
+          type: string
+        imageSource:
+          type: string
+      x-tags:
+      - Reports
+    BaseError:
+      discriminator:
+        propertyName: errorType
+        mapping:
+          '401': '#/components/responses/401'
+          '403': '#/components/responses/403'
+          '404': '#/components/responses/404'
+          '406': '#/components/responses/406'
+          '415': '#/components/responses/415'
+          '500': '#/components/responses/500'
+      title: Basic Error
+      type: object
+      x-tags:
+      - Errors
+      - JSON:API Structures
+      properties:
+        title:
+          type: string
+        code:
+          type: string
+      required:
+      - title
+      - code
+      description: This is a inheritable schema to allow you to easily extend when you need add new error responses.
+    IncludedAccount:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - account
+          attributes:
+            $ref: '#/components/schemas/AccountAttributes'
+      title: Account (included)
+      x-tags:
+      - Accounts
+    IncludedCompany:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - company
+          attributes:
+            $ref: '#/components/schemas/CompanyAttributes'
+          relationships:
+            type: object
+            properties:
+              reportTemplates:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - reportTemplate
+      title: Company (included)
+      x-tags:
+      - Companies
+    MediaAttributes:
+      title: Media (attributes)
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+      x-tags:
+      - Media
+    LeadAttributes:
+      title: Lead (attributes)
+      type: object
+      x-tags:
+      - Leads
+      properties:
+        contactName:
+          type: string
+        contactEmail:
+          type: string
+        contactNumber:
+          type: string
+        contactAddress:
+          type: string
+        preferredValuationDate:
+          type: string
+          format: date-time
+        emailConsent:
+          type: boolean
+        closedAt:
+          type: string
+          format: date-time
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+      x-tags:
+      - JSON:API Structures
+    RelationshipPlural:
+      title: Relationship Plural
+      x-tags:
+      - JSON:API Structures
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+      x-tags:
+      - JSON:API Structures
+    ReportTemplateAttributes:
+      title: Report Template (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Report Templates
+    CompanyAttributes:
+      title: Company (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Companies
+    UserAttributes:
+      title: User (attributes)
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      x-tags:
+      - Users
+      description: ''
     IncludedResource:
       title: Included Resource
       type: object
@@ -1029,6 +926,109 @@ components:
       examples: []
       x-tags:
       - JSON:API Structures
+    PropertyAddress:
+      title: PropertyAddress
+      type: object
+      properties:
+        property_address:
+          type: string
+        property_postcode:
+          type: string
+      x-tags:
+      - Reports
+      description: ''
+    IncludedReportTemplate:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - reportTemplate
+          attributes:
+            $ref: '#/components/schemas/ReportTemplateAttributes'
+      title: Report Templates (included)
+      x-tags:
+      - Report Templates
+    Meta:
+      title: Meta Information
+      description: The server's implementation
+      type: object
+      additionalProperties: true
+      x-tags:
+      - JSON:API Structures
+    AccountAttributes:
+      title: Account (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+      x-tags:
+      - Accounts
+    PropertyBarcode:
+      title: PropertyBarcode
+      type: object
+      x-tags:
+      - Reports
+      properties:
+        property_barcode:
+          type: string
+    IncludedMedia:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - media
+          attributes:
+            $ref: '#/components/schemas/MediaAttributes'
+      title: Media (Included)
+      x-tags:
+      - Media
+    RelationshipSingular:
+      title: Relationship Singular
+      x-tags:
+      - JSON:API Structures
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+            id:
+              type: string
+              example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:1` relationships.
+    Report:
+      title: Report
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: report
+          attributes:
+            $ref: '#/components/schemas/ReportAttributes'
+      x-tags:
+      - Reports
+    Lead:
+      title: Lead
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: lead
+          attributes:
+            $ref: '#/components/schemas/LeadAttributes'
+      x-tags:
+      - Leads
   securitySchemes:
     your-api-token:
       type: http

@@ -123,6 +123,48 @@ paths:
       description: This endpoint creates a new uploaded segment.
 components:
   schemas:
+    Contact:
+      title: Contact
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: contact
+          attributes:
+            $ref: '#/components/schemas/ContactAttributes'
+    ContactAttributes:
+      title: ContactAttributes
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      examples: []
+    Segment:
+      title: Segment
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: segment
+          attributes:
+            $ref: '#/components/schemas/SegmentAttributes'
+    SubsciptionStatus:
+      title: SubsciptionStatus
+      type: string
+      enum:
+      - subscribed
+      - unsubscribed
+      - non_subscribed
     BaseModel:
       title: Base Model
       type: object
@@ -158,48 +200,6 @@ components:
           type:
           - string
           - 'null'
-    SubsciptionStatus:
-      title: SubsciptionStatus
-      type: string
-      enum:
-      - subscribed
-      - unsubscribed
-      - non_subscribed
-    ContactAttributes:
-      title: ContactAttributes
-      type: object
-      properties:
-        title:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-      examples: []
-    Segment:
-      title: Segment
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: segment
-          attributes:
-            $ref: '#/components/schemas/SegmentAttributes'
-    Contact:
-      title: Contact
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: contact
-          attributes:
-            $ref: '#/components/schemas/ContactAttributes'
   parameters:
     segment_type:
       name: filter[type]
