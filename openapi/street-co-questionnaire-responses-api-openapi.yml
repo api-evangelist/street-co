@@ -102,50 +102,58 @@ paths:
           $ref: '#/components/responses/500'
       description: This endpoint retrieves the most recent questionnaire response by its UUID, including all sections, questions, and answers.
 components:
-  responses:
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '404':
-      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   schemas:
+    Links:
+      title: Links
+      description: Links object - JSON:API Standard.
+      type: object
+      x-examples:
+        example-1:
+          self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+          first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+          next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+          last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      examples:
+      - self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+      properties:
+        self:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
+        first:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        next:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
+        prev:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
+        last:
+          type: string
+          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
+    QuestionnaireSectionAttributes:
+      title: Questionnaire Section (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+        order:
+          type: integer
+        hidden:
+          type: boolean
+        is_editable:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     IncludedQuestionnaireAnswerValue:
       title: Questionnaire Answer Value (included)
       allOf:
@@ -173,306 +181,13 @@ components:
                           type: string
                           enum:
                           - questionnaire_question_option
-    QuestionnaireAttributes:
-      title: Questionnaire (attributes)
+    QuestionnaireResponseAttributes:
+      title: Questionnaire Response (attributes)
       type: object
       properties:
-        name:
-          type: string
-        questionnaire_type:
-          type: string
-        published_at:
+        submitted_at:
           type: string
           format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
-    IncludedQuestionnaireQuestionOption:
-      title: Questionnaire Question Option (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_question_option
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireQuestionOptionAttributes'
-    QuestionnaireSectionAttributes:
-      title: Questionnaire Section (attributes)
-      type: object
-      properties:
-        name:
-          type: string
-        order:
-          type: integer
-        hidden:
-          type: boolean
-        is_editable:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedQuestionnaire:
-      title: Questionnaire (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireAttributes'
-          relationships:
-            type: object
-            properties:
-              sections:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_section
-    IncludedQuestionnaireAnswer:
-      title: Questionnaire Answer (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_response_answer
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireResponseAnswerAttributes'
-          relationships:
-            type: object
-            properties:
-              question:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
-                - type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - questionnaire_question
-              values:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_response_answer_value
-    jsonApiMultiErrorResponseBody:
-      title: JSON:API Multi-Error Response Body
-      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
-      type: object
-      properties:
-        meta:
-          type: object
-        errors:
-          description: An array of error objects providing additional information about problems encountered while processing the request.
-          type: array
-          items:
-            $ref: '#/components/schemas/jsonApiError'
-      required:
-      - errors
-    IncludedQuestionnaireSection:
-      title: Questionnaire Section (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - questionnaire_section
-          attributes:
-            $ref: '#/components/schemas/QuestionnaireSectionAttributes'
-          relationships:
-            type: object
-            properties:
-              questions:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - questionnaire_question
-    RelationshipPlural:
-      title: Relationship Plural
-      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-    UserAttributes:
-      title: User (attributes)
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        job_title:
-          type:
-          - string
-          - 'null'
-        telephone_number:
-          type:
-          - string
-          - 'null'
-        mobile_number:
-          type:
-          - string
-          - 'null'
-        email_address:
-          type: string
-          format: email
-        deactivated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        deleted_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    jsonApiError:
-      title: JSON:API Error Object
-      description: A JSON:API object representing a single error.
-      type: object
-      properties:
-        title:
-          type: string
-        detail:
-          type: string
-        code:
-          type: string
-        source:
-          type: object
-          description: An object containing references to the primary source of the error.
-          properties:
-            pointer:
-              type: string
-              description: A JSON Pointer to the value in the request document that caused the error.
-            parameter:
-              type: string
-              description: A string indicating which URI query parameter caused the error.
-      required:
-      - title
-      examples:
-      - title: 401 Unauthorized
-        detail: The requester is not authorized to access the resource.
-        code: '401'
-    QuestionnaireQuestionOptionAttributes:
-      title: Questionnaire Question Option (attributes)
-      type: object
-      properties:
-        text:
-          type: string
-        additional_data_input_type:
-          type:
-          - string
-          - 'null'
-        prohibited:
-          type: boolean
-        order:
-          type: integer
         created_at:
           type: string
           format: date-time
@@ -508,52 +223,76 @@ components:
                             type: string
                             enum:
                             - questionnaire_question_option
-    QuestionnaireQuestionAttributes:
-      title: Questionnaire Question (attributes)
+    IncludedProperty:
+      title: Property (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - property
+          attributes:
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+    IncludedQuestionnaire:
+      title: Questionnaire (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireAttributes'
+          relationships:
+            type: object
+            properties:
+              sections:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_section
+    jsonApiMultiErrorResponseBody:
+      title: JSON:API Multi-Error Response Body
+      description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
       type: object
       properties:
-        body:
-          type:
-          - string
-          - 'null'
-        question_type:
-          type: string
-        type:
-          type: string
-          deprecated: true
-          description: 'Deprecated: use question_type instead.'
-        hidden:
-          type: boolean
-        help_text:
-          type: string
-        order:
-          type: integer
-        is_editable:
-          type: boolean
         meta:
           type: object
-        identifier:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    QuestionnaireResponseAnswerAttributes:
-      title: Questionnaire Response Answer (attributes)
-      type: object
-      properties:
-        dont_know:
-          type: boolean
-        not_relevant:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
     IncludedResource:
       title: Included Resource
       type: object
@@ -600,41 +339,76 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    Links:
-      title: Links
-      description: Links object - JSON:API Standard.
+    QuestionnaireQuestionOptionAttributes:
+      title: Questionnaire Question Option (attributes)
       type: object
-      x-examples:
-        example-1:
-          self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
-          first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-          prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-          next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
-          last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
-      examples:
-      - self: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
-        first: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-        next: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-        prev: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
-        last: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
       properties:
-        self:
+        text:
           type: string
-          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=2
-        first:
+        additional_data_input_type:
+          type:
+          - string
+          - 'null'
+        prohibited:
+          type: boolean
+        order:
+          type: integer
+        created_at:
           type: string
-          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-        next:
+          format: date-time
+        updated_at:
           type: string
-          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=1
-        prev:
-          type: string
-          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=3
-        last:
-          type: string
-          example: http://localhost:3000/users?page[number]=2&page[size]=25&page[number]=9
-    IncludedProperty:
-      title: Property (included)
+          format: date-time
+    RelationshipPlural:
+      title: Relationship Plural
+      description: This is a inheritable schema to allow you to easily add relationships to your main schemas. This should be used for `1:n` relationships.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    RelationshipSingular:
+      title: Relationship Singular
+      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
+      type: object
+      properties:
+        data:
+          oneOf:
+          - type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                format: uuid
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+            required:
+            - type
+            - id
+          - type: 'null'
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
+    IncludedQuestionnaireSection:
+      title: Questionnaire Section (included)
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -642,24 +416,181 @@ components:
           type:
             type: string
             enum:
-            - property
+            - questionnaire_section
           attributes:
-            $ref: '#/components/schemas/PropertyAttributes'
+            $ref: '#/components/schemas/QuestionnaireSectionAttributes'
           relationships:
             type: object
             properties:
-              branch:
+              questions:
                 allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
+                - $ref: '#/components/schemas/RelationshipPlural'
                 - type: object
                   properties:
                     data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_question
+    IncludedQuestionnaireQuestionOption:
+      title: Questionnaire Question Option (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - questionnaire_question_option
+          attributes:
+            $ref: '#/components/schemas/QuestionnaireQuestionOptionAttributes'
+    AddressSimple:
+      title: Address (simple)
+      type: object
+      properties:
+        single_line:
+          type: string
+          example: 19 Lansdowne Road, Monton, Manchester
+        anon_single_line:
+          type: string
+          example: Lansdowne Road, Monton, Manchester
+        building_number:
+          type:
+          - string
+          - 'null'
+          example: '19'
+        building_name:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        line_1:
+          type: string
+          example: 19 Lansdowne Road
+        line_2:
+          type:
+          - string
+          - 'null'
+          example: Monton
+        line_3:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        line_4:
+          type:
+          - string
+          - 'null'
+        town:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        country:
+          type: string
+          example: United Kingdom
+        postcode:
+          type: string
+          example: M30 9PA
+        udprn:
+          type:
+          - string
+          - 'null'
+          example: '28327204'
+        geo:
+          type: object
+          properties:
+            lat:
+              type:
+              - number
+              - 'null'
+              example: 0.2365698
+              format: float
+            lng:
+              type:
+              - number
+              - 'null'
+              example: 53.023654
+              format: float
+        royal_mail:
+          type:
+          - object
+          - 'null'
+          properties:
+            postcode:
+              type: string
+            post_town:
+              type: string
+            thoroughfare:
+              type: string
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            department_name:
+              type:
+              - string
+              - 'null'
+            organisation_name:
+              type:
+              - string
+              - 'null'
+            sub_building_name:
+              type:
+              - string
+              - 'null'
+            dependent_locality:
+              type:
+              - string
+              - 'null'
+            dependent_thoroughfare:
+              type:
+              - string
+              - 'null'
+            double_dependent_locality:
+              type:
+              - string
+              - 'null'
+        street_group_property_id:
+          type:
+          - string
+          - 'null'
+    IncludedUser:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - user
+          attributes:
+            $ref: '#/components/schemas/UserAttributes'
+      title: User (included)
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
     QuestionnaireResponse:
       title: Questionnaire Response
       allOf:
@@ -727,12 +658,47 @@ components:
                           type: string
                           enum:
                           - property
-    QuestionnaireResponseAttributes:
-      title: Questionnaire Response (attributes)
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
       type: object
       properties:
-        submitted_at:
+        version:
           type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    UserAttributes:
+      title: User (attributes)
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        job_title:
+          type:
+          - string
+          - 'null'
+        telephone_number:
+          type:
+          - string
+          - 'null'
+        mobile_number:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type: string
+          format: email
+        deactivated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        deleted_at:
+          type:
+          - string
+          - 'null'
           format: date-time
         created_at:
           type: string
@@ -740,6 +706,49 @@ components:
         updated_at:
           type: string
           format: date-time
+    jsonApiError:
+      title: JSON:API Error Object
+      description: A JSON:API object representing a single error.
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        code:
+          type: string
+        source:
+          type: object
+          description: An object containing references to the primary source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the value in the request document that caused the error.
+            parameter:
+              type: string
+              description: A string indicating which URI query parameter caused the error.
+      required:
+      - title
+      examples:
+      - title: 401 Unauthorized
+        detail: The requester is not authorized to access the resource.
+        code: '401'
+    QuestionnaireResponseAnswerValueAttributes:
+      title: Questionnaire Response Answer Value (attributes)
+      type: object
+      properties:
+        answer:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
     PropertyAttributes:
       type: object
       title: Property (attributes)
@@ -1219,159 +1228,31 @@ components:
             - title
             - type
             - url
-    AddressSimple:
-      title: Address (simple)
+    QuestionnaireQuestionAttributes:
+      title: Questionnaire Question (attributes)
       type: object
       properties:
-        single_line:
+        body:
+          type:
+          - string
+          - 'null'
+        question_type:
           type: string
-          example: 19 Lansdowne Road, Monton, Manchester
-        anon_single_line:
+        type:
           type: string
-          example: Lansdowne Road, Monton, Manchester
-        building_number:
-          type:
-          - string
-          - 'null'
-          example: '19'
-        building_name:
-          type:
-          - string
-          - 'null'
-        street:
-          type:
-          - string
-          - 'null'
-        line_1:
+          deprecated: true
+          description: 'Deprecated: use question_type instead.'
+        hidden:
+          type: boolean
+        help_text:
           type: string
-          example: 19 Lansdowne Road
-        line_2:
-          type:
-          - string
-          - 'null'
-          example: Monton
-        line_3:
-          type:
-          - string
-          - 'null'
-          example: Manchester
-        line_4:
-          type:
-          - string
-          - 'null'
-        town:
-          type:
-          - string
-          - 'null'
-          example: Manchester
-        country:
-          type: string
-          example: United Kingdom
-        postcode:
-          type: string
-          example: M30 9PA
-        udprn:
-          type:
-          - string
-          - 'null'
-          example: '28327204'
-        geo:
+        order:
+          type: integer
+        is_editable:
+          type: boolean
+        meta:
           type: object
-          properties:
-            lat:
-              type:
-              - number
-              - 'null'
-              example: 0.2365698
-              format: float
-            lng:
-              type:
-              - number
-              - 'null'
-              example: 53.023654
-              format: float
-        royal_mail:
-          type:
-          - object
-          - 'null'
-          properties:
-            postcode:
-              type: string
-            post_town:
-              type: string
-            thoroughfare:
-              type: string
-            building_name:
-              type:
-              - string
-              - 'null'
-            building_number:
-              type:
-              - string
-              - 'null'
-            department_name:
-              type:
-              - string
-              - 'null'
-            organisation_name:
-              type:
-              - string
-              - 'null'
-            sub_building_name:
-              type:
-              - string
-              - 'null'
-            dependent_locality:
-              type:
-              - string
-              - 'null'
-            dependent_thoroughfare:
-              type:
-              - string
-              - 'null'
-            double_dependent_locality:
-              type:
-              - string
-              - 'null'
-        street_group_property_id:
-          type:
-          - string
-          - 'null'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    RelationshipSingular:
-      title: Relationship Singular
-      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
-      type: object
-      properties:
-        data:
-          oneOf:
-          - type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                format: uuid
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-            required:
-            - type
-            - id
-          - type: 'null'
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    QuestionnaireResponseAnswerValueAttributes:
-      title: Questionnaire Response Answer Value (attributes)
-      type: object
-      properties:
-        answer:
+        identifier:
           type: string
         created_at:
           type: string
@@ -1379,7 +1260,8 @@ components:
         updated_at:
           type: string
           format: date-time
-    IncludedUser:
+    IncludedQuestionnaireAnswer:
+      title: Questionnaire Answer (included)
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -1387,10 +1269,128 @@ components:
           type:
             type: string
             enum:
-            - user
+            - questionnaire_response_answer
           attributes:
-            $ref: '#/components/schemas/UserAttributes'
-      title: User (included)
+            $ref: '#/components/schemas/QuestionnaireResponseAnswerAttributes'
+          relationships:
+            type: object
+            properties:
+              question:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - questionnaire_question
+              values:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipPlural'
+                - type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - questionnaire_response_answer_value
+    QuestionnaireAttributes:
+      title: Questionnaire (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+        questionnaire_type:
+          type: string
+        published_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    QuestionnaireResponseAnswerAttributes:
+      title: Questionnaire Response Answer (attributes)
+      type: object
+      properties:
+        dont_know:
+          type: boolean
+        not_relevant:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+  responses:
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

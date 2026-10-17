@@ -123,17 +123,13 @@ paths:
       description: This endpoint creates a new uploaded segment.
 components:
   schemas:
-    Contact:
-      title: Contact
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: contact
-          attributes:
-            $ref: '#/components/schemas/ContactAttributes'
+    SubsciptionStatus:
+      title: SubsciptionStatus
+      type: string
+      enum:
+      - subscribed
+      - unsubscribed
+      - non_subscribed
     ContactAttributes:
       title: ContactAttributes
       type: object
@@ -158,13 +154,17 @@ components:
             default: segment
           attributes:
             $ref: '#/components/schemas/SegmentAttributes'
-    SubsciptionStatus:
-      title: SubsciptionStatus
-      type: string
-      enum:
-      - subscribed
-      - unsubscribed
-      - non_subscribed
+    Contact:
+      title: Contact
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: contact
+          attributes:
+            $ref: '#/components/schemas/ContactAttributes'
     BaseModel:
       title: Base Model
       type: object

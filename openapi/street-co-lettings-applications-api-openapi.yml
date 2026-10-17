@@ -106,87 +106,22 @@ paths:
         style: form
         explode: false
 components:
-  responses:
-    '403':
-      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '400':
-      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '401':
-      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '406':
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '500':
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
-    '415':
-      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
-    '404':
-      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiErrorResponseBody'
   schemas:
-    LettingsApplication:
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
+    TelephoneNumberSimple:
+      title: Telephone Number (simple)
+      description: An telephone number, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: '+441632960911'
+        notes:
           type:
-            type: string
-            enum:
-            - lettings_application
-          attributes:
-            $ref: '#/components/schemas/LettingsApplicationAttributes'
-          relationships:
-            $ref: '#/components/schemas/DownloadableMedia'
-    JsonApi:
-      title: API Details
-      description: The server's implementation.
-      type: object
-      properties:
-        version:
-          type: string
-        meta:
-          $ref: '#/components/schemas/Meta'
-    BaseModel:
-      title: Base Model
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        type:
-          type: string
-        attributes:
-          type: object
-        relationships:
-          type: object
-    IncludedHoldingDeposit:
-      title: Holding Deposit (included)
+          - string
+          - 'null'
+        primary:
+          type: boolean
+    IncludedDownloadableMedia:
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -194,9 +129,198 @@ components:
           type:
             type: string
             enum:
-            - holdingDeposit
+            - downloadable_media
           attributes:
-            $ref: '#/components/schemas/HoldingDepositAttributes'
+            $ref: '#/components/schemas/DownloadableMediaAttributes'
+      examples: []
+      title: Downloadable Media (included)
+      x-tags:
+      - Media
+    LettingsApplicationAttributes:
+      title: Lettings Application (included)
+      type: object
+      properties:
+        application_status:
+          example: pending
+          enum:
+          - successful
+          - unsuccessful
+          - in_progress
+          - pending
+          - cancelled
+        desired_tenancy_length:
+          type: integer
+          example: 12
+        desired_move_in_date:
+          type: string
+          format: date-time
+        completed_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        agreed_move_in_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        price:
+          type: integer
+        price_frequency:
+          type: string
+          enum:
+          - Per Week
+          - Per 2 Weeks
+          - Per 4 Weeks
+          - Per Calendar Month
+          - Per Quarter
+          - Per 6 Months
+          - Per Annum
+    TenancyAttributes:
+      title: Tenancy (attributes)
+      type: object
+      properties:
+        active:
+          type: boolean
+        status:
+          type: string
+          enum:
+          - active
+          - cancelled
+          - ended
+          - ending
+          - expiring
+          - renewed
+          - renewing
+          - upcoming
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Null for periodic tenancies, which have no fixed end date.
+        original_term_start_date:
+          type: string
+          format: date-time
+        tenancy_type:
+          anyOf:
+          - type: string
+            enum:
+            - Assured Shorthold
+            - Excluded
+            - Assured
+            - Non-assured
+            - Regulated
+            - Company Let
+            - HMO
+            - License
+            - Assured Periodic Tenancy
+          - type: 'null'
+        tenancy_term_type:
+          type: string
+          enum:
+          - Periodic
+          - Fixed
+        rent_amount:
+          type: integer
+          example: 495
+        rent_frequency:
+          type: string
+          enum:
+          - Per Week
+          - Per 2 Weeks
+          - Per 4 Weeks
+          - Per Calendar Month
+          - Per Quarter
+          - Per 6 Months
+          - Per Annum
+        deposit_amount:
+          type:
+          - integer
+          - 'null'
+          example: 900
+        service_level:
+          type:
+          - string
+          - 'null'
+          example: Fully Managed
+        service_level_type:
+          anyOf:
+          - type: string
+            enum:
+            - Let Only
+            - Rent Collection
+            - Fully Managed
+            - Other
+          - type: 'null'
+        management_fee:
+          type:
+          - string
+          - 'null'
+          example: 10%
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    IncludedSafetyCertificate:
+      title: Safety Certificate (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - safetyCertificate
+          attributes:
+            $ref: '#/components/schemas/SafetyCertificateAttributes'
+    IncludedProperty:
+      title: Property (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - property
+          attributes:
+            $ref: '#/components/schemas/PropertyAttributes'
+          relationships:
+            type: object
+            properties:
+              branch:
+                allOf:
+                - $ref: '#/components/schemas/RelationshipSingular'
+                - type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - branch
+    EmailAddressSimple:
+      title: Email Address (simple)
+      description: An email address, can be related to a person and/or a company.
+      type: object
+      properties:
+        value:
+          type: string
+          example: john@johndoe.com
+          format: email
+        notes:
+          type:
+          - string
+          - 'null'
+        primary:
+          type: boolean
     SafetyCertificateAttributes:
       title: SafetyCertificateAttributes
       type: object
@@ -318,21 +442,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    IncludedDownloadableMedia:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - downloadable_media
-          attributes:
-            $ref: '#/components/schemas/DownloadableMediaAttributes'
-      examples: []
-      title: Downloadable Media (included)
-      x-tags:
-      - Media
     jsonApiMultiErrorResponseBody:
       title: JSON:API Multi-Error Response Body
       description: Response body for JSON:API errors that may contain multiple error objects (400 Bad Request and 500 Internal Server Error).
@@ -347,59 +456,98 @@ components:
             $ref: '#/components/schemas/jsonApiError'
       required:
       - errors
-    TenancyAttributes:
-      title: Tenancy (attributes)
+    IncludedResource:
+      title: Included Resource
+      type: object
+      examples: []
+      required:
+      - type
+      - id
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+        relationships:
+          type:
+          - object
+          - 'null'
+        meta:
+          $ref: '#/components/schemas/Meta'
+    jsonApiErrorResponseBody:
+      title: JSON:API Error Response Body
+      description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
       type: object
       properties:
-        active:
-          type: boolean
-        status:
-          type: string
-          enum:
-          - active
-          - cancelled
-          - ended
-          - ending
-          - expiring
-          - renewed
-          - renewing
-          - upcoming
+        meta:
+          type: object
+        source:
+          type: object
+          description: The primary source of the conflict for 409 responses.
+          properties:
+            pointer:
+              type: string
+              description: JSON Pointer to the conflicting request value.
+            parameter:
+              type: string
+              description: URI parameter related to the conflict.
+        errors:
+          description: An array of error objects providing additional information about problems encountered while processing the request.
+          type: array
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/jsonApiError'
+      required:
+      - errors
+    TenancyAgreementAttributes:
+      title: Tenancy Agreement (attributes)
+      type: object
+      properties:
         start_date:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
         end_date:
           type:
           - string
           - 'null'
           format: date-time
-          description: Null for periodic tenancies, which have no fixed end date.
-        original_term_start_date:
-          type: string
-          format: date-time
-        tenancy_type:
-          anyOf:
-          - type: string
-            enum:
-            - Assured Shorthold
-            - Excluded
-            - Assured
-            - Non-assured
-            - Regulated
-            - Company Let
-            - HMO
-            - License
-            - Assured Periodic Tenancy
-          - type: 'null'
         tenancy_term_type:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - Periodic
           - Fixed
+          - null
+        tenancy_type:
+          type:
+          - string
+          - 'null'
+          enum:
+          - Assured Shorthold
+          - Excluded
+          - Assured
+          - Non-assured
+          - Regulated
+          - Company Let
+          - HMO
+          - License
+          - Assured Periodic Tenancy
+          - null
         rent_amount:
-          type: integer
+          type:
+          - integer
+          - 'null'
           example: 495
         rent_frequency:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - Per Week
           - Per 2 Weeks
@@ -408,35 +556,67 @@ components:
           - Per Quarter
           - Per 6 Months
           - Per Annum
+          - null
+        payment_day:
+          type:
+          - integer
+          - 'null'
+          example: 15
+        payment_reference:
+          type:
+          - string
+          - 'null'
+          example: 123ABC
         deposit_amount:
           type:
           - integer
           - 'null'
           example: 900
-        service_level:
+        deposit_scheme:
           type:
           - string
           - 'null'
-          example: Fully Managed
-        service_level_type:
-          anyOf:
-          - type: string
-            enum:
-            - Let Only
-            - Rent Collection
-            - Fully Managed
-            - Other
-          - type: 'null'
+          enum:
+          - DPS - Custodial
+          - DPS - Insured
+          - TDS - Custodial
+          - TDS - Insured
+          - My Deposits - Custodial
+          - My Deposits - Insured
+          - Reposit
+          - LPS Scotland
+          - SafeDeposits Scotland - Custodial
+          - My Deposits - Scotland - Custodial
+          - Deposit Replacement
+          - Held by Agent
+          - Held by Landlord
+          - null
         management_fee:
           type:
+          - number
+          - 'null'
+          example: 10.7
+        management_fee_type:
+          type:
           - string
           - 'null'
-          example: 10%
-        created_at:
-          type: string
+          enum:
+          - Percentage
+          - Fixed Fee
+          - null
+        additional_clauses:
+          type:
+          - string
+          - 'null'
+        tenancy_agreement_sent_at:
+          type:
+          - string
+          - 'null'
           format: date-time
-        updated_at:
-          type: string
+        tenancy_agreement_signed_at:
+          type:
+          - string
+          - 'null'
           format: date-time
     RelationshipPlural:
       title: Relationship Plural
@@ -460,71 +640,32 @@ components:
               $ref: '#/components/schemas/Link'
             related:
               $ref: '#/components/schemas/Link'
-    Link:
-      title: Link
-      oneOf:
-      - description: a string containing the link's URL
-        type: string
-        format: uri-reference
-      - type: object
-        required:
-        - href
-        properties:
-          href:
-            description: a string containing the link's URL
-            type: string
-            format: uri-reference
-          meta:
-            $ref: '#/components/schemas/Meta'
-    IncludedLinks:
-      title: Included Links
+    RelationshipSingular:
+      title: Relationship Singular
+      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
       type: object
       properties:
-        self:
-          $ref: '#/components/schemas/Link'
-        related:
-          $ref: '#/components/schemas/Link'
-      examples: []
-    TelephoneNumberSimple:
-      title: Telephone Number (simple)
-      description: An telephone number, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: '+441632960911'
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
-    IncludedSafetyCertificate:
-      title: Safety Certificate (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - safetyCertificate
-          attributes:
-            $ref: '#/components/schemas/SafetyCertificateAttributes'
-    DownloadableMedia:
-      title: Downloadable Media
-      x-tags:
-      - Media
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - downloadable_media
-          attributes:
-            $ref: '#/components/schemas/DownloadableMediaAttributes'
+        data:
+          oneOf:
+          - type: object
+            properties:
+              type:
+                type: string
+              id:
+                type: string
+                format: uuid
+                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
+            required:
+            - type
+            - id
+          - type: 'null'
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+            related:
+              $ref: '#/components/schemas/Link'
     ApplicantAttributes:
       type: object
       title: Applicant (attributes)
@@ -674,33 +815,248 @@ components:
           - warm
           - cold
           - null
-    jsonApiError:
-      title: JSON:API Error Object
-      description: A JSON:API object representing a single error.
+    DownloadableMedia:
+      title: Downloadable Media
+      x-tags:
+      - Media
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - downloadable_media
+          attributes:
+            $ref: '#/components/schemas/DownloadableMediaAttributes'
+    AddressSimple:
+      title: Address (simple)
       type: object
       properties:
-        title:
+        single_line:
           type: string
-        detail:
+          example: 19 Lansdowne Road, Monton, Manchester
+        anon_single_line:
           type: string
-        code:
+          example: Lansdowne Road, Monton, Manchester
+        building_number:
+          type:
+          - string
+          - 'null'
+          example: '19'
+        building_name:
+          type:
+          - string
+          - 'null'
+        street:
+          type:
+          - string
+          - 'null'
+        line_1:
           type: string
-        source:
+          example: 19 Lansdowne Road
+        line_2:
+          type:
+          - string
+          - 'null'
+          example: Monton
+        line_3:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        line_4:
+          type:
+          - string
+          - 'null'
+        town:
+          type:
+          - string
+          - 'null'
+          example: Manchester
+        country:
+          type: string
+          example: United Kingdom
+        postcode:
+          type: string
+          example: M30 9PA
+        udprn:
+          type:
+          - string
+          - 'null'
+          example: '28327204'
+        geo:
           type: object
-          description: An object containing references to the primary source of the error.
           properties:
-            pointer:
+            lat:
+              type:
+              - number
+              - 'null'
+              example: 0.2365698
+              format: float
+            lng:
+              type:
+              - number
+              - 'null'
+              example: 53.023654
+              format: float
+        royal_mail:
+          type:
+          - object
+          - 'null'
+          properties:
+            postcode:
               type: string
-              description: A JSON Pointer to the value in the request document that caused the error.
-            parameter:
+            post_town:
               type: string
-              description: A string indicating which URI query parameter caused the error.
-      required:
-      - title
-      examples:
-      - title: 401 Unauthorized
-        detail: The requester is not authorized to access the resource.
-        code: '401'
+            thoroughfare:
+              type: string
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            department_name:
+              type:
+              - string
+              - 'null'
+            organisation_name:
+              type:
+              - string
+              - 'null'
+            sub_building_name:
+              type:
+              - string
+              - 'null'
+            dependent_locality:
+              type:
+              - string
+              - 'null'
+            dependent_thoroughfare:
+              type:
+              - string
+              - 'null'
+            double_dependent_locality:
+              type:
+              - string
+              - 'null'
+        street_group_property_id:
+          type:
+          - string
+          - 'null'
+    IncludedLinks:
+      title: Included Links
+      type: object
+      properties:
+        self:
+          $ref: '#/components/schemas/Link'
+        related:
+          $ref: '#/components/schemas/Link'
+      examples: []
+    IncludedEpc:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - epc
+          attributes:
+            allOf:
+            - properties:
+                energy_efficiency_rating:
+                  type: string
+                environmental_impact_rating:
+                  type: string
+                energy_efficiency_current:
+                  type: string
+                energy_efficiency_potential:
+                  type: string
+                environment_impact_current:
+                  type: string
+                environment_impact_potential:
+                  type: string
+                media:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    image:
+                      type:
+                      - string
+                      - 'null'
+                      format: uri
+            type: object
+      title: EPC (included)
+      x-tags:
+      - Epcs
+    IncludedMeterReading:
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - meter_reading
+          attributes:
+            type: object
+            properties:
+              meter_type:
+                type: string
+                enum:
+                - add_gas_meter_readings
+                - add_electric_meter_readings
+                - add_water_meter_readings
+              type:
+                type: string
+                deprecated: true
+                description: 'Deprecated: use meter_type instead.'
+                enum:
+                - add_gas_meter_readings
+                - add_electric_meter_readings
+                - add_water_meter_readings
+              reading:
+                type:
+                - string
+                - 'null'
+              reading_taken_at:
+                type:
+                - string
+                - 'null'
+                format: date-time
+      title: MeterReading (Included)
+      x-tags:
+      - MeterReadings
+    IncludedTenancyAgreement:
+      title: Tenancy Agreement (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - tenancyAgreement
+          attributes:
+            $ref: '#/components/schemas/TenancyAgreementAttributes'
+    BaseModel:
+      title: Base Model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        attributes:
+          type: object
+        relationships:
+          type: object
     PersonAttributes:
       title: Person (attributes)
       type: object
@@ -781,8 +1137,7 @@ components:
         updated_at:
           type: string
           format: date-time
-    IncludedTenancyAgreement:
-      title: Tenancy Agreement (included)
+    IncludedApplicant:
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -790,330 +1145,52 @@ components:
           type:
             type: string
             enum:
-            - tenancyAgreement
+            - applicant
           attributes:
-            $ref: '#/components/schemas/TenancyAgreementAttributes'
-    DownloadableMediaAttributes:
-      title: Downloadable Media (attributes)
-      type: object
-      properties:
-        name:
-          type: string
-          example: p045126_01
-        title:
-          type:
-          - 'null'
-          - string
-        collection:
-          type: string
-          example: general
-        url:
-          type: string
-          example: https://example.com/path/to/resource.jpg
-          format: url
-        extension_type:
-          type: string
-          example: jpg
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    IncludedResource:
-      title: Included Resource
-      type: object
-      examples: []
-      required:
-      - type
-      - id
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-        relationships:
-          type:
-          - object
-          - 'null'
-        meta:
-          $ref: '#/components/schemas/Meta'
-    EmailAddressSimple:
-      title: Email Address (simple)
-      description: An email address, can be related to a person and/or a company.
-      type: object
-      properties:
-        value:
-          type: string
-          example: john@johndoe.com
-          format: email
-        notes:
-          type:
-          - string
-          - 'null'
-        primary:
-          type: boolean
-    IncludedMeterReading:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - meter_reading
-          attributes:
-            type: object
-            properties:
-              meter_type:
-                type: string
-                enum:
-                - add_gas_meter_readings
-                - add_electric_meter_readings
-                - add_water_meter_readings
-              type:
-                type: string
-                deprecated: true
-                description: 'Deprecated: use meter_type instead.'
-                enum:
-                - add_gas_meter_readings
-                - add_electric_meter_readings
-                - add_water_meter_readings
-              reading:
-                type:
-                - string
-                - 'null'
-              reading_taken_at:
-                type:
-                - string
-                - 'null'
-                format: date-time
-      title: MeterReading (Included)
-      x-tags:
-      - MeterReadings
-    LettingsApplicationAttributes:
-      title: Lettings Application (included)
-      type: object
-      properties:
-        application_status:
-          example: pending
-          enum:
-          - successful
-          - unsuccessful
-          - in_progress
-          - pending
-          - cancelled
-        desired_tenancy_length:
-          type: integer
-          example: 12
-        desired_move_in_date:
-          type: string
-          format: date-time
-        completed_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        agreed_move_in_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        price:
-          type: integer
-        price_frequency:
-          type: string
-          enum:
-          - Per Week
-          - Per 2 Weeks
-          - Per 4 Weeks
-          - Per Calendar Month
-          - Per Quarter
-          - Per 6 Months
-          - Per Annum
-    jsonApiErrorResponseBody:
-      title: JSON:API Error Response Body
-      description: Response body for JSON:API errors, containing an array of `errors` in place of the `data` property provided in JSON:API success responses. Used for non-400/500 error codes where only a single error is expected.
-      type: object
-      properties:
-        meta:
-          type: object
-        source:
-          type: object
-          description: The primary source of the conflict for 409 responses.
-          properties:
-            pointer:
-              type: string
-              description: JSON Pointer to the conflicting request value.
-            parameter:
-              type: string
-              description: URI parameter related to the conflict.
-        errors:
-          description: An array of error objects providing additional information about problems encountered while processing the request.
-          type: array
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/jsonApiError'
-      required:
-      - errors
-    IncludedPerson:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - person
-          attributes:
-            $ref: '#/components/schemas/PersonAttributes'
-      title: Person (included)
-    TenancyAgreementAttributes:
-      title: Tenancy Agreement (attributes)
-      type: object
-      properties:
-        start_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        end_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        tenancy_term_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - Periodic
-          - Fixed
-          - null
-        tenancy_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - Assured Shorthold
-          - Excluded
-          - Assured
-          - Non-assured
-          - Regulated
-          - Company Let
-          - HMO
-          - License
-          - Assured Periodic Tenancy
-          - null
-        rent_amount:
-          type:
-          - integer
-          - 'null'
-          example: 495
-        rent_frequency:
-          type:
-          - string
-          - 'null'
-          enum:
-          - Per Week
-          - Per 2 Weeks
-          - Per 4 Weeks
-          - Per Calendar Month
-          - Per Quarter
-          - Per 6 Months
-          - Per Annum
-          - null
-        payment_day:
-          type:
-          - integer
-          - 'null'
-          example: 15
-        payment_reference:
-          type:
-          - string
-          - 'null'
-          example: 123ABC
-        deposit_amount:
-          type:
-          - integer
-          - 'null'
-          example: 900
-        deposit_scheme:
-          type:
-          - string
-          - 'null'
-          enum:
-          - DPS - Custodial
-          - DPS - Insured
-          - TDS - Custodial
-          - TDS - Insured
-          - My Deposits - Custodial
-          - My Deposits - Insured
-          - Reposit
-          - LPS Scotland
-          - SafeDeposits Scotland - Custodial
-          - My Deposits - Scotland - Custodial
-          - Deposit Replacement
-          - Held by Agent
-          - Held by Landlord
-          - null
-        management_fee:
-          type:
-          - number
-          - 'null'
-          example: 10.7
-        management_fee_type:
-          type:
-          - string
-          - 'null'
-          enum:
-          - Percentage
-          - Fixed Fee
-          - null
-        additional_clauses:
-          type:
-          - string
-          - 'null'
-        tenancy_agreement_sent_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        tenancy_agreement_signed_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-    IncludedProperty:
-      title: Property (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - property
-          attributes:
-            $ref: '#/components/schemas/PropertyAttributes'
+            $ref: '#/components/schemas/ApplicantAttributes'
           relationships:
             type: object
             properties:
-              branch:
+              people:
                 allOf:
-                - $ref: '#/components/schemas/RelationshipSingular'
+                - $ref: '#/components/schemas/RelationshipPlural'
                 - type: object
                   properties:
                     data:
-                      type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - branch
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - person
+      title: Applicant (included)
+    LettingsApplication:
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - lettings_application
+          attributes:
+            $ref: '#/components/schemas/LettingsApplicationAttributes'
+          relationships:
+            $ref: '#/components/schemas/DownloadableMedia'
+    IncludedHoldingDeposit:
+      title: Holding Deposit (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - holdingDeposit
+          attributes:
+            $ref: '#/components/schemas/HoldingDepositAttributes'
     ApplicantPreferenceChoice:
       title: Applicant Preference Choices
       type: string
@@ -1124,70 +1201,46 @@ components:
       - Won't Consider
       - Might Consider
       - Must Have
-    IncludedTenancy:
-      title: Tenancy (included)
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - tenancy
-          attributes:
-            $ref: '#/components/schemas/TenancyAttributes'
-    IncludedEpc:
-      allOf:
-      - $ref: '#/components/schemas/IncludedResource'
-      - type: object
-        properties:
-          type:
-            type: string
-            enum:
-            - epc
-          attributes:
-            allOf:
-            - properties:
-                energy_efficiency_rating:
-                  type: string
-                environmental_impact_rating:
-                  type: string
-                energy_efficiency_current:
-                  type: string
-                energy_efficiency_potential:
-                  type: string
-                environment_impact_current:
-                  type: string
-                environment_impact_potential:
-                  type: string
-                media:
-                  type:
-                  - object
-                  - 'null'
-                  properties:
-                    image:
-                      type:
-                      - string
-                      - 'null'
-                      format: uri
-            type: object
-      title: EPC (included)
-      x-tags:
-      - Epcs
-    HoldingDepositAttributes:
-      title: Holding Deposit (attributes)
+    JsonApi:
+      title: API Details
+      description: The server's implementation.
       type: object
       properties:
-        amount:
-          type:
-          - integer
-          - 'null'
-          example: 495
-        received_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
+        version:
+          type: string
+        meta:
+          $ref: '#/components/schemas/Meta'
+    jsonApiError:
+      title: JSON:API Error Object
+      description: A JSON:API object representing a single error.
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        code:
+          type: string
+        source:
+          type: object
+          description: An object containing references to the primary source of the error.
+          properties:
+            pointer:
+              type: string
+              description: A JSON Pointer to the value in the request document that caused the error.
+            parameter:
+              type: string
+              description: A string indicating which URI query parameter caused the error.
+      required:
+      - title
+      examples:
+      - title: 401 Unauthorized
+        detail: The requester is not authorized to access the resource.
+        code: '401'
+    Meta:
+      title: Meta Information
+      description: The server's implementation.
+      type: object
     PropertyAttributes:
       type: object
       title: Property (attributes)
@@ -1667,155 +1720,7 @@ components:
             - title
             - type
             - url
-    AddressSimple:
-      title: Address (simple)
-      type: object
-      properties:
-        single_line:
-          type: string
-          example: 19 Lansdowne Road, Monton, Manchester
-        anon_single_line:
-          type: string
-          example: Lansdowne Road, Monton, Manchester
-        building_number:
-          type:
-          - string
-          - 'null'
-          example: '19'
-        building_name:
-          type:
-          - string
-          - 'null'
-        street:
-          type:
-          - string
-          - 'null'
-        line_1:
-          type: string
-          example: 19 Lansdowne Road
-        line_2:
-          type:
-          - string
-          - 'null'
-          example: Monton
-        line_3:
-          type:
-          - string
-          - 'null'
-          example: Manchester
-        line_4:
-          type:
-          - string
-          - 'null'
-        town:
-          type:
-          - string
-          - 'null'
-          example: Manchester
-        country:
-          type: string
-          example: United Kingdom
-        postcode:
-          type: string
-          example: M30 9PA
-        udprn:
-          type:
-          - string
-          - 'null'
-          example: '28327204'
-        geo:
-          type: object
-          properties:
-            lat:
-              type:
-              - number
-              - 'null'
-              example: 0.2365698
-              format: float
-            lng:
-              type:
-              - number
-              - 'null'
-              example: 53.023654
-              format: float
-        royal_mail:
-          type:
-          - object
-          - 'null'
-          properties:
-            postcode:
-              type: string
-            post_town:
-              type: string
-            thoroughfare:
-              type: string
-            building_name:
-              type:
-              - string
-              - 'null'
-            building_number:
-              type:
-              - string
-              - 'null'
-            department_name:
-              type:
-              - string
-              - 'null'
-            organisation_name:
-              type:
-              - string
-              - 'null'
-            sub_building_name:
-              type:
-              - string
-              - 'null'
-            dependent_locality:
-              type:
-              - string
-              - 'null'
-            dependent_thoroughfare:
-              type:
-              - string
-              - 'null'
-            double_dependent_locality:
-              type:
-              - string
-              - 'null'
-        street_group_property_id:
-          type:
-          - string
-          - 'null'
-    Meta:
-      title: Meta Information
-      description: The server's implementation.
-      type: object
-    RelationshipSingular:
-      title: Relationship Singular
-      description: Inheritable schema for 1:1 relationships. Data may be null if the relationship is empty.
-      type: object
-      properties:
-        data:
-          oneOf:
-          - type: object
-            properties:
-              type:
-                type: string
-              id:
-                type: string
-                format: uuid
-                example: a827a3ae-4c74-4c32-8b42-42248d4010d3
-            required:
-            - type
-            - id
-          - type: 'null'
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            related:
-              $ref: '#/components/schemas/Link'
-    IncludedApplicant:
+    IncludedPerson:
       allOf:
       - $ref: '#/components/schemas/IncludedResource'
       - type: object
@@ -1823,27 +1728,122 @@ components:
           type:
             type: string
             enum:
-            - applicant
+            - person
           attributes:
-            $ref: '#/components/schemas/ApplicantAttributes'
-          relationships:
-            type: object
-            properties:
-              people:
-                allOf:
-                - $ref: '#/components/schemas/RelationshipPlural'
-                - type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - person
-      title: Applicant (included)
+            $ref: '#/components/schemas/PersonAttributes'
+      title: Person (included)
+    IncludedTenancy:
+      title: Tenancy (included)
+      allOf:
+      - $ref: '#/components/schemas/IncludedResource'
+      - type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - tenancy
+          attributes:
+            $ref: '#/components/schemas/TenancyAttributes'
+    HoldingDepositAttributes:
+      title: Holding Deposit (attributes)
+      type: object
+      properties:
+        amount:
+          type:
+          - integer
+          - 'null'
+          example: 495
+        received_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    DownloadableMediaAttributes:
+      title: Downloadable Media (attributes)
+      type: object
+      properties:
+        name:
+          type: string
+          example: p045126_01
+        title:
+          type:
+          - 'null'
+          - string
+        collection:
+          type: string
+          example: general
+        url:
+          type: string
+          example: https://example.com/path/to/resource.jpg
+          format: url
+        extension_type:
+          type: string
+          example: jpg
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Link:
+      title: Link
+      oneOf:
+      - description: a string containing the link's URL
+        type: string
+        format: uri-reference
+      - type: object
+        required:
+        - href
+        properties:
+          href:
+            description: a string containing the link's URL
+            type: string
+            format: uri-reference
+          meta:
+            $ref: '#/components/schemas/Meta'
+  responses:
+    '415':
+      description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '404':
+      description: The HTTP 404 Not Found response status code indicates that the server cannot find the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '406':
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '400':
+      description: The HTTP 400 Bad Request response status code indicates that the server cannot or will not process the request due to something that is perceived to be a client error.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
+    '401':
+      description: The HTTP 401 Unauthorized response status code indicates that the client request has not been completed because it lacks valid authentication credentials for the requested resource.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '403':
+      description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiErrorResponseBody'
+    '500':
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiMultiErrorResponseBody'
   securitySchemes:
     your-api-token:
       type: http

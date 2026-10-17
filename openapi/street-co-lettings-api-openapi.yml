@@ -237,144 +237,6 @@ paths:
         description: Include archived properties within the result set
 components:
   parameters:
-    filter_branch:
-      name: filter[branch]
-      description: Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch.
-      in: query
-      required: false
-      schema:
-        type: string
-    page_size:
-      name: page[size]
-      description: Set the number of results per page.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        maximum: 250
-        example: 25
-    filter_postcode:
-      name: filter[postcode]
-      description: 'This filter will narrow your search results by first or partial postcode.
-
-
-        A value of `M` will return all properties who''s postcode begins with M, including `M1 1JU` & `M28 2PD`.
-
-
-        Entering in `M28 2` will return all active properties in that postcode sector.'
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_lettings_status:
-      name: filter[status]
-      description: Filter by property status. You can use a comma separated list for multiple statuses.
-      in: query
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-          enum:
-          - to_let
-          - for_sale_and_to_let
-          - let
-          - let_agreed
-        uniqueItems: true
-        minItems: 1
-        maxItems: 4
-      explode: false
-      style: form
-    filter_min_bedrooms:
-      name: filter[min_bedrooms]
-      description: Minimum number of bedrooms for search results.
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_min_price:
-      name: filter[min_price]
-      description: Minimum listing price for search results.
-      in: query
-      required: false
-      schema:
-        type: string
-    page_number:
-      name: page[number]
-      description: Set the page number.
-      in: query
-      required: false
-      schema:
-        type: number
-        minimum: 1
-        example: 3
-    filter_tags:
-      name: filter[tags]
-      description: Tags are entered by the agent in the Street UI and enable you to filter properties according to custom criteria. This can be used to power featured properties, carousels, hot property lists etc.These tags should be passed to the API in lowercase and urlencoded.You can also enter a comma seperated list to return all properties with any of those tags.
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_areas:
-      name: filter[areas]
-      description: 'Areas are entered by the agent in the Street UI and enable you to filter properties according to custom areas. This can be used to power user friendly searches using familiar geographic areas.
-
-
-        These areas should be passed to the API in lowercase and urlencoded.
-
-
-        You can also enter a comma seperated list to return all properties within any of those areas.'
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_features:
-      name: filter[features]
-      description: 'Features are entered by the agent as part of the Property description - these could be things such as "Garden" or "Off Road Parking".
-
-
-        These features should be passed to the API in lowercase and urlencoded.
-
-
-        You can also enter a semi-colon seperated list to return all properties with any of those features.'
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_max_price:
-      name: filter[max_price]
-      description: Maximum listing price for search results.
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_bedrooms:
-      name: filter[bedrooms]
-      description: The exact number of bedrooms for search results.
-      in: query
-      required: false
-      schema:
-        type: string
-    filter_include_land:
-      name: filter[include_land]
-      description: Filter by property type. Defaults to false. By setting this to true, the feed will also include land-only properties.
-      in: query
-      required: false
-      schema:
-        type: string
-    sort:
-      name: sort
-      description: A field by which to sort. Prefixing with a minus symbol denotes a DESC order.
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - price
-        - -price
-        - created_at
-        - -created_at
     include:
       name: include
       description: Optional related entities to include in the results.
@@ -404,156 +266,182 @@ components:
         maxItems: 12
       explode: false
       style: form
+    sort:
+      name: sort
+      description: A field by which to sort. Prefixing with a minus symbol denotes a DESC order.
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - price
+        - -price
+        - created_at
+        - -created_at
+    page_number:
+      name: page[number]
+      description: Set the page number.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        example: 3
+    filter_min_bedrooms:
+      name: filter[min_bedrooms]
+      description: Minimum number of bedrooms for search results.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_features:
+      name: filter[features]
+      description: 'Features are entered by the agent as part of the Property description - these could be things such as "Garden" or "Off Road Parking".
+
+
+        These features should be passed to the API in lowercase and urlencoded.
+
+
+        You can also enter a semi-colon seperated list to return all properties with any of those features.'
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_tags:
+      name: filter[tags]
+      description: Tags are entered by the agent in the Street UI and enable you to filter properties according to custom criteria. This can be used to power featured properties, carousels, hot property lists etc.These tags should be passed to the API in lowercase and urlencoded.You can also enter a comma seperated list to return all properties with any of those tags.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_areas:
+      name: filter[areas]
+      description: 'Areas are entered by the agent in the Street UI and enable you to filter properties according to custom areas. This can be used to power user friendly searches using familiar geographic areas.
+
+
+        These areas should be passed to the API in lowercase and urlencoded.
+
+
+        You can also enter a comma seperated list to return all properties within any of those areas.'
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_branch:
+      name: filter[branch]
+      description: Filter by network branch. Provide the UUID of a branch to filter properties by a specific branch.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_bedrooms:
+      name: filter[bedrooms]
+      description: The exact number of bedrooms for search results.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_include_land:
+      name: filter[include_land]
+      description: Filter by property type. Defaults to false. By setting this to true, the feed will also include land-only properties.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_postcode:
+      name: filter[postcode]
+      description: 'This filter will narrow your search results by first or partial postcode.
+
+
+        A value of `M` will return all properties who''s postcode begins with M, including `M1 1JU` & `M28 2PD`.
+
+
+        Entering in `M28 2` will return all active properties in that postcode sector.'
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_min_price:
+      name: filter[min_price]
+      description: Minimum listing price for search results.
+      in: query
+      required: false
+      schema:
+        type: string
+    filter_lettings_status:
+      name: filter[status]
+      description: Filter by property status. You can use a comma separated list for multiple statuses.
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+          - to_let
+          - for_sale_and_to_let
+          - let
+          - let_agreed
+        uniqueItems: true
+        minItems: 1
+        maxItems: 4
+      explode: false
+      style: form
+    page_size:
+      name: page[size]
+      description: Set the number of results per page.
+      in: query
+      required: false
+      schema:
+        type: number
+        minimum: 1
+        maximum: 250
+        example: 25
+    filter_max_price:
+      name: filter[max_price]
+      description: Maximum listing price for search results.
+      in: query
+      required: false
+      schema:
+        type: string
   schemas:
-    BaseModel:
-      title: Base Model
+    Links:
+      title: Links
       x-stoplight:
-        id: 87gp5ijnjbr1s
+        id: u1dju8abb4hri
       type: object
-      properties:
-        type:
-          type: string
-        id:
-          type: string
-          format: uuid
-        attributes:
-          type: object
-      required:
-      - type
-      - id
-      - attributes
-      description: An inheritable schema used for documentation.
-    Pagination:
-      title: Pagination
-      type: object
-      description: Pagination object - JSON:API Standard.
-      x-tags:
-      - JSON:API Structures
-      properties:
-        pagination:
-          type: object
-          properties:
-            total:
-              type: integer
-              example: 226
-            count:
-              type: integer
-              example: 10
-            per_page:
-              type: integer
-              example: 10
-            current_page:
-              type: integer
-              example: 1
-            total_pages:
-              type: integer
-              example: 23
+      description: Links object - JSON:API Standard.
       x-examples:
         example-1:
-          pagination:
-            total: 226
-            count: 10
-            per_page: 10
-            current_page: 1
-            total_pages: 23
+          self: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
+          first: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+          prev: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+          next: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
+          last: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
+      x-tags:
+      - JSON:API Structures
       examples:
-      - pagination:
-          total: 226
-          count: 10
-          per_page: 10
-          current_page: 1
-          total_pages: 23
-    toManyRelationship:
-      title: To Many Relationship
-      description: A one to many relationship to another model, conforming to the JSON:API specification.
-      type: object
+      - self: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
+        first: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+        next: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+        prev: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
+        last: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            required:
-            - id
-            - type
-            properties:
-              id:
-                description: The UUID of the entity.
-                type: string
-                format: uuid
-              type:
-                description: The type/model the entity represents.
-                type: string
-        links:
-          $ref: '#/components/schemas/Links'
-    PropertyIncludes:
-      title: PropertyIncludes
-      x-stoplight:
-        id: 8le7wfmax282s
-      type: array
-      items:
-        x-stoplight:
-          id: wpxy50nmt60du
-        anyOf:
-        - $ref: '#/components/schemas/Address'
-        - $ref: '#/components/schemas/Details'
-        - $ref: '#/components/schemas/SalesListing'
-        - $ref: '#/components/schemas/LettingsListing'
-        - $ref: '#/components/schemas/Room'
-        - $ref: '#/components/schemas/Media'
-        - $ref: '#/components/schemas/Floorplan'
-        - $ref: '#/components/schemas/Feature'
-        - $ref: '#/components/schemas/OutsideSpace'
-        - $ref: '#/components/schemas/ParkingSpace'
-        - $ref: '#/components/schemas/Epc'
-        - $ref: '#/components/schemas/AdditionalMedia'
-        - $ref: '#/components/schemas/Tag'
-        - $ref: '#/components/schemas/Brochure'
-        - $ref: '#/components/schemas/Development'
-          x-stoplight:
-            id: tn6986ih8pa6x
-    Development:
-      title: Development
-      x-stoplight:
-        id: 9ocn585rcsdyu
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: development
-          attributes:
-            type: object
-            properties:
-              name:
-                type: string
-                example: 171 High Street, Rayleigh
-              description:
-                type: string
-                example: A development of 3 apartments. 2 x 1 beds and 1 x 2 bed.
-              created_at:
-                type: string
-                example: '2022-04-27T10:21:56+01:00'
-              updated_at:
-                type: string
-                example: '2022-04-27T10:21:56+01:00'
-    Tag:
-      title: Tag
-      x-stoplight:
-        id: 30o1gasqafpvx
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: tag
-          attributes:
-            type: object
-            properties:
-              tag:
-                type: string
-                example: promoted
+        self:
+          type: string
+          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
+        first:
+          type: string
+          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+        next:
+          type: string
+          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
+        prev:
+          type: string
+          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
+        last:
+          type: string
+          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
     Room:
       title: Room
       x-stoplight:
@@ -695,33 +583,6 @@ components:
               updated_at:
                 type: string
                 example: '2022-06-29T21:36:02+01:00'
-    toOneRelationship:
-      title: To One Relationship
-      description: A one to one relationship to another model, conforming to the JSON:API specification.
-      type:
-      - object
-      - 'null'
-      properties:
-        data:
-          type:
-          - 'null'
-          - object
-          required:
-          - id
-          - type
-          properties:
-            id:
-              description: The UUID of the entity.
-              type: string
-              format: uuid
-            type:
-              description: The type/model the entity represents.
-              type: string
-        links:
-          $ref: '#/components/schemas/Links'
-      x-tags:
-      - JSON:API Structures
-      - Relationships
     Floorplan:
       title: Floorplan
       x-stoplight:
@@ -753,106 +614,73 @@ components:
           type:
             type: string
             default: floorplan
-    Media:
-      title: Media
+    ParkingSpace:
+      title: Parking Space
       x-stoplight:
-        id: powfu030rgifn
+        id: svcv9g2irh50c
       allOf:
       - $ref: '#/components/schemas/BaseModel'
       - type: object
         properties:
           type:
             type: string
-            default: media
+            default: parking_space
           attributes:
             type: object
             properties:
-              name:
+              parking_space_type:
                 type: string
-                example: p045126_01
-              order:
-                type: integer
-                example: 1
-              is_featured:
-                type: boolean
-                default: false
-              feature_index:
+                example: On Drive
+                enum:
+                - Garage
+                - Car Port
+                - Off Road
+                - On Road
+                - Permit
+                - Secure Gated
+                - Allocated Parking
+                - On Drive
+              capacity:
                 type:
                 - 'null'
                 - integer
-              title:
-                type:
-                - 'null'
-                - string
-              media_type:
-                type:
-                - 'null'
-                - string
-                description: A user defined type to enable categorizing generic media items
-                example: brochure
-              is_image:
-                type: boolean
-                default: true
-              url:
+                example: 2
+              description:
                 type: string
-                example: https://ik.imagekit.io/street/street-live/properties/general/787110\/p045126_01.jpg
-              urls:
-                type: object
-                properties:
-                  thumbnail:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_thumb
-                  small:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_small_fill_crop
-                  medium:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_medium_fill_crop
-                  large:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_large_fill_crop
-                  hero:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_hero
-                  full:
-                    type: string
-                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg
-      examples:
-      - type: media
-        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-        attributes:
-          name: p045126_01
-          order: 1
-          is_featured: false
-          feature_index: null
-          title: null
-          media_type: null
-          is_image: true
-          url: https://ik.imagekit.io/street/street-live/properties/general/787110\/p045126_01.jpg
-          urls:
-            thumbnail: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_thumb
-            small: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_small_fill_crop
-            medium: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_medium_fill_crop
-            large: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_large_fill_crop
-            hero: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_hero
-            full: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg
-    Feature:
-      title: Feature
-      x-stoplight:
-        id: 5iiuyfhyt5ng5
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
+                example: Driveway parking.
+              created_at:
+                type: string
+                example: '2022-02-21T12:38:04+00:00'
+              updated_at:
+                type: string
+                example: '2022-02-21T12:38:04+00:00'
+    toOneRelationship:
+      title: To One Relationship
+      description: A one to one relationship to another model, conforming to the JSON:API specification.
+      type:
+      - object
+      - 'null'
+      properties:
+        data:
           type:
-            type: string
-            default: feature
-          attributes:
-            type: object
-            properties:
-              name:
-                type: string
-                example: Four Double Bedrooms
+          - 'null'
+          - object
+          required:
+          - id
+          - type
+          properties:
+            id:
+              description: The UUID of the entity.
+              type: string
+              format: uuid
+            type:
+              description: The type/model the entity represents.
+              type: string
+        links:
+          $ref: '#/components/schemas/Links'
+      x-tags:
+      - JSON:API Structures
+      - Relationships
     SalesListing:
       title: Sales Listing
       x-stoplight:
@@ -939,108 +767,577 @@ components:
               updated_at:
                 type: string
                 example: '2022-07-29T15:12:13+01:00'
-    LettingsListing:
-      title: Lettings Listing
+    toManyRelationship:
+      title: To Many Relationship
+      description: A one to many relationship to another model, conforming to the JSON:API specification.
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - type
+            properties:
+              id:
+                description: The UUID of the entity.
+                type: string
+                format: uuid
+              type:
+                description: The type/model the entity represents.
+                type: string
+        links:
+          $ref: '#/components/schemas/Links'
+    AdditionalMedia:
+      title: Additional Media
       x-stoplight:
-        id: 0206kq45gvmpa
+        id: qhsbijocfk753
+      allOf:
+      - $ref: '#/components/schemas/Media'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: generic
+      examples:
+      - type: generic
+        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        attributes:
+          name: p045126_01
+          order: 1
+          is_featured: false
+          feature_index: null
+          title: null
+          is_image: true
+          url: https://ik.imagekit.io/street/street-live/properties/general/787110\/p045126_01.jpg
+          urls:
+            thumbnail: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_thumb
+            small: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_small_fill_crop
+            medium: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_medium_fill_crop
+            large: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_large_fill_crop
+            hero: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_hero
+            full: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg
+    Tag:
+      title: Tag
+      x-stoplight:
+        id: 30o1gasqafpvx
       allOf:
       - $ref: '#/components/schemas/BaseModel'
       - type: object
         properties:
           type:
             type: string
-            default: lettings_listing
+            default: tag
           attributes:
             type: object
             properties:
-              status:
+              tag:
                 type: string
-                enum:
-                - To Let
-                - Let Agreed
-                - Let
-                - Withdrawn
-                example: To Let
-                deprecated: true
-              price_pcm:
+                example: promoted
+    BaseModel:
+      title: Base Model
+      x-stoplight:
+        id: 87gp5ijnjbr1s
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+          format: uuid
+        attributes:
+          type: object
+      required:
+      - type
+      - id
+      - attributes
+      description: An inheritable schema used for documentation.
+    Feature:
+      title: Feature
+      x-stoplight:
+        id: 5iiuyfhyt5ng5
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: feature
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Four Double Bedrooms
+    Development:
+      title: Development
+      x-stoplight:
+        id: 9ocn585rcsdyu
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: development
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: 171 High Street, Rayleigh
+              description:
+                type: string
+                example: A development of 3 apartments. 2 x 1 beds and 1 x 2 bed.
+              created_at:
+                type: string
+                example: '2022-04-27T10:21:56+01:00'
+              updated_at:
+                type: string
+                example: '2022-04-27T10:21:56+01:00'
+    Details:
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: details
+          attributes:
+            type: object
+            properties:
+              display_property_style:
                 type:
                 - 'null'
-                - integer
-                example: 850
-              deposit:
-                type:
-                - 'null'
-                - integer
-                example: 1000
-              display_price:
-                type: boolean
-                default: true
-              archived:
-                type: boolean
-                default: false
-              furnished:
-                type: string
+                - string
                 enum:
-                - Unfurnished
-                - Fully Furnished
-                - Part Furnished
-                example: Unfurnished
-              allows_pets:
+                - None
+                - Other
+                - Mid-Terraced
+                - End of Terrace
+                - Town House
+                - Mews
+                - Barn Conversion
+                - Cottage
+                - Farm House
+                - Maisonette
+                - Studio
+                - Bungalow
+                - Chalet Bungalow
+                - Link Detached
+                - Ground Floor Flat
+                - Castle
+                - Park Home
+                - Hotel
+                - Guest House
+                - Dormer
+                - Equestrian
+                - Penthouse
+                example: Maisonette
+              work_required:
                 type:
                 - 'null'
                 - boolean
-              is_low_profile:
-                type: boolean
-                default: false
-              publish_after:
-                type: string
-                format: date-time
-                example: '2022-09-14T16:26:36+01:00'
-              new_home:
-                type: boolean
-                default: false
-              retirement:
-                type: boolean
-                default: false
-              student_rental:
-                type: boolean
-                default: false
-              min_tenancy_period:
+                example: true
+              heating_system:
                 type:
                 - 'null'
-                - number
-                example: 12
-              available_from:
-                type:
                 - string
+                enum:
+                - Electric Boiler
+                - Gas Boiler
+                - Storage Heaters
+                - Oil
+                - Gas Tank
+                - Air Source
+                - Electric Heating
+                - Other
+                example: Gas Boiler
+              council_tax_band:
+                type:
                 - 'null'
-                example: '2022-09-14T16:26:36+01:00'
+                - string
+                example: E
+              council_tax_cost:
+                type:
+                - 'null'
+                - integer
+                example: 1616
+              local_authority:
+                type:
+                - 'null'
+                - string
+                example: Harrogate Borough Council
+              service_charge:
+                type:
+                - integer
+                - 'null'
+                example: 2183
+              service_charge_period:
+                type:
+                - 'null'
+                - string
+                enum:
+                - Month
+                - Year
+                example: Year
+              service_charge_notes:
+                type:
+                - 'null'
+                - string
+              ground_rent:
+                type:
+                - integer
+                - 'null'
+                example: 250
+              ground_rent_period:
+                type:
+                - 'null'
+                - string
+                enum:
+                - Month
+                - Year
+                example: Year
+              ground_rent_review_period_years:
+                type:
+                - integer
+                - 'null'
+                example: 25
+              ground_rent_uplift:
+                type:
+                - integer
+                - 'null'
+                example: 65
+                description: Value is a percentage
+                minimum: 0
+                maximum: 100
+              ground_rent_expiry:
+                type:
+                - 'null'
+                - string
+                example: '2035-12-23'
+              full_description:
+                type:
+                - 'null'
+                - string
+                example: <p><b> A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot. <\/b><\/p>
+              full_description_lettings:
+                type:
+                - 'null'
+                - string
+                example: <p><b> A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot. <\/b><\/p>
+                x-stoplight:
+                  id: p7zqgh21p932y
+              short_description:
+                type:
+                - 'null'
+                - string
+                example: A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot.
+              short_description_lettings:
+                type:
+                - 'null'
+                - string
+                example: A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot.
+                x-stoplight:
+                  id: kii42tvwhwo5c
+              location_summary:
+                type:
+                - 'null'
+                - string
+                example: Follifoot is a highly regarded and pretty village just a couple of miles South of Harrogate's town centre.
+              has_parking:
+                type:
+                - 'null'
+                - boolean
+                deprecated: true
+              has_outdoor_space:
+                type:
+                - 'null'
+                - boolean
+              virtual_tour:
+                type:
+                - 'null'
+                - string
+              shared_ownership:
+                type: boolean
+                default: false
+              shared_ownership_notes:
+                type:
+                - 'null'
+                - string
+              shared_ownership_rent:
+                type:
+                - integer
+                - 'null'
+                example: 366
+              shared_ownership_rent_frequency:
+                type:
+                - 'null'
+                - string
+                example: Month
+                enum:
+                - Month
+                - Year
+              shared_ownership_percentage_sold:
+                type:
+                - integer
+                - 'null'
+                example: 60
+              material_information:
+                type: object
+                x-stoplight:
+                  id: z0hhyiasfu93m
+                properties:
+                  council_tax_band:
+                    type:
+                    - string
+                    - 'null'
+                    example: D
+                    maxLength: 1
+                  lease_expiry_date:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  ground_rent_pence:
+                    type:
+                    - integer
+                    - 'null'
+                  ground_rent_period:
+                    type:
+                    - string
+                    - 'null'
+                  ground_rent_expiry:
+                    type:
+                    - string
+                    - 'null'
+                    format: date
+                  ground_rent_review_period_years:
+                    type:
+                    - integer
+                    - 'null'
+                  ground_rent_uplift:
+                    type:
+                    - integer
+                    - 'null'
+                    description: Value is a percentage
+                  service_charge_pence:
+                    type:
+                    - integer
+                    - 'null'
+                  service_charge_period:
+                    type:
+                    - string
+                    - 'null'
+                  service_charge_notes:
+                    type:
+                    - string
+                    - 'null'
+                  water_supply:
+                    type:
+                    - array
+                    - 'null'
+                    uniqueItems: true
+                    items:
+                      type: string
+                      enum:
+                      - Direct mains water
+                      - Wells
+                      - Boreholes
+                      - Springs
+                      - Other
+                  water_supply_other:
+                    type:
+                    - string
+                    - 'null'
+                  electricity_supply:
+                    type:
+                    - array
+                    - 'null'
+                    uniqueItems: true
+                    items:
+                      type: string
+                      enum:
+                      - National grid
+                      - Wind turbine(s)
+                      - Solar PV (Photovoltaic) panels
+                      - Generator/private supply
+                      - Other
+                  electricity_supply_other:
+                    type:
+                    - string
+                    - 'null'
+                  sewerage:
+                    type:
+                    - array
+                    - 'null'
+                    uniqueItems: true
+                    items:
+                      type: string
+                      enum:
+                      - Standard UK domestic
+                      - Septic tank
+                      - Domestic/small sewage treatment plants
+                      - Cesspit
+                      - Cesspool
+                      - Other
+                  sewerage_other:
+                    type:
+                    - string
+                    - 'null'
+                  heating_supply:
+                    type:
+                    - array
+                    - 'null'
+                    uniqueItems: true
+                    items:
+                      type: string
+                      enum:
+                      - Central heating (electric)
+                      - Central heating (gas)
+                      - Other gas heating system
+                      - Communal heating system
+                      - LPG/oil central heating
+                      - LPG central heating
+                      - Oil central heating
+                      - Wood burner/open fire
+                      - Biomass boiler
+                      - Solar panels and related technology
+                      - Ground source heat pump
+                      - Air source heat pump
+                      - Other
+                  heating_supply_other:
+                    type:
+                    - string
+                    - 'null'
+                  heating_system:
+                    type:
+                    - string
+                    - 'null'
+                    enum:
+                    - Electric Boiler
+                    - Gas Boiler
+                    - Storage Heaters
+                    - Oil
+                    - Gas Tank
+                    - Air Source
+                    - Electric Heating
+                    - Other
+                  broadband:
+                    type:
+                    - string
+                    - 'null'
+                  has_restrictions:
+                    type:
+                    - boolean
+                    - 'null'
+                  has_required_access:
+                    type:
+                    - boolean
+                    - 'null'
+                  public_right_of_way:
+                    type:
+                    - boolean
+                    - 'null'
+                  sources_of_flooding:
+                    type:
+                    - array
+                    - 'null'
+                    items: {}
+                  sources_of_flooding_other:
+                    type:
+                    - string
+                    - 'null'
+                  has_flood_defences:
+                    type:
+                    - boolean
+                    - 'null'
+                  has_flooded_in_last_five_years:
+                    type:
+                    - boolean
+                    - 'null'
+                  adaptations_list:
+                    type:
+                    - array
+                    - 'null'
+                    items: {}
+                  adaptations_other:
+                    type:
+                    - string
+                    - 'null'
               created_at:
                 type: string
-                example: '2022-09-14T16:26:36+01:00'
+                example: '2022-02-28T11:46:44+00:00'
               updated_at:
                 type: string
-                example: '2022-09-14T17:05:26+01:00'
+                example: '2022-07-29T15:12:13+01:00'
+    PropertyIncludes:
+      title: PropertyIncludes
+      x-stoplight:
+        id: 8le7wfmax282s
+      type: array
+      items:
+        x-stoplight:
+          id: wpxy50nmt60du
+        anyOf:
+        - $ref: '#/components/schemas/Address'
+        - $ref: '#/components/schemas/Details'
+        - $ref: '#/components/schemas/SalesListing'
+        - $ref: '#/components/schemas/LettingsListing'
+        - $ref: '#/components/schemas/Room'
+        - $ref: '#/components/schemas/Media'
+        - $ref: '#/components/schemas/Floorplan'
+        - $ref: '#/components/schemas/Feature'
+        - $ref: '#/components/schemas/OutsideSpace'
+        - $ref: '#/components/schemas/ParkingSpace'
+        - $ref: '#/components/schemas/Epc'
+        - $ref: '#/components/schemas/AdditionalMedia'
+        - $ref: '#/components/schemas/Tag'
+        - $ref: '#/components/schemas/Brochure'
+        - $ref: '#/components/schemas/Development'
+          x-stoplight:
+            id: tn6986ih8pa6x
+    Pagination:
+      title: Pagination
+      type: object
+      description: Pagination object - JSON:API Standard.
+      x-tags:
+      - JSON:API Structures
+      properties:
+        pagination:
+          type: object
+          properties:
+            total:
+              type: integer
+              example: 226
+            count:
+              type: integer
+              example: 10
+            per_page:
+              type: integer
+              example: 10
+            current_page:
+              type: integer
+              example: 1
+            total_pages:
+              type: integer
+              example: 23
+      x-examples:
+        example-1:
+          pagination:
+            total: 226
+            count: 10
+            per_page: 10
+            current_page: 1
+            total_pages: 23
       examples:
-      - type: lettings_listing
-        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-        attributes:
-          ? ''
-          : string
-          status: To Let
-          price_pcm: 850
-          deposit: 1000
-          display_price: true
-          archived: false
-          furnished: Unfurnished
-          is_low_profile: false
-          publish_after: '2022-02-28T11:46:44+00:00'
-          new_home: false
-          retirement: false
-          student_rental: false
-          min_tenancy_period: 12
-          created_at: '2022-09-14T16:26:36+01:00'
-          updated_at: '2022-09-14T17:05:26+01:00'
+      - pagination:
+          total: 226
+          count: 10
+          per_page: 10
+          current_page: 1
+          total_pages: 23
     jsonApiError:
       title: JSON:API Error Object
       description: An object representing error information, defined by the JSON:API specification.
@@ -1069,55 +1366,6 @@ components:
       examples:
       - detail: Something went wrong
         code: 100
-    Brochure:
-      title: Brochure
-      x-stoplight:
-        id: i3t46fe66p18x
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: brochure
-          attributes:
-            type: object
-            properties:
-              name:
-                type: string
-                example: Brochure-Telford-Manor-House
-              order:
-                type: integer
-                example: 1
-              is_featured:
-                type: boolean
-                default: false
-              feature_index:
-                type:
-                - 'null'
-                - integer
-              title:
-                type:
-                - 'null'
-                - string
-                example: Brochure Telford Manor House
-              is_image:
-                type: boolean
-                default: false
-              url:
-                type: string
-                example: https://app-street-live-public.s3.eu-west-1.amazonaws.com/properties/attachments/1003212/Brochure-Telford-Manor-House.pdf
-      examples:
-      - type: brochure
-        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
-        attributes:
-          name: Brochure-Telford-Manor-House
-          order: 1
-          is_featured: false
-          feature_index: null
-          title: Brochure Telford Manor House
-          is_image: false
-          url: https://app-street-live-public.s3.eu-west-1.amazonaws.com/properties/attachments/1003212/Brochure-Telford-Manor-House.pdf
     Property:
       title: Property
       description: A single Property entity and related relationships.
@@ -1607,472 +1855,192 @@ components:
             data:
               type: development
               id: a827a3ae-4c74-4c32-8b42-42248d4010d3
-    ParkingSpace:
-      title: Parking Space
+    PropertyUrl:
+      title: Property Url
       x-stoplight:
-        id: svcv9g2irh50c
-      allOf:
-      - $ref: '#/components/schemas/BaseModel'
-      - type: object
-        properties:
-          type:
-            type: string
-            default: parking_space
-          attributes:
-            type: object
-            properties:
-              parking_space_type:
-                type: string
-                example: On Drive
-                enum:
-                - Garage
-                - Car Port
-                - Off Road
-                - On Road
-                - Permit
-                - Secure Gated
-                - Allocated Parking
-                - On Drive
-              capacity:
-                type:
-                - 'null'
-                - integer
-                example: 2
-              description:
-                type: string
-                example: Driveway parking.
-              created_at:
-                type: string
-                example: '2022-02-21T12:38:04+00:00'
-              updated_at:
-                type: string
-                example: '2022-02-21T12:38:04+00:00'
-    Links:
-      title: Links
-      x-stoplight:
-        id: u1dju8abb4hri
+        id: 9xhfr1xe87jly
       type: object
-      description: Links object - JSON:API Standard.
-      x-examples:
-        example-1:
-          self: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
-          first: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-          prev: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-          next: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
-          last: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
-      x-tags:
-      - JSON:API Structures
-      examples:
-      - self: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
-        first: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-        next: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-        prev: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
-        last: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
       properties:
-        self:
+        media_type:
           type: string
-          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=2
-        first:
+          enum:
+          - audio_tour
+          - brochure
+          - epc
+          - floor_plan
+          - image
+          - virtual_tour
+        media_url:
           type: string
-          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-        next:
-          type: string
-          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=1
-        prev:
-          type: string
-          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=3
-        last:
-          type: string
-          example: https://street.co.uk/api/property-feed/sales/search?page[number]=2&page[size]=25&page[number]=9
-    Details:
+      description: A single url entity that is associated with a property. This may be an externally hosted file.
+    LettingsListing:
+      title: Lettings Listing
+      x-stoplight:
+        id: 0206kq45gvmpa
       allOf:
       - $ref: '#/components/schemas/BaseModel'
       - type: object
         properties:
           type:
             type: string
-            default: details
+            default: lettings_listing
           attributes:
             type: object
             properties:
-              display_property_style:
-                type:
-                - 'null'
-                - string
+              status:
+                type: string
                 enum:
-                - None
-                - Other
-                - Mid-Terraced
-                - End of Terrace
-                - Town House
-                - Mews
-                - Barn Conversion
-                - Cottage
-                - Farm House
-                - Maisonette
-                - Studio
-                - Bungalow
-                - Chalet Bungalow
-                - Link Detached
-                - Ground Floor Flat
-                - Castle
-                - Park Home
-                - Hotel
-                - Guest House
-                - Dormer
-                - Equestrian
-                - Penthouse
-                example: Maisonette
-              work_required:
-                type:
-                - 'null'
-                - boolean
-                example: true
-              heating_system:
-                type:
-                - 'null'
-                - string
-                enum:
-                - Electric Boiler
-                - Gas Boiler
-                - Storage Heaters
-                - Oil
-                - Gas Tank
-                - Air Source
-                - Electric Heating
-                - Other
-                example: Gas Boiler
-              council_tax_band:
-                type:
-                - 'null'
-                - string
-                example: E
-              council_tax_cost:
-                type:
-                - 'null'
-                - integer
-                example: 1616
-              local_authority:
-                type:
-                - 'null'
-                - string
-                example: Harrogate Borough Council
-              service_charge:
-                type:
-                - integer
-                - 'null'
-                example: 2183
-              service_charge_period:
-                type:
-                - 'null'
-                - string
-                enum:
-                - Month
-                - Year
-                example: Year
-              service_charge_notes:
-                type:
-                - 'null'
-                - string
-              ground_rent:
-                type:
-                - integer
-                - 'null'
-                example: 250
-              ground_rent_period:
-                type:
-                - 'null'
-                - string
-                enum:
-                - Month
-                - Year
-                example: Year
-              ground_rent_review_period_years:
-                type:
-                - integer
-                - 'null'
-                example: 25
-              ground_rent_uplift:
-                type:
-                - integer
-                - 'null'
-                example: 65
-                description: Value is a percentage
-                minimum: 0
-                maximum: 100
-              ground_rent_expiry:
-                type:
-                - 'null'
-                - string
-                example: '2035-12-23'
-              full_description:
-                type:
-                - 'null'
-                - string
-                example: <p><b> A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot. <\/b><\/p>
-              full_description_lettings:
-                type:
-                - 'null'
-                - string
-                example: <p><b> A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot. <\/b><\/p>
-                x-stoplight:
-                  id: p7zqgh21p932y
-              short_description:
-                type:
-                - 'null'
-                - string
-                example: A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot.
-              short_description_lettings:
-                type:
-                - 'null'
-                - string
-                example: A delightful 3 bedroom end town house standing in cottage style private gardens with the advantage of a single garage situated in the heart of the idyllic village of Follifoot.
-                x-stoplight:
-                  id: kii42tvwhwo5c
-              location_summary:
-                type:
-                - 'null'
-                - string
-                example: Follifoot is a highly regarded and pretty village just a couple of miles South of Harrogate's town centre.
-              has_parking:
-                type:
-                - 'null'
-                - boolean
+                - To Let
+                - Let Agreed
+                - Let
+                - Withdrawn
+                example: To Let
                 deprecated: true
-              has_outdoor_space:
+              price_pcm:
                 type:
                 - 'null'
-                - boolean
-              virtual_tour:
+                - integer
+                example: 850
+              deposit:
                 type:
                 - 'null'
-                - string
-              shared_ownership:
+                - integer
+                example: 1000
+              display_price:
+                type: boolean
+                default: true
+              archived:
                 type: boolean
                 default: false
-              shared_ownership_notes:
-                type:
-                - 'null'
-                - string
-              shared_ownership_rent:
-                type:
-                - integer
-                - 'null'
-                example: 366
-              shared_ownership_rent_frequency:
-                type:
-                - 'null'
-                - string
-                example: Month
+              furnished:
+                type: string
                 enum:
-                - Month
-                - Year
-              shared_ownership_percentage_sold:
+                - Unfurnished
+                - Fully Furnished
+                - Part Furnished
+                example: Unfurnished
+              allows_pets:
                 type:
-                - integer
                 - 'null'
-                example: 60
-              material_information:
-                type: object
-                x-stoplight:
-                  id: z0hhyiasfu93m
-                properties:
-                  council_tax_band:
-                    type:
-                    - string
-                    - 'null'
-                    example: D
-                    maxLength: 1
-                  lease_expiry_date:
-                    type:
-                    - string
-                    - 'null'
-                    format: date
-                  ground_rent_pence:
-                    type:
-                    - integer
-                    - 'null'
-                  ground_rent_period:
-                    type:
-                    - string
-                    - 'null'
-                  ground_rent_expiry:
-                    type:
-                    - string
-                    - 'null'
-                    format: date
-                  ground_rent_review_period_years:
-                    type:
-                    - integer
-                    - 'null'
-                  ground_rent_uplift:
-                    type:
-                    - integer
-                    - 'null'
-                    description: Value is a percentage
-                  service_charge_pence:
-                    type:
-                    - integer
-                    - 'null'
-                  service_charge_period:
-                    type:
-                    - string
-                    - 'null'
-                  service_charge_notes:
-                    type:
-                    - string
-                    - 'null'
-                  water_supply:
-                    type:
-                    - array
-                    - 'null'
-                    uniqueItems: true
-                    items:
-                      type: string
-                      enum:
-                      - Direct mains water
-                      - Wells
-                      - Boreholes
-                      - Springs
-                      - Other
-                  water_supply_other:
-                    type:
-                    - string
-                    - 'null'
-                  electricity_supply:
-                    type:
-                    - array
-                    - 'null'
-                    uniqueItems: true
-                    items:
-                      type: string
-                      enum:
-                      - National grid
-                      - Wind turbine(s)
-                      - Solar PV (Photovoltaic) panels
-                      - Generator/private supply
-                      - Other
-                  electricity_supply_other:
-                    type:
-                    - string
-                    - 'null'
-                  sewerage:
-                    type:
-                    - array
-                    - 'null'
-                    uniqueItems: true
-                    items:
-                      type: string
-                      enum:
-                      - Standard UK domestic
-                      - Septic tank
-                      - Domestic/small sewage treatment plants
-                      - Cesspit
-                      - Cesspool
-                      - Other
-                  sewerage_other:
-                    type:
-                    - string
-                    - 'null'
-                  heating_supply:
-                    type:
-                    - array
-                    - 'null'
-                    uniqueItems: true
-                    items:
-                      type: string
-                      enum:
-                      - Central heating (electric)
-                      - Central heating (gas)
-                      - Other gas heating system
-                      - Communal heating system
-                      - LPG/oil central heating
-                      - LPG central heating
-                      - Oil central heating
-                      - Wood burner/open fire
-                      - Biomass boiler
-                      - Solar panels and related technology
-                      - Ground source heat pump
-                      - Air source heat pump
-                      - Other
-                  heating_supply_other:
-                    type:
-                    - string
-                    - 'null'
-                  heating_system:
-                    type:
-                    - string
-                    - 'null'
-                    enum:
-                    - Electric Boiler
-                    - Gas Boiler
-                    - Storage Heaters
-                    - Oil
-                    - Gas Tank
-                    - Air Source
-                    - Electric Heating
-                    - Other
-                  broadband:
-                    type:
-                    - string
-                    - 'null'
-                  has_restrictions:
-                    type:
-                    - boolean
-                    - 'null'
-                  has_required_access:
-                    type:
-                    - boolean
-                    - 'null'
-                  public_right_of_way:
-                    type:
-                    - boolean
-                    - 'null'
-                  sources_of_flooding:
-                    type:
-                    - array
-                    - 'null'
-                    items: {}
-                  sources_of_flooding_other:
-                    type:
-                    - string
-                    - 'null'
-                  has_flood_defences:
-                    type:
-                    - boolean
-                    - 'null'
-                  has_flooded_in_last_five_years:
-                    type:
-                    - boolean
-                    - 'null'
-                  adaptations_list:
-                    type:
-                    - array
-                    - 'null'
-                    items: {}
-                  adaptations_other:
-                    type:
-                    - string
-                    - 'null'
+                - boolean
+              is_low_profile:
+                type: boolean
+                default: false
+              publish_after:
+                type: string
+                format: date-time
+                example: '2022-09-14T16:26:36+01:00'
+              new_home:
+                type: boolean
+                default: false
+              retirement:
+                type: boolean
+                default: false
+              student_rental:
+                type: boolean
+                default: false
+              min_tenancy_period:
+                type:
+                - 'null'
+                - number
+                example: 12
+              available_from:
+                type:
+                - string
+                - 'null'
+                example: '2022-09-14T16:26:36+01:00'
               created_at:
                 type: string
-                example: '2022-02-28T11:46:44+00:00'
+                example: '2022-09-14T16:26:36+01:00'
               updated_at:
                 type: string
-                example: '2022-07-29T15:12:13+01:00'
-    AdditionalMedia:
-      title: Additional Media
+                example: '2022-09-14T17:05:26+01:00'
+      examples:
+      - type: lettings_listing
+        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        attributes:
+          ? ''
+          : string
+          status: To Let
+          price_pcm: 850
+          deposit: 1000
+          display_price: true
+          archived: false
+          furnished: Unfurnished
+          is_low_profile: false
+          publish_after: '2022-02-28T11:46:44+00:00'
+          new_home: false
+          retirement: false
+          student_rental: false
+          min_tenancy_period: 12
+          created_at: '2022-09-14T16:26:36+01:00'
+          updated_at: '2022-09-14T17:05:26+01:00'
+    Media:
+      title: Media
       x-stoplight:
-        id: qhsbijocfk753
+        id: powfu030rgifn
       allOf:
-      - $ref: '#/components/schemas/Media'
+      - $ref: '#/components/schemas/BaseModel'
       - type: object
         properties:
           type:
             type: string
-            default: generic
+            default: media
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: p045126_01
+              order:
+                type: integer
+                example: 1
+              is_featured:
+                type: boolean
+                default: false
+              feature_index:
+                type:
+                - 'null'
+                - integer
+              title:
+                type:
+                - 'null'
+                - string
+              media_type:
+                type:
+                - 'null'
+                - string
+                description: A user defined type to enable categorizing generic media items
+                example: brochure
+              is_image:
+                type: boolean
+                default: true
+              url:
+                type: string
+                example: https://ik.imagekit.io/street/street-live/properties/general/787110\/p045126_01.jpg
+              urls:
+                type: object
+                properties:
+                  thumbnail:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_thumb
+                  small:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_small_fill_crop
+                  medium:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_medium_fill_crop
+                  large:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_large_fill_crop
+                  hero:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg?tr=pr-true,n-property_hero
+                  full:
+                    type: string
+                    example: https://ik.imagekit.io/street/street-live/properties/general/787110/p045126_01.jpg
       examples:
-      - type: generic
+      - type: media
         id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
         attributes:
           name: p045126_01
@@ -2080,6 +2048,7 @@ components:
           is_featured: false
           feature_index: null
           title: null
+          media_type: null
           is_image: true
           url: https://ik.imagekit.io/street/street-live/properties/general/787110\/p045126_01.jpg
           urls:
@@ -2231,24 +2200,6 @@ components:
                     x-stoplight:
                       id: bpf4bkpnkbt7s
       description: A single Property entity and related relationships.
-    PropertyUrl:
-      title: Property Url
-      x-stoplight:
-        id: 9xhfr1xe87jly
-      type: object
-      properties:
-        media_type:
-          type: string
-          enum:
-          - audio_tour
-          - brochure
-          - epc
-          - floor_plan
-          - image
-          - virtual_tour
-        media_url:
-          type: string
-      description: A single url entity that is associated with a property. This may be an externally hosted file.
     Epc:
       title: EPC
       x-stoplight:
@@ -2293,46 +2244,56 @@ components:
                 type: string
               updated_at:
                 type: string
+    Brochure:
+      title: Brochure
+      x-stoplight:
+        id: i3t46fe66p18x
+      allOf:
+      - $ref: '#/components/schemas/BaseModel'
+      - type: object
+        properties:
+          type:
+            type: string
+            default: brochure
+          attributes:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Brochure-Telford-Manor-House
+              order:
+                type: integer
+                example: 1
+              is_featured:
+                type: boolean
+                default: false
+              feature_index:
+                type:
+                - 'null'
+                - integer
+              title:
+                type:
+                - 'null'
+                - string
+                example: Brochure Telford Manor House
+              is_image:
+                type: boolean
+                default: false
+              url:
+                type: string
+                example: https://app-street-live-public.s3.eu-west-1.amazonaws.com/properties/attachments/1003212/Brochure-Telford-Manor-House.pdf
+      examples:
+      - type: brochure
+        id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+        attributes:
+          name: Brochure-Telford-Manor-House
+          order: 1
+          is_featured: false
+          feature_index: null
+          title: Brochure Telford Manor House
+          is_image: false
+          url: https://app-street-live-public.s3.eu-west-1.amazonaws.com/properties/attachments/1003212/Brochure-Telford-Manor-House.pdf
   responses:
-    notAcceptable:
-      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiError'
-          examples:
-            example-1:
-              value:
-                errors:
-                - title: Not Acceptable
-                  detail: The request could not be accepted.
-                  code: '406'
-    unprocessableEntity:
-      description: The HTTP 422 Unprocessable Entity response status code indicates that the server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiError'
-          examples:
-            example-1:
-              value:
-                errors:
-                - title: Unprocessable Entity
-                  detail: The request could not be processed.
-                  code: '422'
-    serverError:
-      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '#/components/schemas/jsonApiError'
-          examples:
-            example-1:
-              value:
-                errors:
-                - title: Internal Server Error
-                  detail: There was an internal server error.
-                  code: '500'
     unsupportedMediaType:
       description: The HTTP 415 Unsupported Media Type client error response code indicates that the server refuses to accept the request because the payload format is in an unsupported format.
       content:
@@ -2359,6 +2320,45 @@ components:
                 - title: Unauthorized
                   detail: The request was made by an unauthenticated user.
                   code: '401'
+    notAcceptable:
+      description: The HTTP 406 Not Acceptable client error response code indicates that the server cannot produce a response matching the list of acceptable values defined in the request's proactive content negotiation headers, and that the server is unwilling to supply a default representation.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Not Acceptable
+                  detail: The request could not be accepted.
+                  code: '406'
+    serverError:
+      description: The HTTP 500 Internal Server Error server error response code indicates that the server encountered an unexpected condition that prevented it from fulfilling the request.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Internal Server Error
+                  detail: There was an internal server error.
+                  code: '500'
+    unprocessableEntity:
+      description: The HTTP 422 Unprocessable Entity response status code indicates that the server understands the content type of the request entity, and the syntax of the request entity is correct, but it was unable to process the contained instructions.
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/jsonApiError'
+          examples:
+            example-1:
+              value:
+                errors:
+                - title: Unprocessable Entity
+                  detail: The request could not be processed.
+                  code: '422'
     forbidden:
       description: The HTTP 403 Forbidden response status code indicates that the server understands the request but refuses to authorize it.
       content:
